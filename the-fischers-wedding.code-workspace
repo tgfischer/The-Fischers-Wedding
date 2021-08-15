@@ -1,0 +1,29 @@
+{
+  "folders": [
+    {
+      "path": ".",
+      "name": "The Fischer's Wedding"
+    }
+  ],
+  "settings": {
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll": true
+    },
+    "editor.formatOnSave": true,
+    "[typescript]": {
+      "editor.formatOnSave": false
+    },
+    "[javascript]": {
+      "editor.formatOnSave": false
+    },
+    "eslint.packageManager": "yarn",
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "files.exclude": {
+      "**/.git": false
+    },
+    "typescript.validate.enable": true,
+    "typescript.tsdk": "./node_modules/typescript/lib"
+  }
+}
