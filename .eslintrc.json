@@ -33,6 +33,7 @@
       "error",
       { "ignoreRestSiblings": true }
     ],
+    "comma-dangle": "error",
     "prettier/prettier": "error",
     "import/order": [
       "error",
