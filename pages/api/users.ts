@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
-import { verifyMethod } from "../../server/middleware";
+import { verifyMethod } from "../../src/middleware";
 
 type Data = {
   name: string;

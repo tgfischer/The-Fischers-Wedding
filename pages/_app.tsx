@@ -1,9 +1,17 @@
+import { Auth } from "@supabase/ui";
 import type { AppProps } from "next/app";
 
-import "../styles/app.scss";
+import { AuthRouter } from "../src/components/AuthRouter";
+import { supabase } from "../src/supabase";
 
-function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
-}
+import "../src/styles/app.scss";
+
+const App = ({ Component, pageProps }: AppProps): JSX.Element => (
+  <Auth.UserContextProvider supabaseClient={supabase}>
+    <AuthRouter>
+      <Component {...pageProps} />
+    </AuthRouter>
+  </Auth.UserContextProvider>
+);
 
 export default App;

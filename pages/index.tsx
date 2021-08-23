@@ -1,15 +1,7 @@
 import type { NextPage } from "next";
-import Head from "next/head";
 
-import { Home } from "../components/Home";
+import { HomePage } from "../src/components/HomePage";
 
-const HomePage: NextPage = () => (
-  <div>
-    <Head>
-      <title>{"The Fischer's Wedding"}</title>
-    </Head>
-    <Home />
-  </div>
-);
+const Home: NextPage = () => <HomePage />;
 
-export default HomePage;
+export default Home;
