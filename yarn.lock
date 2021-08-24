@@ -3628,6 +3628,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"nextjs-progressbar@npm:^0.0.11":
+  version: 0.0.11
+  resolution: "nextjs-progressbar@npm:0.0.11"
+  dependencies:
+    nprogress: ^0.2.0
+  peerDependencies:
+    next: ^6.0.0 || ^7.0.0 || ^8.0.0 || ^9.0.0 || ^10.0.0 || ^11.0.0
+    react: ^16.0.0 || ^17.0.0
+  checksum: 00bd1348e51a33d8ee45287b6801e345eaa813a9600981f5bf751bdaa3b164b1bb65ee336f6bcf680eb138923ca6d17e0319eb1e5e1b665e62059209c2afeffc
+  languageName: node
+  linkType: hard
+
 "node-fetch@npm:2.6.1":
   version: 2.6.1
   resolution: "node-fetch@npm:2.6.1"
@@ -3752,6 +3764,13 @@ __metadata:
     gauge: ~2.7.3
     set-blocking: ~2.0.0
   checksum: edbda9f95ec20957a892de1839afc6fb735054c3accf6fbefe767bac9a639fd5cea2baeac6bd2bcd50a85cb54924d57d9886c81c7fbc2332c2ddd19227504192
+  languageName: node
+  linkType: hard
+
+"nprogress@npm:^0.2.0":
+  version: 0.2.0
+  resolution: "nprogress@npm:0.2.0"
+  checksum: 66b7bec5d563ecf2d1c3d2815e6d5eb74ed815eee8563e0afa63d3f185ab1b9cf2ddd97e1ded263b9995c5019d26d600320e849e50f3747984daa033744619dc
   languageName: node
   linkType: hard
 
@@ -5268,6 +5287,7 @@ resolve@^2.0.0-next.3:
     lodash: ^4.17.21
     nanoid: ^3.1.25
     next: 11.1.0
+    nextjs-progressbar: ^0.0.11
     prettier: ^2.3.2
     qs: ^6.10.1
     react: 17.0.2

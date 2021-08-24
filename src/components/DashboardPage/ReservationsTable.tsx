@@ -39,10 +39,11 @@ export const ReservationsTable = (
         {rows.map((row) => {
           const expandableRow = row as ExpandableRow;
           prepareRow(expandableRow);
+          const { key, ...rowProps } = expandableRow.getRowProps();
           return (
             // eslint-disable-next-line react/jsx-key
-            <Fragment {...expandableRow.getRowProps()}>
-              <tr>
+            <Fragment key={key}>
+              <tr {...rowProps}>
                 {expandableRow.cells.map((cell) => {
                   return (
                     // eslint-disable-next-line react/jsx-key
