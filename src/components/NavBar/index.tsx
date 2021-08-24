@@ -17,7 +17,7 @@ export const NavBar = (): JSX.Element => {
   }
 
   return (
-    <BootstrapNavbar className="mb-3" variant="dark" bg="dark">
+    <BootstrapNavbar className="mb-3" variant="dark" bg="dark" expand="lg">
       <Container>
         <BootstrapNavbar.Text className="text-white">
           Signed in as: {user?.email}
@@ -28,14 +28,14 @@ export const NavBar = (): JSX.Element => {
           className="justify-content-end"
         >
           <Nav>
-            <NavBarLink href="/">Home</NavBarLink>
-            <NavBarLink className="mx-3" href="/dashboard">
+            <NavBarLink className="me-3" href="/">
+              Home
+            </NavBarLink>
+            <NavBarLink className="me-3" href="/dashboard">
               Dashboard
             </NavBarLink>
             <Nav.Item>
-              <Button className="ms-3" onClick={handleSignOut}>
-                Log out
-              </Button>
+              <Button onClick={handleSignOut}>Log out</Button>
             </Nav.Item>
           </Nav>
         </BootstrapNavbar.Collapse>

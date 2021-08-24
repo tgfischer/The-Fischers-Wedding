@@ -50,6 +50,14 @@ export const useReservationsTable = ({
           {
             accessor: "song",
             Header: "Song"
+          },
+          {
+            id: "status",
+            Header: "Status",
+            Cell: ({ row }: CellProps<ReservationDto>) =>
+              row.original.guests.some(({ status }) => status === "pending")
+                ? "Pending"
+                : "Completed"
           }
         ],
         []

@@ -19,7 +19,7 @@ export const DashboardPage = ({
       <Container>
         <Row>
           <Col sm={12}>
-            <div className="d-flex align-items-center justify-content-between">
+            <div className="d-flex mb-2 align-items-center justify-content-between">
               <div className="handwritten display-5">Reservations</div>
               <Button>Add a reservation</Button>
             </div>

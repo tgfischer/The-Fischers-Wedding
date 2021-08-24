@@ -11,7 +11,7 @@ type ExpandableRowProps = CellProps<ReservationDto> & {
 export const ExpandableButtonCell = ({
   row
 }: ExpandableRowProps): JSX.Element => (
-  <span {...row.getToggleRowExpandedProps()}>
+  <div {...row.getToggleRowExpandedProps({ className: "ps-2" })}>
     <FontAwesomeIcon icon={row.isExpanded ? faCaretDown : faCaretRight} />
-  </span>
+  </div>
 );

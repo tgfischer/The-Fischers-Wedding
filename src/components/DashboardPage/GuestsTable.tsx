@@ -13,7 +13,7 @@ export const GuestsTable = (props: GuestsTableProps): JSX.Element => {
   const { rows, visibleColumns, prepareRow, getTableProps, getTableBodyProps } =
     useGuestsTable(props);
   return (
-    <Table {...getTableProps({ className: "m-0" })}>
+    <Table {...getTableProps({ className: "m-0" })} responsive>
       <thead>
         <tr>
           {visibleColumns.map((column) => (

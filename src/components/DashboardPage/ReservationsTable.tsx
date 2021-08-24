@@ -19,7 +19,7 @@ export const ReservationsTable = (
   const { rows, visibleColumns, prepareRow, getTableProps, getTableBodyProps } =
     useReservationsTable(props);
   return (
-    <Table {...getTableProps()} striped bordered>
+    <Table {...getTableProps()} striped bordered responsive>
       <thead>
         <tr>
           {visibleColumns.map((column) => (
