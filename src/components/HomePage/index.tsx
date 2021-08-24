@@ -11,7 +11,7 @@ export const HomePage = (): JSX.Element => (
     }}
   >
     <div className="d-flex flex-column vh-100">
-      <NavBar variant="transparent-dark" />
+      <NavBar />
       <div className="d-flex align-items-center text-white flex-grow-1">
         <Container fluid>
           <Row>

@@ -1,14 +1,15 @@
 import { Auth } from "@supabase/ui";
-import clsx from "clsx";
-import { Navbar as BootstrapNavbar, Container, Button } from "react-bootstrap";
+import {
+  Navbar as BootstrapNavbar,
+  Nav,
+  Container,
+  Button
+} from "react-bootstrap";
 
 import { useNavBar } from "./hooks";
+import { NavBarLink } from "./NavBarLink";
 
-type NavBarProps = {
-  variant?: "transparent-dark";
-};
-
-export const NavBar = ({ variant }: NavBarProps): JSX.Element => {
+export const NavBar = (): JSX.Element => {
   const { handleSignOut } = useNavBar();
   const { user } = Auth.useUser();
   if (!user) {
@@ -16,24 +17,27 @@ export const NavBar = ({ variant }: NavBarProps): JSX.Element => {
   }
 
   return (
-    <BootstrapNavbar
-      className={clsx({
-        "navbar-transparent": variant === "transparent-dark"
-      })}
-    >
+    <BootstrapNavbar className="mb-3" variant="dark" bg="dark">
       <Container>
-        <BootstrapNavbar.Brand>Home</BootstrapNavbar.Brand>
-        <BootstrapNavbar.Collapse className="justify-content-end">
-          <BootstrapNavbar.Text>
-            Signed in as: {user?.email}
-          </BootstrapNavbar.Text>
-          <Button
-            className="ms-3"
-            variant="outline-light"
-            onClick={handleSignOut}
-          >
-            Log out
-          </Button>
+        <BootstrapNavbar.Text className="text-white">
+          Signed in as: {user?.email}
+        </BootstrapNavbar.Text>
+        <BootstrapNavbar.Toggle aria-controls="navbar-controls" />
+        <BootstrapNavbar.Collapse
+          id="navbar-controls"
+          className="justify-content-end"
+        >
+          <Nav>
+            <NavBarLink href="/">Home</NavBarLink>
+            <NavBarLink className="mx-3" href="/dashboard">
+              Dashboard
+            </NavBarLink>
+            <Nav.Item>
+              <Button className="ms-3" onClick={handleSignOut}>
+                Log out
+              </Button>
+            </Nav.Item>
+          </Nav>
         </BootstrapNavbar.Collapse>
       </Container>
     </BootstrapNavbar>

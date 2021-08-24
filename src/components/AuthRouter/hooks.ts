@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 
-import { supabase } from "../../supabase";
+import { supabase, setUserSession } from "../../supabase";
 
 export const useAuthRouter = (): void => {
   const { replace } = useRouter();
@@ -15,16 +15,18 @@ export const useAuthRouter = (): void => {
   }, [replace]);
 
   useEffect(() => {
-    const { data: authListener } = supabase.auth.onAuthStateChange((event) => {
-      if (event === "PASSWORD_RECOVERY") {
-        replace("/reset-password");
-        return;
+    const { data: authListener } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        if (event === "PASSWORD_RECOVERY") {
+          replace("/reset-password");
+        }
+        if (["USER_UPDATED", "SIGNED_OUT"].includes(event)) {
+          replace("/login");
+        }
+
+        setUserSession(event, session);
       }
-      if (["USER_UPDATED", "SIGNED_OUT"].includes(event)) {
-        replace("/login");
-        return;
-      }
-    });
+    );
 
     return () => {
       authListener?.unsubscribe();
