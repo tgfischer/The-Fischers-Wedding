@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Container, Row, Col, Button } from "react-bootstrap";
 
 import { ReservationDto } from "../../types";
@@ -21,7 +22,9 @@ export const DashboardPage = ({
           <Col sm={12}>
             <div className="d-flex mb-2 align-items-center justify-content-between">
               <div className="handwritten display-5">Reservations</div>
-              <Button>Add a reservation</Button>
+              <Link href="/dashboard/reservations/add" passHref>
+                <Button variant="primary">Add a reservation</Button>
+              </Link>
             </div>
             <ReservationsTable reservations={reservations} />
           </Col>
