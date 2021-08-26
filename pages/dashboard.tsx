@@ -14,7 +14,6 @@ const Dashboard = (props: DashboardPageProps): JSX.Element => (
 const reservationQuery = `
   id,
   address,
-  song,
   createdAt,
   updatedAt,
   guests (
@@ -22,6 +21,7 @@ const reservationQuery = `
     firstName,
     lastName,
     status,
+    song,
     meal,
     createdAt,
     updatedAt
