@@ -1,4 +1,4 @@
-import { startCase } from "lodash";
+import { startCase, sum } from "lodash";
 import { useMemo } from "react";
 import {
   TableInstance,
@@ -33,11 +33,13 @@ export const useReservationsTable = ({
           },
           {
             accessor: "id",
-            Header: "ID"
+            Header: `ID (${reservations.length})`
           },
           {
             id: "guests",
-            Header: "Guests",
+            Header: `Guests (${sum(
+              reservations.map(({ guests }) => guests.length)
+            )})`,
             Cell: ({ row }: CellProps<ReservationDto>) =>
               row.original.guests
                 .map(({ firstName, lastName }) => `${firstName} ${lastName}`)
@@ -56,7 +58,7 @@ export const useReservationsTable = ({
                 : "Completed"
           }
         ],
-        []
+        [reservations]
       ),
       data: reservations
     },
