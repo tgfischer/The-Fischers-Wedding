@@ -1,26 +1,14 @@
-import type { User } from "@supabase/supabase-js";
 import { Form as FormikForm, Formik, FieldArray, Field } from "formik";
 import { Container, Form, Row, Col, Button, Card } from "react-bootstrap";
 
-import { GuestDto } from "../../types";
+import { AddReservationFormData } from "../../types";
 import { NavBar } from "../NavBar";
 import { Page } from "../Page";
 
 import { useAddReservationPage } from "./hooks";
 
-export type AddReservationPageProps = {
-  user: User;
-};
-
-type GuestFormData = Pick<GuestDto, "firstName" | "lastName">;
-
-type AddReservationFormData = {
-  address: string;
-  guests: GuestFormData[];
-};
-
 export const AddReservationPage = (): JSX.Element => {
-  const { schema } = useAddReservationPage();
+  const { handleSubmit, isSubmitting, schema } = useAddReservationPage();
   return (
     <Page pageTitle="Add new reservation">
       <NavBar />
@@ -29,7 +17,7 @@ export const AddReservationPage = (): JSX.Element => {
           <Col xs={12}>
             <Formik<AddReservationFormData>
               initialValues={{ address: "", guests: [] }}
-              onSubmit={(values) => alert(JSON.stringify(values))}
+              onSubmit={handleSubmit}
               validationSchema={schema}
             >
               {({ values }) => (
@@ -112,7 +100,10 @@ export const AddReservationPage = (): JSX.Element => {
                       </>
                     )}
                   />
-                  <Button type="submit" disabled={!schema.isValidSync(values)}>
+                  <Button
+                    type="submit"
+                    disabled={isSubmitting || !schema.isValidSync(values)}
+                  >
                     Add reservation
                   </Button>
                 </FormikForm>

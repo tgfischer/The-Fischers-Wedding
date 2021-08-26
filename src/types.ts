@@ -5,7 +5,7 @@ export type ReservationDto = {
   guests: GuestDto[];
   createdAt: Date;
   updatedAt: Date;
-}
+};
 
 export type GuestDto = {
   id: string;
@@ -15,4 +15,11 @@ export type GuestDto = {
   meal: string;
   createdAt: Date;
   updatedAt: Date;
-}
+};
+
+export type GuestFormData = Pick<GuestDto, "firstName" | "lastName">;
+
+export type AddReservationFormData = {
+  address: string;
+  guests: GuestFormData[];
+};

@@ -1,18 +1,23 @@
 import { Auth } from "@supabase/ui";
 import type { AppProps } from "next/app";
 import NextNprogress from "nextjs-progressbar";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 import { AuthRouter } from "../src/components/AuthRouter";
 import { supabase } from "../src/supabase";
 
 import "../src/styles/app.scss";
 
+const client = new QueryClient();
+
 const App = ({ Component, pageProps }: AppProps): JSX.Element => (
   <Auth.UserContextProvider supabaseClient={supabase}>
-    <AuthRouter>
-      <NextNprogress color="#a63b35" />
-      <Component {...pageProps} />
-    </AuthRouter>
+    <QueryClientProvider client={client}>
+      <AuthRouter>
+        <NextNprogress color="#a63b35" />
+        <Component {...pageProps} />
+      </AuthRouter>
+    </QueryClientProvider>
   </Auth.UserContextProvider>
 );
 

@@ -11,7 +11,7 @@ export const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_KEY ?? ""
 );
 
-const authenticatedRequest = async <TResponse>(
+export const authenticatedRequest = async <TResponse>(
   url: string,
   { method, headers, body }: AuthenticatedRequest
 ): Promise<TResponse> =>

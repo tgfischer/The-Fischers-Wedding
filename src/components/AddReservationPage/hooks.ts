@@ -1,35 +1,52 @@
-import { useMemo } from "react";
+import { useMutation } from "react-query";
 import * as yup from "yup";
 import type { AnyObjectSchema } from "yup";
 
+import { authenticatedRequest } from "../../supabase";
+import { AddReservationFormData } from "../../types";
+
 type UseAddReservationPageInstance = {
   schema: AnyObjectSchema;
+  isSubmitting: boolean;
+  handleSubmit: (reservation: AddReservationFormData) => void;
 };
 
-export const useAddReservationPage = (): UseAddReservationPageInstance => {
-  return {
-    schema: useMemo(
-      () =>
+const useAddReservationMutation = () =>
+  useMutation<void, void, AddReservationFormData>(
+    async (reservation) =>
+      await authenticatedRequest("/api/reservations", {
+        method: "POST",
+        body: reservation
+      })
+  );
+
+const schema = yup
+  .object()
+  .shape({
+    address: yup.string().required(),
+    guests: yup
+      .array()
+      .of(
         yup
           .object()
           .shape({
-            address: yup.string().required(),
-            guests: yup
-              .array()
-              .of(
-                yup
-                  .object()
-                  .shape({
-                    firstName: yup.string().required(),
-                    lastName: yup.string().required()
-                  })
-                  .required()
-              )
-              .min(1)
-              .required()
+            firstName: yup.string().required(),
+            lastName: yup.string().required()
           })
-          .required(),
-      []
-    )
+          .required()
+      )
+      .min(1)
+      .required()
+  })
+  .required();
+
+export const useAddReservationPage = (): UseAddReservationPageInstance => {
+  const { mutate: handleSubmit, isLoading: isSubmitting } =
+    useAddReservationMutation();
+
+  return {
+    handleSubmit,
+    isSubmitting,
+    schema
   };
 };
