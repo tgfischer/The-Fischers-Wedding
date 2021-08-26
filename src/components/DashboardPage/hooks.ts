@@ -48,10 +48,6 @@ export const useReservationsTable = ({
             Header: "Address"
           },
           {
-            accessor: "song",
-            Header: "Song"
-          },
-          {
             id: "status",
             Header: "Status",
             Cell: ({ row }: CellProps<ReservationDto>) =>
@@ -86,13 +82,17 @@ export const useGuestsTable = ({
             `${row.original.firstName} ${row.original.lastName}`
         },
         {
-          accessor: "status",
-          Header: "Reservation status",
-          Cell: ({ value }: CellProps<GuestDto>) => startCase(value)
-        },
-        {
           accessor: "meal",
           Header: "Meal preference"
+        },
+        {
+          accessor: "song",
+          Header: "Song"
+        },
+        {
+          accessor: "status",
+          Header: "Status",
+          Cell: ({ value }: CellProps<GuestDto>) => startCase(value)
         }
       ],
       []

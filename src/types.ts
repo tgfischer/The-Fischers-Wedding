@@ -1,7 +1,6 @@
 export type ReservationDto = {
   id: string;
   address?: string;
-  song?: string;
   guests: GuestDto[];
   createdAt: Date;
   updatedAt: Date;
@@ -13,6 +12,7 @@ export type GuestDto = {
   lastName: string;
   status: "pending" | "attending" | "not attending";
   meal: string;
+  song?: string;
   createdAt: Date;
   updatedAt: Date;
 };

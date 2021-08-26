@@ -15,10 +15,10 @@ const handler = async (
 ): Promise<void> => {
   if (req.method === "POST") {
     await addReservation(req.body);
-    return res.status(201).end();
+    return res.status(201).json({});
   }
 
-  res.status(405).end();
+  res.status(405).json({});
 };
 
 /**

@@ -1,3 +1,5 @@
+import router from "next/router";
+import { useCallback } from "react";
 import { useMutation } from "react-query";
 import * as yup from "yup";
 import type { AnyObjectSchema } from "yup";
@@ -17,13 +19,16 @@ const useAddReservationMutation = () =>
       await authenticatedRequest("/api/reservations", {
         method: "POST",
         body: reservation
-      })
+      }),
+    {
+      onSuccess: useCallback(() => router.push("/dashboard"), [])
+    }
   );
 
 const schema = yup
   .object()
   .shape({
-    address: yup.string().required(),
+    address: yup.string().notRequired(),
     guests: yup
       .array()
       .of(
