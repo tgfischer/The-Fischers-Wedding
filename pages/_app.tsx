@@ -14,7 +14,7 @@ const App = ({ Component, pageProps }: AppProps): JSX.Element => (
   <Auth.UserContextProvider supabaseClient={supabase}>
     <QueryClientProvider client={client}>
       <AuthRouter>
-        <NextNprogress color="#a63b35" />
+        <NextNprogress color="#a63b35" options={{ showSpinner: false }} />
         <Component {...pageProps} />
       </AuthRouter>
     </QueryClientProvider>
