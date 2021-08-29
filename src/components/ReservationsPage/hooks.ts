@@ -10,7 +10,7 @@ import {
 
 import type { ReservationDto, GuestDto } from "../../types";
 
-import { ExpandableButtonCell } from "./Cells";
+import { EditReservationCell, ExpandableButtonCell } from "./Cells";
 
 type UseReservationsTableOptions = {
   reservations: ReservationDto[];
@@ -56,6 +56,10 @@ export const useReservationsTable = ({
               row.original.guests.some(({ status }) => status === "pending")
                 ? "Pending"
                 : "Completed"
+          },
+          {
+            id: "edit",
+            Cell: EditReservationCell
           }
         ],
         [reservations]

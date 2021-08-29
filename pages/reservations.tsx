@@ -1,14 +1,14 @@
 import type { GetServerSideProps } from "next";
 
 import {
-  DashboardPage,
-  DashboardPageProps
-} from "../src/components/DashboardPage";
+  ReservationsPage,
+  ReservationsPageProps
+} from "../src/components/ReservationsPage";
 import { supabase } from "../src/supabase";
 import { ReservationDto } from "../src/types";
 
-const Dashboard = (props: DashboardPageProps): JSX.Element => (
-  <DashboardPage {...props} />
+const Reservations = (props: ReservationsPageProps): JSX.Element => (
+  <ReservationsPage {...props} />
 );
 
 const reservationQuery = `
@@ -41,4 +41,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return { props: { user, reservations: data, error } };
 };
 
-export default Dashboard;
+export default Reservations;

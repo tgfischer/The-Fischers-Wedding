@@ -5,10 +5,16 @@ import { AddReservationFormData } from "../../types";
 import { NavBar } from "../NavBar";
 import { Page } from "../Page";
 
-import { useAddReservationPage } from "./hooks";
+import { useManageReservationPage } from "./hooks";
+import { ManageReservationPageProps } from "./types";
 
-export const AddReservationPage = (): JSX.Element => {
-  const { handleSubmit, isSubmitting, schema } = useAddReservationPage();
+export type { ManageReservationPageProps } from "./types";
+
+export const ManageReservationPage = (
+  props: ManageReservationPageProps
+): JSX.Element => {
+  const { handleSubmit, isSubmitting, schema, initialValues } =
+    useManageReservationPage(props);
   return (
     <Page pageTitle="Add new reservation">
       <NavBar />
@@ -16,7 +22,7 @@ export const AddReservationPage = (): JSX.Element => {
         <Row>
           <Col xs={12}>
             <Formik<AddReservationFormData>
-              initialValues={{ address: "", guests: [] }}
+              initialValues={initialValues}
               onSubmit={handleSubmit}
               validationSchema={schema}
             >

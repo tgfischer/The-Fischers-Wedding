@@ -7,22 +7,22 @@ import { Page } from "../Page";
 
 import { ReservationsTable } from "./ReservationsTable";
 
-export type DashboardPageProps = {
+export type ReservationsPageProps = {
   reservations: ReservationDto[];
 };
 
-export const DashboardPage = ({
+export const ReservationsPage = ({
   reservations
-}: DashboardPageProps): JSX.Element => {
+}: ReservationsPageProps): JSX.Element => {
   return (
-    <Page pageTitle="Dashboard">
+    <Page pageTitle="Reservations">
       <NavBar />
       <Container>
         <Row>
           <Col sm={12}>
             <div className="d-flex mb-2 align-items-center justify-content-between">
               <div className="handwritten display-5">Reservations</div>
-              <Link href="/dashboard/reservations/add" passHref>
+              <Link href="/reservations/add" passHref>
                 <Button variant="primary">Add a reservation</Button>
               </Link>
             </div>

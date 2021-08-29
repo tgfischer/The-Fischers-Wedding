@@ -47,7 +47,13 @@ export const ReservationsTable = (
                 {expandableRow.cells.map((cell) => {
                   return (
                     // eslint-disable-next-line react/jsx-key
-                    <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                    <td
+                      {...cell.getCellProps({
+                        className: "align-middle"
+                      })}
+                    >
+                      {cell.render("Cell")}
+                    </td>
                   );
                 })}
               </tr>

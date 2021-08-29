@@ -31,8 +31,8 @@ export const NavBar = (): JSX.Element => {
             <NavBarLink className="me-3" href="/">
               Home
             </NavBarLink>
-            <NavBarLink className="me-3" href="/dashboard">
-              Dashboard
+            <NavBarLink className="me-3" href="/reservations">
+              Reservations
             </NavBarLink>
             <Nav.Item>
               <Button onClick={handleSignOut}>Log out</Button>
