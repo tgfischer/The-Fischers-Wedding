@@ -1,14 +1,17 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import { apiPipeline, EndpointPipelineHandler } from "../../src/middleware";
+import { EmptyResponse } from "../../src/types";
 
-import { verifyMethod } from "../../src/middleware";
-import { supabase } from "../../src/supabase";
-
-const handler = (req: NextApiRequest, res: NextApiResponse): void => {
-  if (!verifyMethod(req, res, "POST")) {
-    return;
-  }
-
+const setTokenHandler: EndpointPipelineHandler<EmptyResponse> = ({
+  req,
+  res,
+  supabase
+}) => {
   supabase.auth.api.setAuthCookie(req, res);
+  return { status: 200 };
 };
+
+const handler = apiPipeline({
+  POST: [setTokenHandler]
+});
 
 export default handler;

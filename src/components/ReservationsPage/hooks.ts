@@ -53,7 +53,7 @@ export const useReservationsTable = ({
             id: "status",
             Header: "Status",
             Cell: ({ row }: CellProps<ReservationDto>) =>
-              row.original.guests.some(({ status }) => status === "pending")
+              row.original.guests.some(({ status }) => !status)
                 ? "Pending"
                 : "Completed"
           },
@@ -78,10 +78,6 @@ export const useGuestsTable = ({
     columns: useMemo(
       () => [
         {
-          accessor: "id",
-          Header: "ID"
-        },
-        {
           id: "name",
           Header: "Full name",
           Cell: ({ row }: CellProps<GuestDto>) =>
@@ -98,12 +94,12 @@ export const useGuestsTable = ({
         {
           accessor: "status",
           Header: "Status",
-          Cell: ({ value }: CellProps<GuestDto>) => startCase(value)
+          Cell: ({ value }: CellProps<GuestDto>) =>
+            value ? startCase(value) : "Pending"
         }
       ],
       []
     ),
-    initialState: useMemo(() => ({ hiddenColumns: ["id"] }), []),
     data: guests
   });
 };

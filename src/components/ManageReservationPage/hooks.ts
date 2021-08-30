@@ -1,26 +1,29 @@
 import router from "next/router";
-import { useCallback, useMemo } from "react";
+import { useCallback } from "react";
 import { useMutation } from "react-query";
 import * as yup from "yup";
-import type { AnyObjectSchema } from "yup";
 
 import { authenticatedRequest } from "../../supabase";
-import { AddReservationFormData } from "../../types";
+import { AddReservationFormData, UpdateReservationFormData } from "../../types";
 
-import { ManageReservationPageProps } from "./types";
+import { ManageReservationProps, UpdateReservationPageProps } from "./types";
 
-type UseManageReservationPageInstance = {
-  schema: AnyObjectSchema;
-  isSubmitting: boolean;
-  handleSubmit: (reservation: AddReservationFormData) => void;
-  initialValues: AddReservationFormData;
-};
-
-const useManageReservationMutation = () =>
+const useAddReservationMutation = () =>
   useMutation<void, void, AddReservationFormData>(
     async (reservation) =>
       await authenticatedRequest("/api/reservations", {
-        method: reservation.id ? "PUT" : "POST",
+        method: "POST",
+        body: reservation
+      }),
+    {
+      onSuccess: useCallback(() => router.push("/reservations"), [])
+    }
+  );
+const useUpdateReservationMutation = () =>
+  useMutation<void, void, UpdateReservationFormData>(
+    async (reservation) =>
+      await authenticatedRequest("/api/reservations", {
+        method: "PUT",
         body: reservation
       }),
     {
@@ -50,33 +53,38 @@ const schema = yup
   })
   .required();
 
-export const useManageReservationPage = ({
+export const useAddReservationPage =
+  (): ManageReservationProps<AddReservationFormData> => {
+    const { mutate: handleSubmit, isLoading: isSubmitting } =
+      useAddReservationMutation();
+
+    return {
+      handleSubmit,
+      isSubmitting,
+      schema,
+      initialValues: {
+        address: "",
+        guests: [{ firstName: "", lastName: "" }]
+      },
+      pageTitle: "Add reservation"
+    };
+  };
+
+export const useUpdateReservationPage = ({
   reservation
-}: ManageReservationPageProps): UseManageReservationPageInstance => {
+}: UpdateReservationPageProps): ManageReservationProps<UpdateReservationFormData> => {
   const { mutate: handleSubmit, isLoading: isSubmitting } =
-    useManageReservationMutation();
+    useUpdateReservationMutation();
 
   return {
     handleSubmit,
     isSubmitting,
     schema,
-    initialValues: useMemo(
-      () =>
-        reservation
-          ? {
-              id: reservation.id,
-              address: reservation.address ?? "",
-              guests: reservation.guests.map((guest) => ({
-                id: guest.id,
-                firstName: guest.firstName,
-                lastName: guest.lastName
-              }))
-            }
-          : {
-              address: "",
-              guests: [{ firstName: "", lastName: "" }]
-            },
-      [reservation]
-    )
+    initialValues: {
+      id: reservation.id,
+      address: reservation.address ?? "",
+      guests: reservation.guests
+    },
+    pageTitle: "Update reservation"
   };
 };

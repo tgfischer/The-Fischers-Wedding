@@ -1,42 +1,30 @@
 import type { GetServerSideProps } from "next";
 
-import {
-  ManageReservationPage,
-  ManageReservationPageProps
-} from "../../../src/components/ManageReservationPage";
-import { supabase } from "../../../src/supabase";
+import { UpdateReservationPage } from "../../../src/components/ManageReservationPage";
+import { UpdateReservationPageProps } from "../../../src/components/ManageReservationPage/types";
+import { serverSupabase } from "../../../src/middleware";
 import { ReservationDto } from "../../../src/types";
 
-const EditReservation = (props: ManageReservationPageProps): JSX.Element => (
-  <ManageReservationPage {...props} />
+const UpdateReservation = (props: UpdateReservationPageProps): JSX.Element => (
+  <UpdateReservationPage {...props} />
 );
 
-const reservationQuery = `
-  id,
-  address,
-  guests (
-    id,
-    firstName,
-    lastName
-  )
-`;
-
-type EditReservationParams = {
+type UpdateReservationParams = {
   reservationId: string;
 };
 
 export const getServerSideProps: GetServerSideProps<
-  ManageReservationPageProps,
-  EditReservationParams
+  UpdateReservationPageProps,
+  UpdateReservationParams
 > = async (context) => {
-  const { user } = await supabase.auth.api.getUserByCookie(context.req);
+  const { user } = await serverSupabase.auth.api.getUserByCookie(context.req);
   if (!user) {
     return { redirect: { destination: "/", permanent: false } };
   }
 
-  const { data, error } = await supabase
-    .from<ReservationDto>("reservations")
-    .select(reservationQuery)
+  const { data, error } = await serverSupabase
+    .from<ReservationDto>("reservations_v2")
+    .select()
     .eq("id", context.params?.reservationId)
     .limit(1);
 
@@ -47,4 +35,4 @@ export const getServerSideProps: GetServerSideProps<
   return { props: { user, reservation: data[0], error } };
 };
 
-export default EditReservation;
+export default UpdateReservation;

@@ -1,23 +1,17 @@
 import type { GetServerSideProps } from "next";
 
-import {
-  ManageReservationPage,
-  ManageReservationPageProps
-} from "../../src/components/ManageReservationPage";
-import { supabase } from "../../src/supabase";
+import { AddReservationPage } from "../../src/components/ManageReservationPage";
+import { serverSupabase } from "../../src/middleware";
 
-const AddReservation = (props: ManageReservationPageProps): JSX.Element => (
-  <ManageReservationPage {...props} />
-);
+const AddReservation = (): JSX.Element => <AddReservationPage />;
 
-export const getServerSideProps: GetServerSideProps<ManageReservationPageProps> =
-  async (context) => {
-    const { user } = await supabase.auth.api.getUserByCookie(context.req);
-    if (!user) {
-      return { redirect: { destination: "/", permanent: false } };
-    }
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { user } = await serverSupabase.auth.api.getUserByCookie(context.req);
+  if (!user) {
+    return { redirect: { destination: "/", permanent: false } };
+  }
 
-    return { props: { user, reservation: undefined } };
-  };
+  return { props: { user } };
+};
 
 export default AddReservation;
