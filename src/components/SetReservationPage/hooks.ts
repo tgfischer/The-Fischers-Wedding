@@ -12,6 +12,8 @@ export const useSetReservationPage = ({
     initialValues: {
       guests: reservation.guests
     },
-    handleSubmit: () => {}
+    handleSubmit: () => {
+      console.log("weee");
+    }
   };
 };
