@@ -1,5 +1,5 @@
 import { Formik, Form as FormikForm, FieldArray, Field } from "formik";
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
 
 import { NavBar } from "../NavBar";
 import { Page } from "../Page";
@@ -21,6 +21,11 @@ export const SetReservationPage = (
         <Row>
           <Col sm={12}>
             <h2 className="handwritten display-5">R.S.V.P.</h2>
+            {schema.isValidSync({ guests: props.reservation.guests }) && (
+              <Alert variant="success">
+                Your reservation has been received. Thank you!
+              </Alert>
+            )}
             <Formik<SetReservationFormData>
               initialValues={initialValues}
               onSubmit={handleSubmit}

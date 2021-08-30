@@ -13,7 +13,7 @@ export const Masthead = (): JSX.Element => (
           className="d-flex justify-content-center align-items-center my-3"
           xl={12}
         >
-          <h1 className="handwritten display-1">Thomas Fischer</h1>
+          <h1 className="handwritten display-1 text-end">Thomas Fischer</h1>
           <h1 className="handwritten px-3">and</h1>
           <h1 className="handwritten display-1">Megan Heikens</h1>
         </Col>
