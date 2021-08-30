@@ -1,7 +1,8 @@
 import {
   faCaretRight,
   faCaretDown,
-  faEdit
+  faEdit,
+  faExternalLinkAlt
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
@@ -28,6 +29,22 @@ export const EditReservationCell = ({
   <Link href={`/reservations/edit/${row.original.id}`} passHref>
     <Button variant="basic" className="p-0 ms-2">
       <FontAwesomeIcon icon={faEdit} />
+    </Button>
+  </Link>
+);
+
+export const SetReservationLinkCell = ({
+  row
+}: CellProps<ReservationDto>): JSX.Element => (
+  <Link href={`/${row.original.id}`} passHref>
+    <Button
+      as="a"
+      variant="basic"
+      className="p-0 ms-2"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <FontAwesomeIcon icon={faExternalLinkAlt} />
     </Button>
   </Link>
 );

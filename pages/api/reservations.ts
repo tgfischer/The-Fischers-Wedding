@@ -18,7 +18,10 @@ const addReservationHandler: EndpointPipelineHandler<EmptyResponse> = async ({
     .insert({
       id: nanoid(10),
       address: reservation.address,
-      guests: reservation.guests
+      guests: reservation.guests.map((guest) => ({
+        ...guest,
+        status: "pending"
+      }))
     });
 
   if (status === 200) {
@@ -39,7 +42,8 @@ const updateReservationHandler: EndpointPipelineHandler<EmptyResponse> =
       .from<ReservationDto>("reservations")
       .update({
         address: reservation.address,
-        guests: reservation.guests
+        guests: reservation.guests,
+        updatedAt: new Date()
       })
       .eq("id", reservation.id);
 

@@ -9,7 +9,7 @@ export type ReservationDto = {
 export type GuestDto = {
   firstName: string;
   lastName: string;
-  status?: "attending" | "not attending";
+  status: "pending" | "attending" | "not attending";
   meal?: string;
   song?: string;
 };

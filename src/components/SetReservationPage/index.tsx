@@ -1,4 +1,4 @@
-import { Formik, Form as FormikForm, FieldArray } from "formik";
+import { Formik, Form as FormikForm, FieldArray, Field } from "formik";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 
 import { NavBar } from "../NavBar";
@@ -11,7 +11,8 @@ import { SetReservationFormData, SetReservationPageProps } from "./types";
 export const SetReservationPage = (
   props: SetReservationPageProps
 ): JSX.Element => {
-  const { initialValues, handleSubmit } = useSetReservationPage(props);
+  const { schema, isSubmitting, initialValues, handleSubmit } =
+    useSetReservationPage(props);
   return (
     <Page pageTitle="Set your reservation">
       <NavBar />
@@ -19,10 +20,11 @@ export const SetReservationPage = (
       <Container className="mb-5">
         <Row>
           <Col sm={12}>
-            <h2 className="handwritten display-5">Guests</h2>
+            <h2 className="handwritten display-5">R.S.V.P.</h2>
             <Formik<SetReservationFormData>
               initialValues={initialValues}
               onSubmit={handleSubmit}
+              validationSchema={schema}
             >
               {({ values }) => (
                 <FormikForm>
@@ -38,14 +40,18 @@ export const SetReservationPage = (
                             <Form.Group
                               as={Row}
                               className="mb-1"
-                              controlId="status"
+                              controlId={`guests.${i}.status`}
                             >
                               <Form.Label column sm={4}>
-                                Will you be attending our celebration?
+                                Will you be attending our celebration?{" "}
+                                <span className="text-danger">*</span>
                               </Form.Label>
                               <Col sm={8}>
-                                <Form.Select>
-                                  <option value="" disabled>
+                                <Field
+                                  as={Form.Select}
+                                  name={`guests.${i}.status`}
+                                >
+                                  <option value="pending" disabled>
                                     Please select an option
                                   </option>
                                   <option value="attending">
@@ -54,36 +60,44 @@ export const SetReservationPage = (
                                   <option value="not attending">
                                     Regretfully declines
                                   </option>
-                                </Form.Select>
+                                </Field>
                               </Col>
                             </Form.Group>
                             <Form.Group
                               as={Row}
                               className="mb-1"
-                              controlId="meal"
+                              controlId={`guests.${i}.meal`}
                             >
                               <Form.Label column sm={4}>
-                                Please pick an option for dinner
+                                Please pick an option for dinner{" "}
+                                <span className="text-danger">*</span>
                               </Form.Label>
                               <Col sm={8}>
-                                <Form.Select>
+                                <Field
+                                  as={Form.Select}
+                                  name={`guests.${i}.meal`}
+                                >
                                   <option value="" disabled>
                                     Please select an option
                                   </option>
-                                  <option value="attending">Chicken</option>
-                                </Form.Select>
+                                  <option value="chicken">Chicken</option>
+                                </Field>
                               </Col>
                             </Form.Group>
                             <Form.Group
                               as={Row}
                               className="mb-1"
-                              controlId="song"
+                              controlId={`guests.${i}.song`}
                             >
                               <Form.Label column sm={4}>
                                 What song would get you on the dance floor?
                               </Form.Label>
                               <Col sm={8}>
-                                <Form.Control placeholder="Please enter a song title and artist" />
+                                <Form.Control
+                                  as={Field}
+                                  name={`guests.${i}.song`}
+                                  placeholder="Please enter a song title and artist"
+                                />
                               </Col>
                             </Form.Group>
                           </div>
@@ -92,7 +106,12 @@ export const SetReservationPage = (
                     )}
                   />
                   <div className="d-flex justify-content-end">
-                    <Button type="submit">Save reservation</Button>
+                    <Button
+                      type="submit"
+                      disabled={!schema.isValidSync(values) || isSubmitting}
+                    >
+                      Save reservation
+                    </Button>
                   </div>
                 </FormikForm>
               )}

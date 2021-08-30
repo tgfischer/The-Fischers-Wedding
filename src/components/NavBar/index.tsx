@@ -6,10 +6,12 @@ import {
   Button
 } from "react-bootstrap";
 
+import { ComponentProps } from "../types";
+
 import { useNavBar } from "./hooks";
 import { NavBarLink } from "./NavBarLink";
 
-export const NavBar = (): JSX.Element => {
+export const NavBar = ({ className }: ComponentProps): JSX.Element => {
   const { handleSignOut } = useNavBar();
   const { user } = Auth.useUser();
   if (!user) {
@@ -17,7 +19,7 @@ export const NavBar = (): JSX.Element => {
   }
 
   return (
-    <BootstrapNavbar className="mb-3" variant="dark" bg="dark" expand="lg">
+    <BootstrapNavbar className={className} variant="dark" bg="dark" expand="lg">
       <Container>
         <BootstrapNavbar.Text className="text-white">
           Signed in as: {user?.email}

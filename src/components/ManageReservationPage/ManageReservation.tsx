@@ -14,7 +14,7 @@ export const ManageReservation = <TData extends ManageReservationFormData>({
   pageTitle
 }: ManageReservationProps<TData>): JSX.Element => (
   <Page pageTitle={pageTitle}>
-    <NavBar />
+    <NavBar className="mb-3" />
     <Container>
       <Row>
         <Col xs={12}>

@@ -16,7 +16,7 @@ export const ReservationsPage = ({
 }: ReservationsPageProps): JSX.Element => {
   return (
     <Page pageTitle="Reservations">
-      <NavBar />
+      <NavBar className="mb-3" />
       <Container>
         <Row>
           <Col sm={12}>

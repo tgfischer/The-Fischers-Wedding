@@ -64,7 +64,7 @@ export const useAddReservationPage =
       schema,
       initialValues: {
         address: "",
-        guests: [{ firstName: "", lastName: "" }]
+        guests: [{ firstName: "", lastName: "", status: "pending" }]
       },
       pageTitle: "Add reservation"
     };

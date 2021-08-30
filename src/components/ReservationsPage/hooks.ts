@@ -10,7 +10,11 @@ import {
 
 import type { ReservationDto, GuestDto } from "../../types";
 
-import { EditReservationCell, ExpandableButtonCell } from "./Cells";
+import {
+  EditReservationCell,
+  ExpandableButtonCell,
+  SetReservationLinkCell
+} from "./Cells";
 
 type UseReservationsTableOptions = {
   reservations: ReservationDto[];
@@ -53,13 +57,17 @@ export const useReservationsTable = ({
             id: "status",
             Header: "Status",
             Cell: ({ row }: CellProps<ReservationDto>) =>
-              row.original.guests.some(({ status }) => !status)
+              row.original.guests.some(({ status }) => status === "pending")
                 ? "Pending"
                 : "Completed"
           },
           {
             id: "edit",
             Cell: EditReservationCell
+          },
+          {
+            id: "link",
+            Cell: SetReservationLinkCell
           }
         ],
         [reservations]
@@ -85,7 +93,8 @@ export const useGuestsTable = ({
         },
         {
           accessor: "meal",
-          Header: "Meal preference"
+          Header: "Meal preference",
+          Cell: ({ value }: CellProps<GuestDto>) => startCase(value)
         },
         {
           accessor: "song",
