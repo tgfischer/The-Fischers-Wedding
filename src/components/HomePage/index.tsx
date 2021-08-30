@@ -7,7 +7,7 @@ export const HomePage = (): JSX.Element => (
   <Page
     pageTitle="The Fischer's Wedding"
     style={{
-      background: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("/images/bg.jpg") center center / cover no-repeat`
+      background: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("/images/bg.jpg") bottom center / cover no-repeat`
     }}
   >
     <div className="d-flex flex-column vh-100">
