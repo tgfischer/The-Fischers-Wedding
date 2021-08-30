@@ -23,7 +23,7 @@ export const getServerSideProps: GetServerSideProps<
   }
 
   const { data, error } = await serverSupabase
-    .from<ReservationDto>("reservations_v2")
+    .from<ReservationDto>("reservations")
     .select()
     .eq("id", context.params?.reservationId)
     .limit(1);

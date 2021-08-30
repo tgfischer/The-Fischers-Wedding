@@ -14,7 +14,7 @@ const addReservationHandler: EndpointPipelineHandler<EmptyResponse> = async ({
 }) => {
   const reservation: ReservationDto = req.body;
   const { status, statusText } = await supabase
-    .from<ReservationDto>("reservations_v2")
+    .from<ReservationDto>("reservations")
     .insert({
       id: nanoid(10),
       address: reservation.address,
@@ -36,7 +36,7 @@ const updateReservationHandler: EndpointPipelineHandler<EmptyResponse> =
   async ({ req, res, supabase }) => {
     const reservation: ReservationDto = req.body;
     const { status, statusText } = await supabase
-      .from<ReservationDto>("reservations_v2")
+      .from<ReservationDto>("reservations")
       .update({
         address: reservation.address,
         guests: reservation.guests
@@ -57,7 +57,7 @@ const updateReservationHandler: EndpointPipelineHandler<EmptyResponse> =
 const getReservationsHandler: EndpointPipelineHandler<ReservationDto[]> =
   async ({ res, supabase }) => {
     const { data, status, statusText } = await supabase
-      .from<ReservationDto>("reservations_v2")
+      .from<ReservationDto>("reservations")
       .select();
 
     if (!data) {
@@ -80,51 +80,5 @@ const handler = apiPipeline({
   POST: [authenticate, addReservationHandler],
   PUT: [authenticate, updateReservationHandler]
 });
-
-// const addReservation = async (reservation: AddReservationFormData) => {
-//   const result = await supabase.from<ReservationDto>("reservations").upsert({
-//     id: reservation.id ?? nanoid(10),
-//     address: reservation.address
-//   });
-
-//   await supabase.from<GuestDto>("guests").insert(
-//     reservation.guests.map(({ firstName, lastName }) => ({
-//       firstName,
-//       lastName,
-//       reservationId: first(result.data)?.id
-//     }))
-//   );
-// };
-
-// const updateReservation = async (reservation: AddReservationFormData) => {
-//   const result = await supabase
-//     .from<ReservationDto>("reservations")
-//     .update({
-//       address: reservation.address
-//     })
-//     .eq("id", reservation.id);
-
-//   const r = first(result.data);
-//   const oldGuestIds = r?.guests?.map(prop("id")) ?? [];
-//   const newGuestIds = reservation.guests.map(prop("id"));
-//   const guestsToRemove = oldGuestIds?.filter((id) => newGuestIds.includes(id));
-
-//   console.log(guestsToRemove);
-
-//   for (const id of guestsToRemove) {
-//     await supabase.from<GuestDto>("guests").delete().eq("id", id);
-//   }
-
-//   for (const { id, firstName, lastName } of reservation.guests) {
-//     await supabase
-//       .from<GuestDto>("guests")
-//       .upsert({
-//         firstName,
-//         lastName,
-//         reservationId: r?.id
-//       })
-//       .eq("id", id);
-//   }
-// };
 
 export default handler;
