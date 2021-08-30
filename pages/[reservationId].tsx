@@ -1,9 +1,7 @@
 import type { GetServerSideProps } from "next";
 
-import {
-  SetReservationPage,
-  SetReservationPageProps
-} from "../src/components/SetReservationPage";
+import { SetReservationPage } from "../src/components/SetReservationPage";
+import { SetReservationPageProps } from "../src/components/SetReservationPage/types";
 import { serverSupabase } from "../src/middleware";
 import { ReservationDto } from "../src/types";
 
