@@ -29,18 +29,8 @@ export const ManageReservation = <TData extends ManageReservationFormData>({
                   name="guests"
                   render={(guestsFieldArray) => (
                     <>
-                      <div className="d-flex mb-2 align-items-center justify-content-between">
-                        <div className="handwritten display-5">{pageTitle}</div>
-                        <Button
-                          onClick={() =>
-                            guestsFieldArray.push({
-                              firstName: "",
-                              lastName: ""
-                            })
-                          }
-                        >
-                          Add a guest
-                        </Button>
+                      <div className="handwritten display-5 mb-2">
+                        {pageTitle}
                       </div>
                       <Row className="mb-3">
                         <Col md>
@@ -127,15 +117,27 @@ export const ManageReservation = <TData extends ManageReservationFormData>({
                           </Card.Body>
                         </Card>
                       ))}
+                      <div className="d-flex justify-content-between">
+                        <Button
+                          onClick={() =>
+                            guestsFieldArray.push({
+                              firstName: "",
+                              lastName: ""
+                            })
+                          }
+                        >
+                          Add a guest
+                        </Button>
+                        <Button
+                          type="submit"
+                          disabled={isSubmitting || !schema.isValidSync(values)}
+                        >
+                          {pageTitle}
+                        </Button>
+                      </div>
                     </>
                   )}
                 />
-                <Button
-                  type="submit"
-                  disabled={isSubmitting || !schema.isValidSync(values)}
-                >
-                  {pageTitle}
-                </Button>
               </FormikForm>
             )}
           </Formik>
