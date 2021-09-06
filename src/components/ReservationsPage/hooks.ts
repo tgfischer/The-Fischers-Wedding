@@ -24,6 +24,12 @@ type UseGuestsTableOptions = {
   guests: GuestDto[];
 };
 
+const invitationMapping = {
+  ceremony: "Ceremony",
+  dinner: "Dinner",
+  reception: "Reception"
+};
+
 export const useReservationsTable = ({
   reservations
 }: UseReservationsTableOptions): TableInstance<ReservationDto> => {
@@ -52,6 +58,14 @@ export const useReservationsTable = ({
           {
             accessor: "address",
             Header: "Address"
+          },
+          {
+            id: "invitations",
+            Header: "Invitation",
+            Cell: ({ row }: CellProps<ReservationDto>) =>
+              row.original.invitations
+                .map((invitiation) => invitationMapping[invitiation])
+                .join(", ")
           },
           {
             id: "status",

@@ -1,7 +1,10 @@
+export type Invitation = "ceremony" | "dinner" | "reception";
+
 export type ReservationDto = {
   id: string;
   address?: string;
   guests: GuestDto[];
+  invitations: Invitation[];
   createdAt: Date;
   updatedAt: Date;
 };
@@ -14,16 +17,12 @@ export type GuestDto = {
   song?: string;
 };
 
-export type AddReservationFormData = {
-  address: string;
-  guests: GuestDto[];
-};
-
-export type UpdateReservationFormData = {
-  id: string;
-  address: string;
-  guests: GuestDto[];
-};
+export type AddReservationFormData = Required<
+  Pick<ReservationDto, "invitations" | "address" | "guests">
+>;
+export type UpdateReservationFormData = Required<
+  Pick<ReservationDto, "id" | "invitations" | "address" | "guests">
+>;
 
 export type EmptyResponse = Record<string, never>;
 

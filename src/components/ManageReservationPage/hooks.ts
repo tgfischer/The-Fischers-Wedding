@@ -35,6 +35,11 @@ const schema = yup
   .object()
   .shape({
     id: yup.string().notRequired(),
+    invitations: yup
+      .array()
+      .of(yup.string().oneOf(["ceremony", "dinner", "reception"]).required())
+      .min(1)
+      .required(),
     address: yup.string().notRequired(),
     guests: yup
       .array()
@@ -63,6 +68,7 @@ export const useAddReservationPage =
       isSubmitting,
       schema,
       initialValues: {
+        invitations: [],
         address: "",
         guests: [{ firstName: "", lastName: "", status: "pending" }]
       },
@@ -82,6 +88,7 @@ export const useUpdateReservationPage = ({
     schema,
     initialValues: {
       id: reservation.id,
+      invitations: reservation.invitations,
       address: reservation.address ?? "",
       guests: reservation.guests
     },

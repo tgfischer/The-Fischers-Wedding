@@ -17,6 +17,7 @@ const addReservationHandler: EndpointPipelineHandler<EmptyResponse> = async ({
     .from<ReservationDto>("reservations")
     .insert({
       id: nanoid(10),
+      invitations: reservation.invitations,
       address: reservation.address,
       guests: reservation.guests.map((guest) => ({
         ...guest,
@@ -41,6 +42,7 @@ const updateReservationHandler: EndpointPipelineHandler<EmptyResponse> =
     const { status, statusText } = await supabase
       .from<ReservationDto>("reservations")
       .update({
+        invitations: reservation.invitations,
         address: reservation.address,
         guests: reservation.guests,
         updatedAt: new Date()

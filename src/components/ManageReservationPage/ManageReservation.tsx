@@ -42,6 +42,35 @@ export const ManageReservation = <TData extends ManageReservationFormData>({
                           Add a guest
                         </Button>
                       </div>
+                      <Row className="mb-3">
+                        <Col md>
+                          <p className="m-0">Reservation for:</p>
+                          <Form.Check
+                            as={Field}
+                            type="checkbox"
+                            name="invitations"
+                            label="Cermony"
+                            value="ceremony"
+                            inline
+                          />
+                          <Form.Check
+                            as={Field}
+                            type="checkbox"
+                            name="invitations"
+                            label="Dinner"
+                            value="dinner"
+                            inline
+                          />
+                          <Form.Check
+                            as={Field}
+                            type="checkbox"
+                            name="invitations"
+                            label="Reception"
+                            value="reception"
+                            inline
+                          />
+                        </Col>
+                      </Row>
                       <Row>
                         <Col md>
                           <Form.FloatingLabel
@@ -57,7 +86,7 @@ export const ManageReservation = <TData extends ManageReservationFormData>({
                           </Form.FloatingLabel>
                         </Col>
                       </Row>
-                      {values.guests.map((friend, i) => (
+                      {values.guests.map((_, i) => (
                         <Card key={i} className="mb-3">
                           <Card.Header className="d-flex align-items-center justify-content-between">
                             <p className="lead m-0">Guest {i + 1}</p>
