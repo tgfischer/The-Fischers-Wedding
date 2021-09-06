@@ -5,8 +5,8 @@ export type ReservationDto = {
   address?: string;
   guests: GuestDto[];
   invitations: Invitation[];
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: Date | string;
+  updatedAt: Date | string;
 };
 
 export type GuestDto = {

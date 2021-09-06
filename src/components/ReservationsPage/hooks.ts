@@ -84,16 +84,25 @@ export const useReservationsTable = ({
             Cell: SetReservationLinkCell
           },
           {
-            id: "createdAt"
+            accessor: "createdAt",
+            sortType: "datetime"
           }
         ],
         [reservations]
       ),
-      data: reservations,
+      data: useMemo(
+        () =>
+          reservations.map(({ createdAt, updatedAt, ...r }) => ({
+            ...r,
+            createdAt: new Date(createdAt),
+            updatedAt: new Date(updatedAt)
+          })),
+        [reservations]
+      ),
       initialState: useMemo(
         () => ({
           hiddenColumns: ["createdAt"],
-          sortBy: [{ id: "createdAt", desc: true }]
+          sortBy: [{ id: "createdAt", desc: false }]
         }),
         []
       )
