@@ -4,7 +4,7 @@ import {
   TableInstance,
   useTable,
   useExpanded,
-  usePagination,
+  useSortBy,
   CellProps
 } from "react-table";
 
@@ -82,14 +82,24 @@ export const useReservationsTable = ({
           {
             id: "link",
             Cell: SetReservationLinkCell
+          },
+          {
+            id: "createdAt"
           }
         ],
         [reservations]
       ),
-      data: reservations
+      data: reservations,
+      initialState: useMemo(
+        () => ({
+          hiddenColumns: ["createdAt"],
+          sortBy: [{ id: "createdAt", desc: true }]
+        }),
+        []
+      )
     },
-    useExpanded,
-    usePagination
+    useSortBy,
+    useExpanded
   );
 };
 
