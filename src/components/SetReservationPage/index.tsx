@@ -1,4 +1,5 @@
 import { Formik, Form as FormikForm, FieldArray, Field } from "formik";
+import { useMemo } from "react";
 import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
 
 import { NavBar } from "../NavBar";
@@ -11,17 +12,22 @@ import { SetReservationFormData, SetReservationPageProps } from "./types";
 export const SetReservationPage = (
   props: SetReservationPageProps
 ): JSX.Element => {
-  const { schema, isSubmitting, initialValues, handleSubmit } =
+  const { schema, isSubmitting, isSuccess, initialValues, handleSubmit } =
     useSetReservationPage(props);
+  const isAlertVisible = useMemo(
+    () => isSuccess || schema.isValidSync({ guests: props.reservation.guests }),
+    [isSuccess, props.reservation.guests, schema]
+  );
+
   return (
     <Page pageTitle="Set your reservation">
       <NavBar />
-      <Masthead />
+      <Masthead reservation={props.reservation} />
       <Container className="mb-5">
         <Row>
-          <Col sm={12}>
+          <Col md>
             <h2 className="handwritten display-5">R.S.V.P.</h2>
-            {schema.isValidSync({ guests: props.reservation.guests }) && (
+            {isAlertVisible && (
               <Alert variant="success">
                 Your reservation has been received. Thank you!
               </Alert>
@@ -60,15 +66,15 @@ export const SetReservationPage = (
                                     Please select an option
                                   </option>
                                   <option value="attending">
-                                    Graciously accepts
+                                    Graciously accept
                                   </option>
                                   <option value="not attending">
-                                    Regretfully declines
+                                    Regretfully decline
                                   </option>
                                 </Field>
                               </Col>
                             </Form.Group>
-                            <Form.Group
+                            {/* <Form.Group
                               as={Row}
                               className="mb-1"
                               controlId={`guests.${i}.meal`}
@@ -88,7 +94,7 @@ export const SetReservationPage = (
                                   <option value="chicken">Chicken</option>
                                 </Field>
                               </Col>
-                            </Form.Group>
+                            </Form.Group> */}
                             <Form.Group
                               as={Row}
                               className="mb-1"

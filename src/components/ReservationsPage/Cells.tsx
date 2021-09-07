@@ -27,7 +27,7 @@ export const EditReservationCell = ({
   row
 }: CellProps<ReservationDto>): JSX.Element => (
   <Link href={`/reservations/edit/${row.original.id}`} passHref>
-    <Button variant="basic" className="p-0 ms-2">
+    <Button variant="basic" className="p-0">
       <FontAwesomeIcon icon={faEdit} />
     </Button>
   </Link>
@@ -40,7 +40,7 @@ export const SetReservationLinkCell = ({
     <Button
       as="a"
       variant="basic"
-      className="p-0 ms-2"
+      className="p-0"
       target="_blank"
       rel="noopener noreferrer"
     >

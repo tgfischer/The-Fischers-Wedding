@@ -9,6 +9,7 @@ import { SetReservationFormData, SetReservationPageProps } from "./types";
 
 type UseSetReservationPageInstance<TData> = {
   schema: AnyObjectSchema;
+  isSuccess: boolean;
   isSubmitting: boolean;
   initialValues: TData;
   handleSubmit: (reservation: TData) => void;
@@ -40,7 +41,7 @@ const schema = yup
               .string()
               .oneOf(["attending", "not attending"])
               .required(),
-            meal: yup.string().required(),
+            // meal: yup.string().required(),
             song: yup.string().notRequired()
           })
           .required()
@@ -52,20 +53,24 @@ const schema = yup
 export const useSetReservationPage = ({
   reservation
 }: SetReservationPageProps): UseSetReservationPageInstance<SetReservationFormData> => {
-  const { mutate: handleSubmit, isLoading: isSubmitting } =
-    useSetReservationMutation({
-      id: reservation.id
-    });
+  const {
+    mutate: handleSubmit,
+    isLoading: isSubmitting,
+    isSuccess
+  } = useSetReservationMutation({
+    id: reservation.id
+  });
 
   return {
     schema,
+    isSuccess,
     isSubmitting,
     handleSubmit,
     initialValues: {
       guests: reservation.guests.map((guest) => ({
         firstName: guest.firstName,
         lastName: guest.lastName,
-        meal: guest.meal ?? "",
+        // meal: guest.meal ?? "",
         song: guest.song ?? "",
         status: guest.status
       }))
