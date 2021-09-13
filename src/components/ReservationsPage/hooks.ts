@@ -126,8 +126,8 @@ export const useGuestsTable = ({
         },
         {
           accessor: "meal",
-          Header: "Meal preference",
-          Cell: ({ value }: CellProps<GuestDto>) => startCase(value)
+          Header: "Meal restrictions",
+          Cell: ({ value }: CellProps<GuestDto>) => value?.notes
         },
         {
           accessor: "song",

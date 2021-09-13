@@ -6,6 +6,7 @@ import { NavBar } from "../NavBar";
 import { Page } from "../Page";
 
 import { useSetReservationPage } from "./hooks";
+import { Location } from "./Location";
 import { Masthead } from "./Masthead";
 import { SetReservationFormData, SetReservationPageProps } from "./types";
 
@@ -15,8 +16,10 @@ export const SetReservationPage = (
   const { schema, isSubmitting, isSuccess, initialValues, handleSubmit } =
     useSetReservationPage(props);
   const isAlertVisible = useMemo(
-    () => isSuccess || schema.isValidSync({ guests: props.reservation.guests }),
-    [isSuccess, props.reservation.guests, schema]
+    () =>
+      !isSubmitting &&
+      (isSuccess || schema.isValidSync({ guests: props.reservation.guests })),
+    [isSubmitting, isSuccess, props.reservation.guests, schema]
   );
 
   return (
@@ -74,27 +77,22 @@ export const SetReservationPage = (
                                 </Field>
                               </Col>
                             </Form.Group>
-                            {/* <Form.Group
+                            <Form.Group
                               as={Row}
                               className="mb-1"
-                              controlId={`guests.${i}.meal`}
+                              controlId={`guests.${i}.meal.notes`}
                             >
                               <Form.Label column sm={4}>
-                                Please pick an option for dinner{" "}
-                                <span className="text-danger">*</span>
+                                Do you have any food allergies or restrictions?
                               </Form.Label>
                               <Col sm={8}>
-                                <Field
-                                  as={Form.Select}
-                                  name={`guests.${i}.meal`}
-                                >
-                                  <option value="" disabled>
-                                    Please select an option
-                                  </option>
-                                  <option value="chicken">Chicken</option>
-                                </Field>
+                                <Form.Control
+                                  as={Field}
+                                  name={`guests.${i}.meal.notes`}
+                                  placeholder="Please enter any food allergies or restrictions"
+                                />
                               </Col>
-                            </Form.Group> */}
+                            </Form.Group>
                             <Form.Group
                               as={Row}
                               className="mb-1"
@@ -129,6 +127,7 @@ export const SetReservationPage = (
             </Formik>
           </Col>
         </Row>
+        <Location />
       </Container>
     </Page>
   );

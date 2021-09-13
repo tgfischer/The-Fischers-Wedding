@@ -1,5 +1,9 @@
 export type Invitation = "ceremony" | "dinner" | "reception";
 
+export type MealDto = {
+  notes?: string;
+};
+
 export type ReservationDto = {
   id: string;
   address?: string;
@@ -13,7 +17,7 @@ export type GuestDto = {
   firstName: string;
   lastName: string;
   status: "pending" | "attending" | "not attending";
-  meal?: string;
+  meal?: MealDto;
   song?: string;
 };
 

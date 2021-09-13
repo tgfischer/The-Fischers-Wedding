@@ -41,7 +41,10 @@ const schema = yup
               .string()
               .oneOf(["attending", "not attending"])
               .required(),
-            // meal: yup.string().required(),
+            meal: yup
+              .object()
+              .shape({ notes: yup.string().notRequired() })
+              .notRequired(),
             song: yup.string().notRequired()
           })
           .required()
@@ -70,7 +73,7 @@ export const useSetReservationPage = ({
       guests: reservation.guests.map((guest) => ({
         firstName: guest.firstName,
         lastName: guest.lastName,
-        // meal: guest.meal ?? "",
+        meal: guest.meal,
         song: guest.song ?? "",
         status: guest.status
       }))

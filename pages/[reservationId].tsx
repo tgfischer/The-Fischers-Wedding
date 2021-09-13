@@ -23,8 +23,8 @@ export const getServerSideProps: GetServerSideProps<
     .eq("id", context.params?.reservationId)
     .limit(1);
 
-  if (!data) {
-    return { redirect: { destination: "/404", permanent: false } };
+  if (!data?.[0]) {
+    return { redirect: { destination: "/", permanent: false } };
   }
 
   return { props: { reservation: data[0], error } };
