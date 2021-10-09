@@ -27,7 +27,12 @@ export const getServerSideProps: GetServerSideProps<
     return { redirect: { destination: "/", permanent: false } };
   }
 
-  return { props: { reservation: data[0], error } };
+  return {
+    props: {
+      reservation: { ...data[0], invitations: data[0].invitations.sort() },
+      error
+    }
+  };
 };
 
 export default SetReservation;

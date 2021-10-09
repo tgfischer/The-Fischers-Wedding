@@ -1,4 +1,4 @@
-import { cond, always, T, eq } from "lodash/fp";
+import { cond, always, T, propEq } from "lodash/fp";
 import { Container, Row, Col } from "react-bootstrap";
 
 import { ReservationDto } from "../../types";
@@ -7,9 +7,9 @@ type MastheadProps = {
   reservation: ReservationDto;
 };
 
-const CeremonyInvitation = () => (
+const CeremonyDinnerReceptionInvitation = () => (
   <>
-    <p className="text-uppercase lead mb-5">{"4 o'clock in the afternoon"}</p>
+    <p className="text-uppercase lead mb-5">{"4:30 in the afternoon"}</p>
     <h3 className="handwritten display-6 mb-1">Kincardine Rock Garden</h3>
     <p className="text-uppercase lead m-0">
       155 Durham Street, Kincardine Ontario, N2Z 1A4
@@ -20,7 +20,7 @@ const CeremonyInvitation = () => (
 
 const ReceptionInvitation = () => (
   <>
-    <p className="text-uppercase lead mb-5">{"8 o'clock in the evening"}</p>
+    <p className="text-uppercase lead mb-5">{"9 o'clock in the evening"}</p>
     <h3 className="handwritten display-6 mb-1">Kincardine Pavilion</h3>
     <p className="text-uppercase lead m-0">
       156 Durham Street, Kincardine Ontario, N2Z 1A4
@@ -30,8 +30,8 @@ const ReceptionInvitation = () => (
 
 const getInvitation = cond<ReservationDto, () => JSX.Element>([
   [
-    (reservation) => reservation.invitations.some(eq("ceremony")),
-    always(CeremonyInvitation)
+    propEq("invitations", ["ceremony", "dinner", "reception"]),
+    always(CeremonyDinnerReceptionInvitation)
   ],
   [T, always(ReceptionInvitation)]
 ]);

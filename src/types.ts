@@ -19,6 +19,7 @@ export type GuestDto = {
   status: "pending" | "attending" | "not attending";
   meal?: MealDto;
   song?: string;
+  isVaccinated?: boolean;
 };
 
 export type AddReservationFormData = Required<

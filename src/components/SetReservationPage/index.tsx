@@ -1,10 +1,12 @@
 import { Formik, Form as FormikForm, FieldArray, Field } from "formik";
+import { eq } from "lodash/fp";
 import { useMemo } from "react";
 import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
 
 import { NavBar } from "../NavBar";
 import { Page } from "../Page";
 
+import { Accomodations } from "./Accommodations";
 import { useSetReservationPage } from "./hooks";
 import { Location } from "./Location";
 import { Masthead } from "./Masthead";
@@ -20,6 +22,10 @@ export const SetReservationPage = (
       !isSubmitting &&
       (isSuccess || schema.isValidSync({ guests: props.reservation.guests })),
     [isSubmitting, isSuccess, props.reservation.guests, schema]
+  );
+  const isAttendingDinner = useMemo(
+    () => props.reservation.invitations.some(eq("dinner")),
+    [props.reservation.invitations]
   );
 
   return (
@@ -77,22 +83,27 @@ export const SetReservationPage = (
                                 </Field>
                               </Col>
                             </Form.Group>
-                            <Form.Group
-                              as={Row}
-                              className="mb-1"
-                              controlId={`guests.${i}.meal.notes`}
-                            >
-                              <Form.Label column sm={4}>
-                                Do you have any food allergies or restrictions?
-                              </Form.Label>
-                              <Col sm={8}>
-                                <Form.Control
-                                  as={Field}
-                                  name={`guests.${i}.meal.notes`}
-                                  placeholder="Please enter any food allergies or restrictions"
-                                />
-                              </Col>
-                            </Form.Group>
+                            {isAttendingDinner && (
+                              <>
+                                <Form.Group
+                                  as={Row}
+                                  className="mb-1"
+                                  controlId={`guests.${i}.meal.notes`}
+                                >
+                                  <Form.Label column sm={4}>
+                                    Do you have any food allergies or
+                                    restrictions?
+                                  </Form.Label>
+                                  <Col sm={8}>
+                                    <Form.Control
+                                      as={Field}
+                                      name={`guests.${i}.meal.notes`}
+                                      placeholder="Please enter any food allergies or restrictions"
+                                    />
+                                  </Col>
+                                </Form.Group>
+                              </>
+                            )}
                             <Form.Group
                               as={Row}
                               className="mb-1"
@@ -109,11 +120,31 @@ export const SetReservationPage = (
                                 />
                               </Col>
                             </Form.Group>
+                            <Form.Check
+                              as={Field}
+                              className="mt-3 mb-4"
+                              name={`guests.${i}.isVaccinated`}
+                              type="checkbox"
+                              label="I have received two valid COVID-19 vaccinations and will provide proof of vaccination before entering the Kincardine Pavilion."
+                              required
+                            />
                           </div>
                         ))}
                       </>
                     )}
                   />
+                  <Alert className="border">
+                    <Alert.Heading>Proof of Vaccination</Alert.Heading>
+                    <p className="m-0">
+                      As required by the Province of Ontario, the Municipality
+                      of Kincardine requires that anyone entering the Kincardine
+                      Pavilion must provide proof of vaccination. To comply with
+                      this mandate, we ask guests to please provide your proof
+                      of vaccination receipt when arriving to the Kincardine
+                      Pavilion.
+                    </p>
+                  </Alert>
+
                   <div className="d-flex justify-content-end">
                     <Button
                       type="submit"
@@ -127,7 +158,8 @@ export const SetReservationPage = (
             </Formik>
           </Col>
         </Row>
-        <Location />
+        <Location invitations={props.reservation.invitations} />
+        <Accomodations />
       </Container>
     </Page>
   );

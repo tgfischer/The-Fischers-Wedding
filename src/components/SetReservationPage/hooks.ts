@@ -1,3 +1,4 @@
+import { eq } from "lodash/fp";
 import { useMutation } from "react-query";
 import * as yup from "yup";
 import type { AnyObjectSchema } from "yup";
@@ -45,7 +46,12 @@ const schema = yup
               .object()
               .shape({ notes: yup.string().notRequired() })
               .notRequired(),
-            song: yup.string().notRequired()
+            song: yup.string().notRequired(),
+            isVaccinated: yup.boolean().when("status", {
+              is: eq("attending"),
+              then: yup.boolean().isTrue().required(),
+              otherwise: yup.boolean().notRequired()
+            })
           })
           .required()
       )
@@ -73,9 +79,10 @@ export const useSetReservationPage = ({
       guests: reservation.guests.map((guest) => ({
         firstName: guest.firstName,
         lastName: guest.lastName,
-        meal: guest.meal,
+        meal: guest.meal ?? { notes: "" },
         song: guest.song ?? "",
-        status: guest.status
+        status: guest.status,
+        isVaccinated: guest.isVaccinated ?? false
       }))
     }
   };

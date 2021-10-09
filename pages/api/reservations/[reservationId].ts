@@ -36,7 +36,8 @@ const setReservationHandler: EndpointPipelineHandler<EmptyResponse> = async ({
               ...currentGuest,
               song: updatedGuest.song,
               meal: updatedGuest.meal,
-              status: updatedGuest.status
+              status: updatedGuest.status,
+              isVaccinated: updatedGuest.isVaccinated
             }
           : currentGuest;
       }),
