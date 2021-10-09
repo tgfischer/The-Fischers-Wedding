@@ -139,7 +139,7 @@ export const SetReservationPage = (
                       As required by the Province of Ontario, the Municipality
                       of Kincardine requires that anyone entering the Kincardine
                       Pavilion must provide proof of vaccination. To comply with
-                      this mandate, we ask guests to please provide your proof
+                      this mandate, we ask guests to please provide their proof
                       of vaccination receipt when arriving to the Kincardine
                       Pavilion.
                     </p>
