@@ -8,7 +8,7 @@ const OpenStreetMap = ({
   children,
   ...props
 }: OpenStreetMapProps): JSX.Element => (
-  <MapContainer {...props} style={{ height: "400px" }}>
+  <MapContainer {...props} scrollWheelZoom={false} style={{ height: "400px" }}>
     <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
     {children}
   </MapContainer>
