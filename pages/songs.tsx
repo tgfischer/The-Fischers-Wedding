@@ -26,7 +26,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       (request) => Boolean(request?.song.name) && Boolean(request?.song.artist)
     );
 
-  return { props: { user, songs: sortBy(["song"], songs), error } };
+  return {
+    props: {
+      user,
+      songs: sortBy((request) => request?.song.name, songs),
+      error
+    }
+  };
 };
 
 export default Songs;
