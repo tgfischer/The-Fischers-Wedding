@@ -16,7 +16,7 @@ export const ManageReservation = <TData extends ManageReservationFormData>({
   <Page pageTitle={pageTitle}>
     <NavBar className="mb-3" />
     <Container>
-      <Row>
+      <Row className="mb-3">
         <Col xs={12}>
           <Formik<TData>
             initialValues={initialValues}

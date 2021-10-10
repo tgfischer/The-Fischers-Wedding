@@ -36,6 +36,9 @@ export const NavBar = ({ className }: ComponentProps): JSX.Element => {
             <NavBarLink className="me-3" href="/reservations">
               Reservations
             </NavBarLink>
+            <NavBarLink className="me-3" href="/songs">
+              Songs
+            </NavBarLink>
             <Nav.Item>
               <Button onClick={handleSignOut}>Log out</Button>
             </Nav.Item>

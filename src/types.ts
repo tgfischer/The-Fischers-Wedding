@@ -22,6 +22,11 @@ export type GuestDto = {
   isVaccinated?: boolean;
 };
 
+export type SongDto = {
+  song: string;
+  requester: Pick<GuestDto, "firstName" | "lastName">;
+};
+
 export type AddReservationFormData = Required<
   Pick<ReservationDto, "invitations" | "address" | "guests">
 >;

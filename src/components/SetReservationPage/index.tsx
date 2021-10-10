@@ -2,6 +2,7 @@ import { Formik, Form as FormikForm, FieldArray, Field } from "formik";
 import { eq } from "lodash/fp";
 import { useMemo } from "react";
 import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
+import { ToastContainer } from "react-toastify";
 
 import { NavBar } from "../NavBar";
 import { Page } from "../Page";
@@ -11,6 +12,8 @@ import { useSetReservationPage } from "./hooks";
 import { Location } from "./Location";
 import { Masthead } from "./Masthead";
 import { SetReservationFormData, SetReservationPageProps } from "./types";
+
+import "react-toastify/dist/ReactToastify.css";
 
 export const SetReservationPage = (
   props: SetReservationPageProps
@@ -30,6 +33,7 @@ export const SetReservationPage = (
 
   return (
     <Page pageTitle="Set your reservation">
+      <ToastContainer hideProgressBar />
       <NavBar />
       <Masthead reservation={props.reservation} />
       <Container className="mb-5">

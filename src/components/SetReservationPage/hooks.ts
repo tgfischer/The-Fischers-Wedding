@@ -1,5 +1,6 @@
 import { eq } from "lodash/fp";
 import { useMutation } from "react-query";
+import { toast } from "react-toastify";
 import * as yup from "yup";
 import type { AnyObjectSchema } from "yup";
 
@@ -20,11 +21,17 @@ type UseSetReservationMutation = Pick<ReservationDto, "id">;
 
 const useSetReservationMutation = ({ id }: UseSetReservationMutation) =>
   useMutation<void, void, SetReservationFormData>(
+    "setReservation",
     async (body) =>
       await authenticatedRequest(`/api/reservations/${id}`, {
         method: "PUT",
         body
-      })
+      }),
+    {
+      onSuccess: () => {
+        toast("Reservation saved successfully");
+      }
+    }
   );
 
 const schema = yup
