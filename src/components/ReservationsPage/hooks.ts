@@ -8,7 +8,7 @@ import {
   CellProps
 } from "react-table";
 
-import type { ReservationDto, GuestDto } from "../../types";
+import type { ReservationDto, GuestDto, SongDto } from "../../types";
 
 import {
   EditReservationCell,
@@ -131,7 +131,9 @@ export const useGuestsTable = ({
         },
         {
           accessor: "song",
-          Header: "Song"
+          Header: "Song",
+          Cell: ({ value }: CellProps<SongDto>) =>
+            value?.name ? `${value?.name} - ${value?.artist}` : ""
         },
         {
           accessor: "status",
