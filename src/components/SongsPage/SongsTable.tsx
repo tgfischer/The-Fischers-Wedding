@@ -1,23 +1,25 @@
 import { Table } from "react-bootstrap";
 
-import { SongDto } from "../../types";
+import { SongRequestDto } from "../../types";
 
 type SongsTableProps = {
-  songs: SongDto[];
+  songs: SongRequestDto[];
 };
 
 export const SongsTable = ({ songs }: SongsTableProps): JSX.Element => (
   <Table responsive striped bordered>
     <thead>
       <tr>
-        <th>Song ({songs.length})</th>
+        <th>Song Name</th>
+        <th>Song Artist</th>
         <th>Requester</th>
       </tr>
     </thead>
     <tbody>
       {songs.map(({ song, requester }) => (
         <tr key={`${requester.firstName} ${requester.lastName}`}>
-          <td>{song}</td>
+          <td>{song.name}</td>
+          <td>{song.artist}</td>
           <td>
             {requester.firstName} {requester.lastName}
           </td>

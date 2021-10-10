@@ -4,6 +4,11 @@ export type MealDto = {
   notes?: string;
 };
 
+export type SongDto = {
+  name: string;
+  artist: string;
+};
+
 export type ReservationDto = {
   id: string;
   address?: string;
@@ -18,12 +23,12 @@ export type GuestDto = {
   lastName: string;
   status: "pending" | "attending" | "not attending";
   meal?: MealDto;
-  song?: string;
+  song?: SongDto;
   isVaccinated?: boolean;
 };
 
-export type SongDto = {
-  song: string;
+export type SongRequestDto = {
+  song: SongDto;
   requester: Pick<GuestDto, "firstName" | "lastName">;
 };
 

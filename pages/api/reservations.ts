@@ -21,6 +21,7 @@ const addReservationHandler: EndpointPipelineHandler<EmptyResponse> = async ({
       address: reservation.address,
       guests: reservation.guests.map((guest) => ({
         ...guest,
+        song: { name: "", artist: "" },
         status: "pending"
       }))
     });
@@ -44,7 +45,13 @@ const updateReservationHandler: EndpointPipelineHandler<EmptyResponse> =
       .update({
         invitations: reservation.invitations,
         address: reservation.address,
-        guests: reservation.guests,
+        guests: reservation.guests.map((guest) => ({
+          ...guest,
+          status: guest.status ?? "pending",
+          song: guest.song ?? { name: "", artist: "" },
+          meal: guest.meal ?? { notes: "" },
+          isVaccinated: guest.isVaccinated ?? false
+        })),
         updatedAt: new Date()
       })
       .eq("id", reservation.id);

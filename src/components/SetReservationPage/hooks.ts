@@ -29,7 +29,7 @@ const useSetReservationMutation = ({ id }: UseSetReservationMutation) =>
       }),
     {
       onSuccess: () => {
-        toast("Reservation saved successfully");
+        toast("Your reservation has been received!");
       }
     }
   );
@@ -53,7 +53,22 @@ const schema = yup
               .object()
               .shape({ notes: yup.string().notRequired() })
               .notRequired(),
-            song: yup.string().notRequired(),
+            song: yup
+              .object()
+              .shape({
+                name: yup.string().notRequired(),
+                artist: yup.string().when("name", {
+                  is: (name: string) => Boolean(name),
+                  then: yup.string().required(),
+                  otherwise: yup.string().notRequired()
+                })
+              })
+              .test(
+                "song",
+                ({ name, artist }) =>
+                  (Boolean(name) && Boolean(artist)) || (!name && !artist)
+              )
+              .required(),
             isVaccinated: yup.boolean().when("status", {
               is: eq("attending"),
               then: yup.boolean().isTrue().required(),
@@ -86,9 +101,9 @@ export const useSetReservationPage = ({
       guests: reservation.guests.map((guest) => ({
         firstName: guest.firstName,
         lastName: guest.lastName,
+        status: guest.status ?? "pending",
         meal: guest.meal ?? { notes: "" },
-        song: guest.song ?? "",
-        status: guest.status,
+        song: guest.song ?? { name: "", artist: "" },
         isVaccinated: guest.isVaccinated ?? false
       }))
     }

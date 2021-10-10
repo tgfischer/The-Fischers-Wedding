@@ -33,7 +33,15 @@ export const SetReservationPage = (
 
   return (
     <Page pageTitle="Set your reservation">
-      <ToastContainer hideProgressBar />
+      <ToastContainer
+        toastStyle={{
+          backgroundColor: "#d1e7dd",
+          color: "#0f5132",
+          fontFamily: "'Martel', serif",
+          fontSize: "0.9rem"
+        }}
+        hideProgressBar
+      />
       <NavBar />
       <Masthead reservation={props.reservation} />
       <Container className="mb-5">
@@ -117,11 +125,22 @@ export const SetReservationPage = (
                                 What song would get you on the dance floor?
                               </Form.Label>
                               <Col sm={8}>
-                                <Form.Control
-                                  as={Field}
-                                  name={`guests.${i}.song`}
-                                  placeholder="Please enter a song title and artist"
-                                />
+                                <Row className="g-1">
+                                  <Col sm={6}>
+                                    <Form.Control
+                                      as={Field}
+                                      name={`guests.${i}.song.name`}
+                                      placeholder="Please enter a song name"
+                                    />
+                                  </Col>
+                                  <Col sm={6}>
+                                    <Form.Control
+                                      as={Field}
+                                      name={`guests.${i}.song.artist`}
+                                      placeholder="Please enter the song's artist"
+                                    />
+                                  </Col>
+                                </Row>
                               </Col>
                             </Form.Group>
                             <Form.Check
