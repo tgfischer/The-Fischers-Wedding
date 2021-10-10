@@ -23,7 +23,7 @@ export const Location = ({ invitations }: LocationProps): JSX.Element => {
         <h2 className="handwritten display-5">Location</h2>
         <Row>
           <Col md>
-            <Table bordered>
+            <Table bordered responsive>
               <thead>
                 <tr>
                   <th>Location</th>

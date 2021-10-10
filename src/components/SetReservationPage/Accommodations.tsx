@@ -48,7 +48,7 @@ export const Accommodations = (): JSX.Element => {
         <h2 className="handwritten display-5">Accommodations</h2>
         <Row>
           <Col md>
-            <Table bordered>
+            <Table bordered responsive>
               <thead>
                 <tr>
                   <th>Hotel Name</th>
