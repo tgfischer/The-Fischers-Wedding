@@ -6,7 +6,7 @@ import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
 import { NavBar } from "../NavBar";
 import { Page } from "../Page";
 
-import { Accomodations } from "./Accommodations";
+import { Accommodations } from "./Accommodations";
 import { useSetReservationPage } from "./hooks";
 import { Location } from "./Location";
 import { Masthead } from "./Masthead";
@@ -159,7 +159,7 @@ export const SetReservationPage = (
           </Col>
         </Row>
         <Location invitations={props.reservation.invitations} />
-        <Accomodations />
+        <Accommodations />
       </Container>
     </Page>
   );

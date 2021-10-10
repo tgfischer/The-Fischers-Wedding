@@ -1,7 +1,7 @@
 import dynamic from "next/dynamic";
 import { Row, Col, Table } from "react-bootstrap";
 
-const accomodations = [
+const accommodations = [
   {
     name: "Inn at the Harbour",
     address: "255 Harbour St, Kincardine, ON N2Z 2X9",
@@ -34,7 +34,7 @@ const accomodations = [
   }
 ];
 
-export const Accomodations = (): JSX.Element => {
+export const Accommodations = (): JSX.Element => {
   const OpenStreetMap = dynamic(() => import("./OpenStreetMap"), {
     ssr: false
   });
@@ -45,7 +45,7 @@ export const Accomodations = (): JSX.Element => {
   return (
     <Row className="mb-5">
       <Col md>
-        <h2 className="handwritten display-5">Accomodations</h2>
+        <h2 className="handwritten display-5">Accommodations</h2>
         <Row>
           <Col md>
             <Table bordered>
@@ -58,7 +58,7 @@ export const Accomodations = (): JSX.Element => {
                 </tr>
               </thead>
               <tbody>
-                {accomodations.map(
+                {accommodations.map(
                   ({ name, address, phoneNumber, website }) => (
                     <tr key={name}>
                       <td>{name}</td>
@@ -83,7 +83,7 @@ export const Accomodations = (): JSX.Element => {
               center={[44.175362, -81.628032]}
               zoom={14}
             >
-              {accomodations.map(({ coordinates }) => (
+              {accommodations.map(({ coordinates }) => (
                 <OpenStreetMapMarker
                   key={`${coordinates.lat} ${coordinates.long}`}
                   position={[coordinates.lat, coordinates.long]}
