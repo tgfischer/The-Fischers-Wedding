@@ -110,7 +110,6 @@ export const SetReservationPage = (
                                     <Form.Control
                                       as={Field}
                                       name={`guests.${i}.meal.notes`}
-                                      placeholder="Please enter any food allergies or restrictions"
                                     />
                                   </Col>
                                 </Form.Group>
