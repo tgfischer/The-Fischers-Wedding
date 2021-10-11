@@ -6,6 +6,7 @@ import { NavBar } from "../NavBar";
 import { Page } from "../Page";
 
 import { ReservationsTable } from "./ReservationsTable";
+import { Statistics } from "./Statistics";
 
 export type ReservationsPageProps = {
   reservations: ReservationDto[];
@@ -18,6 +19,7 @@ export const ReservationsPage = ({
     <Page pageTitle="Reservations">
       <NavBar className="mb-3" />
       <Container>
+        <Statistics reservations={reservations} />
         <Row>
           <Col sm={12}>
             <div className="d-flex mb-2 align-items-center justify-content-between">
