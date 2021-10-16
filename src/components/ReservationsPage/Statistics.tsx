@@ -1,4 +1,4 @@
-import { startCase, sum } from "lodash/fp";
+import { identity, startCase, sum } from "lodash/fp";
 import { useMemo } from "react";
 import { Row, Col } from "react-bootstrap";
 
@@ -24,12 +24,20 @@ const getGuestStatusCount = ({
 
 const getGuestCount = ({
   reservations,
-  invitation
-}: StatisticsProps & { invitation: Invitation }): StatisticProps => ({
-  statistic: sum(
-    reservations
-      .filter(({ invitations }) => invitations.includes(invitation))
-      .map(({ guests }) => guests.length)
+  invitation,
+  transform = identity
+}: StatisticsProps & {
+  invitation: Invitation;
+  transform?: (
+    statistic: StatisticProps["statistic"]
+  ) => StatisticProps["statistic"];
+}): StatisticProps => ({
+  statistic: transform(
+    sum(
+      reservations
+        .filter(({ invitations }) => invitations.includes(invitation))
+        .map(({ guests }) => guests.length)
+    )
   ),
   description: `Invited to ${invitation}`
 });
@@ -38,7 +46,11 @@ export const Statistics = (props: StatisticsProps): JSX.Element => {
   const statistics = useMemo(
     () => [
       getGuestCount({ ...props, invitation: "ceremony" }),
-      getGuestCount({ ...props, invitation: "dinner" }),
+      getGuestCount({
+        ...props,
+        invitation: "dinner",
+        transform: (statistic) => `${statistic} + 2`
+      }),
       getGuestCount({ ...props, invitation: "reception" }),
       getGuestStatusCount({ ...props, status: "attending" }),
       getGuestStatusCount({ ...props, status: "not attending" }),
@@ -46,6 +58,7 @@ export const Statistics = (props: StatisticsProps): JSX.Element => {
     ],
     [props]
   );
+
   return (
     <Row className="mt-4">
       {statistics.map(({ statistic, description }) => (

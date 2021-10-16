@@ -34,6 +34,11 @@ export type SongRequestDto = {
   requester: Pick<GuestDto, "firstName" | "lastName">;
 };
 
+export type MealRestrictionDto = {
+  restriction: Required<MealDto["notes"]>;
+  name: string;
+};
+
 export type AddReservationFormData = Required<
   Pick<ReservationDto, "invitations" | "address" | "guests">
 >;
