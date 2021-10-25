@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import { Row, Col, Table } from "react-bootstrap";
+import { Row, Col, Table, Alert } from "react-bootstrap";
 
 const accommodations = [
   {
@@ -48,6 +48,29 @@ export const Accommodations = (): JSX.Element => {
         <h2 className="handwritten display-5">Accommodations</h2>
         <Row>
           <Col md>
+            <Alert className="border">
+              <Alert.Heading>Group Rate</Alert.Heading>
+              <p>
+                We have a block of rooms available at the{" "}
+                <strong>TownePlace Suites ($199 + tax per night)</strong> and
+                the{" "}
+                <strong>
+                  Holiday Inn Express & Suites ($152.99 + tax per night).
+                </strong>{" "}
+                This block of rooms will be held until July 8th, 2022.
+                Availability is limited, so we would suggest booking early if
+                you require accommodations.
+              </p>
+              <p className="m-0">
+                The <strong>Inn at the Harbour</strong> is walking distance to
+                the Kincardine Pavilion, but requires a minimum of two nights to
+                book.
+              </p>
+            </Alert>
+          </Col>
+        </Row>
+        <Row>
+          <Col md>
             <Table bordered responsive>
               <thead>
                 <tr>
@@ -83,6 +106,10 @@ export const Accommodations = (): JSX.Element => {
               center={[44.175362, -81.628032]}
               zoom={14}
             >
+              <OpenStreetMapMarker
+                position={[44.18045, -81.63895]}
+                colour="red"
+              />
               {accommodations.map(({ coordinates }) => (
                 <OpenStreetMapMarker
                   key={`${coordinates.lat} ${coordinates.long}`}

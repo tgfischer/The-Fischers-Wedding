@@ -53,9 +53,15 @@ export const Location = ({ invitations }: LocationProps): JSX.Element => {
               zoom={17}
             >
               {isAttendingCeremony && (
-                <OpenStreetMapMarker position={[44.18124, -81.63895]} />
+                <OpenStreetMapMarker
+                  position={[44.18124, -81.63895]}
+                  colour="red"
+                />
               )}
-              <OpenStreetMapMarker position={[44.18045, -81.63895]} />
+              <OpenStreetMapMarker
+                position={[44.18045, -81.63895]}
+                colour="red"
+              />
             </OpenStreetMap>
           </Col>
         </Row>
