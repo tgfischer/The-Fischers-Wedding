@@ -148,7 +148,6 @@ export const SetReservationPage = (
                               name={`guests.${i}.isVaccinated`}
                               type="checkbox"
                               label="I have received two valid COVID-19 vaccinations and will provide proof of vaccination before entering the Kincardine Pavilion."
-                              required
                             />
                           </div>
                         ))}

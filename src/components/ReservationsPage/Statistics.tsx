@@ -42,17 +42,46 @@ const getGuestCount = ({
   description: `Invited to ${invitation}`
 });
 
+const getGuestInvitationCount = ({
+  reservations,
+  invitation
+}: StatisticsProps & {
+  status: Status;
+  invitation: Invitation;
+}): StatisticProps => ({
+  statistic: sum(
+    reservations.map(
+      ({ guests, invitations }) =>
+        guests.filter(
+          (guest) =>
+            guest.status === "attending" && invitations.includes(invitation)
+        ).length
+    )
+  ),
+  description: `Guests attending the ${invitation}`
+});
+
 export const Statistics = (props: StatisticsProps): JSX.Element => {
   const statistics = useMemo(
     () => [
       getGuestCount({ ...props, invitation: "ceremony" }),
-      getGuestCount({
-        ...props,
-        invitation: "dinner",
-        transform: (statistic) => `${statistic} + 2`
-      }),
+      getGuestCount({ ...props, invitation: "dinner" }),
       getGuestCount({ ...props, invitation: "reception" }),
-      getGuestStatusCount({ ...props, status: "attending" }),
+      getGuestInvitationCount({
+        ...props,
+        status: "attending",
+        invitation: "ceremony"
+      }),
+      getGuestInvitationCount({
+        ...props,
+        status: "attending",
+        invitation: "dinner"
+      }),
+      getGuestInvitationCount({
+        ...props,
+        status: "attending",
+        invitation: "reception"
+      }),
       getGuestStatusCount({ ...props, status: "not attending" }),
       getGuestStatusCount({ ...props, status: "pending" })
     ],
