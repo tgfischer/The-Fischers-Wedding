@@ -1,6 +1,6 @@
 import { Formik, Form as FormikForm, FieldArray, Field } from "formik";
 import { eq } from "lodash/fp";
-import { useMemo } from "react";
+import { useCallback, useMemo, useRef } from "react";
 import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
 import { ToastContainer } from "react-toastify";
 
@@ -18,6 +18,7 @@ import "react-toastify/dist/ReactToastify.css";
 export const SetReservationPage = (
   props: SetReservationPageProps
 ): JSX.Element => {
+  const scrollRef = useRef<HTMLDivElement>(null);
   const { schema, isSubmitting, isSuccess, initialValues, handleSubmit } =
     useSetReservationPage(props);
   const isAlertVisible = useMemo(
@@ -29,6 +30,11 @@ export const SetReservationPage = (
   const isAttendingDinner = useMemo(
     () => props.reservation.invitations.some(eq("dinner")),
     [props.reservation.invitations]
+  );
+
+  const handleScroll = useCallback(
+    () => scrollRef.current?.scrollIntoView(),
+    []
   );
 
   return (
@@ -43,8 +49,11 @@ export const SetReservationPage = (
         hideProgressBar
       />
       <NavBar />
-      <Masthead reservation={props.reservation} />
-      <Container className="mb-5">
+      <Masthead
+        onClickSetReservation={handleScroll}
+        reservation={props.reservation}
+      />
+      <Container ref={scrollRef} className="py-5">
         <Row>
           <Col md>
             <h2 className="handwritten display-5">R.S.V.P.</h2>

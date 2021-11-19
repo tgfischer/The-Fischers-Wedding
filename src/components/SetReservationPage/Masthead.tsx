@@ -1,10 +1,11 @@
 import { cond, always, T, propEq } from "lodash/fp";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
 
 import { ReservationDto } from "../../types";
 
 type MastheadProps = {
   reservation: ReservationDto;
+  onClickSetReservation: () => void;
 };
 
 const CeremonyDinnerReceptionInvitation = () => (
@@ -36,11 +37,14 @@ const getInvitation = cond<ReservationDto, () => JSX.Element>([
   [T, always(ReceptionInvitation)]
 ]);
 
-export const Masthead = ({ reservation }: MastheadProps): JSX.Element => {
+export const Masthead = ({
+  reservation,
+  onClickSetReservation
+}: MastheadProps): JSX.Element => {
   const Invitation = getInvitation(reservation);
   return (
     <div
-      className="d-flex mb-5 py-5 align-items-center text-white"
+      className="d-flex vh-100 py-5 align-items-center text-white"
       style={{
         background: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("/images/bg.jpg") bottom center / cover no-repeat`
       }}
@@ -66,6 +70,14 @@ export const Masthead = ({ reservation }: MastheadProps): JSX.Element => {
               Saturday, September 10th, 2022
             </h3>
             <Invitation />
+            <Button
+              className="my-4"
+              onClick={onClickSetReservation}
+              variant="outline-light"
+              size="lg"
+            >
+              Set Reservation
+            </Button>
           </Col>
         </Row>
       </Container>
