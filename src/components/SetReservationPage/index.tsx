@@ -6,6 +6,7 @@ import { ToastContainer } from "react-toastify";
 
 import { NavBar } from "../NavBar";
 import { Page } from "../Page";
+import { Section } from "../Section";
 
 import { Accommodations } from "./Accommodations";
 import { useSetReservationPage } from "./hooks";
@@ -163,15 +164,18 @@ export const SetReservationPage = (
                       </>
                     )}
                   />
-                  <Alert className="border">
-                    <Alert.Heading>Proof of Vaccination</Alert.Heading>
+                  <Section>
+                    <Section.Header>Proof of Vaccination</Section.Header>
                     As required by the Province of Ontario, the Municipality of
-                    Kincardine requires that anyone entering the Kincardine
-                    Pavilion must provide proof of vaccination. To comply with
-                    this mandate, we ask guests to please provide their proof of
-                    vaccination receipt along with a photo ID when arriving to
-                    the Kincardine Pavilion.
-                  </Alert>
+                    Kincardine requires that{" "}
+                    <strong>
+                      anyone entering the Kincardine Pavilion must provide proof
+                      of vaccination.
+                    </strong>{" "}
+                    To comply with this mandate, we ask guests to please provide
+                    their proof of vaccination receipt along with their photo ID
+                    when arriving to the Kincardine Pavilion.
+                  </Section>
 
                   <div className="d-flex justify-content-end">
                     <Button

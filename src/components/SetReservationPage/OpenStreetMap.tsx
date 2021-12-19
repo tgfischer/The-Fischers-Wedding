@@ -1,5 +1,4 @@
 import { MapContainer, TileLayer, MapContainerProps } from "react-leaflet";
-
 import "leaflet/dist/leaflet.css";
 
 type OpenStreetMapProps = MapContainerProps;

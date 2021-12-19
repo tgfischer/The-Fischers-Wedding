@@ -1,5 +1,7 @@
 import dynamic from "next/dynamic";
-import { Row, Col, Table, Alert } from "react-bootstrap";
+import { Row, Col, Table } from "react-bootstrap";
+
+import { Section } from "../Section";
 
 const accommodations = [
   {
@@ -48,8 +50,8 @@ export const Accommodations = (): JSX.Element => {
         <h2 className="handwritten display-5">Accommodations</h2>
         <Row>
           <Col md>
-            <Alert className="border">
-              <Alert.Heading>Group Rate</Alert.Heading>
+            <Section>
+              <Section.Header>Group Rate</Section.Header>
               <p>
                 We have a block of rooms available at the{" "}
                 <strong>TownePlace Suites ($199 + tax per night)</strong> and
@@ -66,7 +68,7 @@ export const Accommodations = (): JSX.Element => {
                 the Kincardine Pavilion, but requires a minimum of two nights to
                 book.
               </p>
-            </Alert>
+            </Section>
           </Col>
         </Row>
         <Row>

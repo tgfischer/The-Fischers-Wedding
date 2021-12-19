@@ -1,5 +1,6 @@
 @import "~bootstrap/scss/functions";
 
+@import "./variables";
 @import "./overrides";
 
 @import "~bootstrap/scss/variables";
@@ -9,6 +10,5 @@
 @import "~@fontsource/great-vibes";
 @import "~bootstrap/scss/bootstrap";
 
-@import "./variables";
 @import "./navbar";
 @import "./typography";
