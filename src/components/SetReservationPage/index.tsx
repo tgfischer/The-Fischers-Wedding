@@ -156,7 +156,7 @@ export const SetReservationPage = (
                               className="mt-3 mb-4"
                               name={`guests.${i}.isVaccinated`}
                               type="checkbox"
-                              label="I have received two valid COVID-19 vaccinations and will provide proof of vaccination before entering the Kincardine Pavilion."
+                              label="I have been fully vaccinated against COVID-19 and will provide proof of vaccination before entering the Kincardine Pavilion."
                             />
                           </div>
                         ))}
@@ -169,8 +169,8 @@ export const SetReservationPage = (
                     Kincardine requires that anyone entering the Kincardine
                     Pavilion must provide proof of vaccination. To comply with
                     this mandate, we ask guests to please provide their proof of
-                    vaccination receipt when arriving to the Kincardine
-                    Pavilion.
+                    vaccination receipt along with a photo ID when arriving to
+                    the Kincardine Pavilion.
                   </Alert>
 
                   <div className="d-flex justify-content-end">
