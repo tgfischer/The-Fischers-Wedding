@@ -12,6 +12,7 @@ const useLoginMutation = () =>
   useMutation<void, ErrorResponse, LoginDto>(
     async ({ email, password }) => {
       const { error } = await supabase.auth.signIn({ email, password });
+
       if (error) {
         throw { status: error.status, error: error.message };
       }
