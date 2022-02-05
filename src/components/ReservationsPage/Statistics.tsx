@@ -2,7 +2,7 @@ import { identity, startCase, sum } from "lodash/fp";
 import { useMemo } from "react";
 import { Row, Col } from "react-bootstrap";
 
-import { Invitation, ReservationDto, Status } from "../../types";
+import { InvitationDto, ReservationDto, Status } from "../../types";
 
 import { Statistic, StatisticProps } from "./Statistic";
 
@@ -27,7 +27,7 @@ const getGuestCount = ({
   invitation,
   transform = identity
 }: StatisticsProps & {
-  invitation: Invitation;
+  invitation: InvitationDto;
   transform?: (
     statistic: StatisticProps["statistic"]
   ) => StatisticProps["statistic"];
@@ -47,7 +47,7 @@ const getGuestInvitationCount = ({
   invitation
 }: StatisticsProps & {
   status: Status;
-  invitation: Invitation;
+  invitation: InvitationDto;
 }): StatisticProps => ({
   statistic: sum(
     reservations.map(

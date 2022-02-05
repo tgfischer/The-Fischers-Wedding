@@ -1,4 +1,4 @@
-export type Invitation = "ceremony" | "dinner" | "reception";
+export type InvitationDto = "ceremony" | "dinner" | "reception";
 
 export type Status = "pending" | "attending" | "not attending";
 
@@ -15,7 +15,7 @@ export type ReservationDto = {
   id: string;
   address?: string;
   guests: GuestDto[];
-  invitations: Invitation[];
+  invitations: InvitationDto[];
   createdAt: Date | string;
   updatedAt: Date | string;
 };
@@ -50,4 +50,9 @@ export type EmptyResponse = Record<string, never>;
 
 export type ErrorResponse = {
   error: string;
+};
+
+export type LoginDto = {
+  email: string;
+  password: string;
 };

@@ -20,7 +20,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const { data, error } = await serverSupabase
     .from<ReservationDto>("reservations")
     .select();
-  return { props: { user, reservations: data, error } };
+
+  return { props: { user, reservations: data ?? [], error } };
 };
 
 export default Reservations;

@@ -31,7 +31,7 @@ export const ReservationsTable = (
       <tbody {...getTableBodyProps()}>
         {rows.length === 0 && (
           <tr>
-            <td className="text-center" colSpan={7}>
+            <td className="text-center" colSpan={8}>
               There are no reservations yet
             </td>
           </tr>

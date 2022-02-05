@@ -20,7 +20,15 @@ export const authenticatedRequest = async <TResponse>(
     body: body ? JSON.stringify(body) : null,
     headers: new Headers({ "Content-Type": "application/json", ...headers }),
     credentials: "same-origin"
-  }).then((res) => res.json() as Promise<TResponse>);
+  })
+    .then(async (res) => {
+      if (res.status >= 400) {
+        throw await res.json();
+      }
+
+      return res;
+    })
+    .then((res) => res.json() as Promise<TResponse>);
 
 export const setUserSession = async (
   event: AuthChangeEvent,
