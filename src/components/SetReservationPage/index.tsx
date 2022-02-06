@@ -2,7 +2,6 @@ import { Formik, Form as FormikForm, FieldArray, Field } from "formik";
 import { eq } from "lodash/fp";
 import { useCallback, useMemo, useRef } from "react";
 import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
-import { ToastContainer } from "react-toastify";
 
 import { NavBar } from "../NavBar";
 import { Page } from "../Page";
@@ -40,15 +39,6 @@ export const SetReservationPage = (
 
   return (
     <Page pageTitle="Set your reservation">
-      <ToastContainer
-        toastStyle={{
-          backgroundColor: "#d1e7dd",
-          color: "#0f5132",
-          fontFamily: "'Martel', serif",
-          fontSize: "0.9rem"
-        }}
-        hideProgressBar
-      />
       <NavBar />
       <Masthead
         onClickSetReservation={handleScroll}

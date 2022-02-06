@@ -8,15 +8,17 @@ import { useAnonymousComponent } from "../../hooks";
 import { supabase } from "../../supabase";
 import { ErrorResponse, LoginDto } from "../../types";
 
+const loginRequest = async ({ email, password }: LoginDto) => {
+  const { error } = await supabase.auth.signIn({ email, password });
+
+  if (error) {
+    throw { status: error.status, error: error.message };
+  }
+}
+
 const useLoginMutation = () =>
   useMutation<void, ErrorResponse, LoginDto>(
-    async ({ email, password }) => {
-      const { error } = await supabase.auth.signIn({ email, password });
-
-      if (error) {
-        throw { status: error.status, error: error.message };
-      }
-    },
+    loginRequest,
     {
       onSuccess: useCallback(() => router.push("/"), []),
       onError: useCallback(({ error }) => void toast.error(error), [])

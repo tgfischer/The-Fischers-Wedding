@@ -22,11 +22,13 @@ export const ReservationsPage = ({
         <Statistics reservations={reservations} />
         <Row>
           <Col sm={12}>
-            <div className="d-flex mb-2 align-items-center justify-content-between">
-              <div className="handwritten display-5">Reservations</div>
-              <Link href="/reservations/add" passHref>
-                <Button variant="primary">Add a reservation</Button>
-              </Link>
+            <div className="mb-2 d-flex justify-content-between align-items-center">
+              <div className="d-flex flex-row align-items-center">
+                <div className="handwritten display-5 me-3">Reservations</div>
+                <Link href="/reservations/add" passHref>
+                  <Button variant="primary">Add a reservation</Button>
+                </Link>
+              </div>
             </div>
             <ReservationsTable reservations={reservations} />
           </Col>

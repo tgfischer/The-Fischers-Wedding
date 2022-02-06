@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { ReactNode } from "react";
+import { ToastContainer } from "react-toastify";
 
 export type PageProps = JSX.IntrinsicElements["div"] & {
   pageTitle: string | ReactNode;
@@ -14,6 +15,13 @@ export const Page = ({
     <Head>
       <title>{pageTitle}</title>
     </Head>
+    <ToastContainer
+      toastStyle={{
+        fontFamily: "'Martel', serif",
+        fontSize: "0.9rem"
+      }}
+      hideProgressBar
+    />
     {children}
   </div>
 );

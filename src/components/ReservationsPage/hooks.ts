@@ -1,5 +1,6 @@
 import { startCase, sum } from "lodash";
-import { useMemo } from "react";
+import { useRouter } from "next/router";
+import { useCallback, useMemo } from "react";
 import {
   TableInstance,
   useTable,
@@ -7,6 +8,7 @@ import {
   useSortBy,
   CellProps
 } from "react-table";
+import * as yup from "yup";
 
 import type { ReservationDto, GuestDto, SongDto } from "../../types";
 
@@ -28,6 +30,31 @@ const invitationMapping = {
   ceremony: "Ceremony",
   dinner: "Dinner",
   reception: "Reception"
+};
+
+const statusFilterValidationSchema = yup
+  .object()
+  .shape({
+    status: yup
+      .array()
+      .of(
+        yup.string().oneOf(["pending", "attending", "not attending"]).required()
+      )
+      .required()
+  })
+  .required();
+
+export const useStatusFilter = () => {
+  const router = useRouter();
+
+  return {
+    validationSchema: statusFilterValidationSchema,
+    handleSubmit: useCallback(({ status }) => {
+      const query = { ...router.query, status };
+      const url = `${router.pathname}?${new URLSearchParams(query).toString()}`;
+      router.push(url);
+    }, [])
+  };
 };
 
 export const useReservationsTable = ({

@@ -3,6 +3,6 @@
 -- and may require manual changes to the script to ensure changes are applied in the correct order.
 -- Please report an issue for any failure with the reproduction steps.
 
-DROP TABLE IF EXISTS public.reservations_v1 CASCADE;
-
 DROP TABLE IF EXISTS public.guests_v1 CASCADE;
+
+DROP TABLE IF EXISTS public.reservations_v1 CASCADE;

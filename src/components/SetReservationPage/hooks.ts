@@ -29,7 +29,14 @@ const useSetReservationMutation = ({ id }: UseSetReservationMutation) =>
       }),
     {
       onSuccess: () => {
-        toast("Your reservation has been received!");
+        toast("Your reservation has been received!", {
+          style: {
+            backgroundColor: "#d1e7dd",
+            color: "#0f5132",
+            fontFamily: "'Martel', serif",
+            fontSize: "0.9rem"
+          }
+        });
       }
     }
   );

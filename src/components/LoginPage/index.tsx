@@ -1,6 +1,5 @@
 import { Formik, Form as FormikForm, Field } from "formik";
 import { Container, Row, Col, Form, Card, Button } from "react-bootstrap";
-import { ToastContainer } from "react-toastify";
 
 import { LoginDto } from "../../types";
 import { Page } from "../Page";
@@ -13,13 +12,6 @@ export const LoginPage = (): JSX.Element => {
   const { validationSchema, isSubmitting, handleSubmit } = useLoginPage();
   return (
     <Page pageTitle="Login">
-      <ToastContainer
-        toastStyle={{
-          fontFamily: "'Martel', serif",
-          fontSize: "0.9rem"
-        }}
-        hideProgressBar
-      />
       <div className="vh-100 d-flex align-items-center">
         <Container fluid>
           <Row className="mb-3">
