@@ -23,7 +23,11 @@ export const LoginPage = (): JSX.Element => {
       <div className="vh-100 d-flex align-items-center">
         <Container fluid>
           <Row className="mb-3">
-            <Col sm={{ offset: 4, span: 4 }} xs={12}>
+            <Col
+              xl={{ offset: 4, span: 4 }}
+              lg={{ offset: 3, span: 6 }}
+              md={12}
+            >
               <h3 className="handwritten display-5">Login</h3>
               <Card body>
                 <Formik<LoginDto>
