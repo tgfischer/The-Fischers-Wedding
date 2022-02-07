@@ -14,16 +14,13 @@ const loginRequest = async ({ email, password }: LoginDto) => {
   if (error) {
     throw { status: error.status, error: error.message };
   }
-}
+};
 
 const useLoginMutation = () =>
-  useMutation<void, ErrorResponse, LoginDto>(
-    loginRequest,
-    {
-      onSuccess: useCallback(() => router.push("/"), []),
-      onError: useCallback(({ error }) => void toast.error(error), [])
-    }
-  );
+  useMutation<void, ErrorResponse, LoginDto>(loginRequest, {
+    onSuccess: useCallback(() => router.push("/"), []),
+    onError: useCallback(({ error }) => void toast.error(error), [])
+  });
 
 export const validationSchema = yup
   .object()
