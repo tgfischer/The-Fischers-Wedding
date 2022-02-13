@@ -1,4 +1,4 @@
-import { UpdateReservationFormData } from "../../types";
+import { UpdateReservationBody } from "../../types";
 
 import { useUpdateReservationPage } from "./hooks";
 import { ManageReservation } from "./ManageReservation";
@@ -7,7 +7,7 @@ import { UpdateReservationPageProps } from "./types";
 export const UpdateReservationPage = (
   props: UpdateReservationPageProps
 ): JSX.Element => (
-  <ManageReservation<UpdateReservationFormData>
+  <ManageReservation<UpdateReservationBody>
     {...useUpdateReservationPage(props)}
   />
 );

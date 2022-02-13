@@ -1,9 +1,9 @@
 import { Table } from "react-bootstrap";
 
-import { SongRequestDto } from "../../types";
+import { SongDto } from "../../types";
 
 type SongsTableProps = {
-  songs: SongRequestDto[];
+  songs: SongDto[];
 };
 
 export const SongsTable = ({ songs }: SongsTableProps): JSX.Element => (
@@ -16,10 +16,10 @@ export const SongsTable = ({ songs }: SongsTableProps): JSX.Element => (
       </tr>
     </thead>
     <tbody>
-      {songs.map(({ song, requester }) => (
+      {songs.map(({ name, artist, requester }) => (
         <tr key={`${requester.firstName} ${requester.lastName}`}>
-          <td>{song.name}</td>
-          <td>{song.artist}</td>
+          <td>{name}</td>
+          <td>{artist}</td>
           <td>
             {requester.firstName} {requester.lastName}
           </td>

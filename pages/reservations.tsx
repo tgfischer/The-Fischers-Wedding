@@ -17,9 +17,28 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     return { redirect: { destination: "/", permanent: false } };
   }
 
-  const { data, error } = await serverSupabase
-    .from<ReservationDto>("reservations")
-    .select();
+  const { data, error } = await serverSupabase.from<ReservationDto>(
+    "reservations"
+  ).select(`
+      id,
+      address,
+      guests (
+        id,
+        firstName,
+        lastName,
+        songs (
+          id,
+          name,
+          artist
+        ),
+        meal,
+        status,
+        isVaccinated
+      ),
+      invitations,
+      createdAt,
+      updatedAt
+    `);
 
   return { props: { user, reservations: data ?? [], error } };
 };

@@ -2,9 +2,9 @@ import type { User } from "@supabase/supabase-js";
 import { AnyObjectSchema } from "yup";
 
 import {
-  AddReservationFormData,
-  ReservationDto,
-  UpdateReservationFormData
+  AddReservationBody,
+  UpdateReservationBody,
+  ReservationDto
 } from "../../types";
 
 export type UpdateReservationPageProps = {
@@ -21,5 +21,5 @@ export type ManageReservationProps<TData> = {
 };
 
 export type ManageReservationFormData =
-  | AddReservationFormData
-  | UpdateReservationFormData;
+  | AddReservationBody
+  | UpdateReservationBody;

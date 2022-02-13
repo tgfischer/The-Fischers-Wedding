@@ -2,49 +2,61 @@ export type InvitationDto = "ceremony" | "dinner" | "reception";
 
 export type Status = "pending" | "attending" | "not attending";
 
-export type MealDto = {
-  notes?: string;
-};
-
-export type SongDto = {
-  name: string;
-  artist: string;
-};
-
-export type ReservationDto = {
+export type ReservationData = {
   id: string;
   address?: string;
-  guests: GuestDto[];
   invitations: InvitationDto[];
   createdAt: Date | string;
   updatedAt: Date | string;
 };
 
-export type GuestDto = {
+export type GuestData = {
+  id: number;
   firstName: string;
   lastName: string;
   status: Status;
-  meal?: MealDto;
-  song?: SongDto;
-  isVaccinated?: boolean;
+  meal?: string;
+  isVaccinated: boolean;
+  reservationId: string;
 };
 
-export type SongRequestDto = {
-  song: SongDto;
-  requester: Pick<GuestDto, "firstName" | "lastName">;
-};
-
-export type MealRestrictionDto = {
-  restriction: Required<MealDto["notes"]>;
+export type SongData = {
+  id: number;
   name: string;
+  artist: string;
+  guestId: number;
 };
 
-export type AddReservationFormData = Required<
-  Pick<ReservationDto, "invitations" | "address" | "guests">
+export type ReservationDto = ReservationData & {
+  guests: GuestDto[];
+};
+
+export type GuestDto = Omit<GuestData, "reservationId"> & {
+  songs: SongDto[];
+};
+
+export type SongDto = Omit<SongData, "guestId"> & {
+  requester: Pick<GuestData, "firstName" | "lastName">;
+};
+
+export type MealRestrictionDto = Pick<
+  GuestData,
+  "id" | "firstName" | "lastName" | "meal"
 >;
-export type UpdateReservationFormData = Required<
-  Pick<ReservationDto, "id" | "invitations" | "address" | "guests">
->;
+
+export type AddReservationBody = Pick<
+  ReservationDto,
+  "address" | "invitations"
+> & {
+  guests: Pick<GuestDto, "firstName" | "lastName">[];
+};
+
+export type UpdateReservationBody = Pick<
+  ReservationDto,
+  "id" | "address" | "invitations"
+> & {
+  guests: Pick<GuestDto, "id" | "firstName" | "lastName">[];
+};
 
 export type EmptyResponse = Record<string, never>;
 

@@ -1,9 +1,8 @@
-import { sortBy } from "lodash/fp";
 import type { GetServerSideProps } from "next";
 
 import { SongsPage, SongsPageProps } from "../src/components/SongsPage";
 import { serverSupabase } from "../src/middleware";
-import { ReservationDto } from "../src/types";
+import type { SongDto } from "../src/types";
 
 const Songs = (props: SongsPageProps): JSX.Element => <SongsPage {...props} />;
 
@@ -13,23 +12,40 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     return { redirect: { destination: "/", permanent: false } };
   }
 
-  const { data, error } = await serverSupabase
-    .from<ReservationDto>("reservations")
-    .select();
-  const songs = data
-    ?.flatMap(({ guests }) =>
-      guests.map(({ song, firstName, lastName }) =>
-        song ? { song, requester: { firstName, lastName } } : undefined
+  const { data: songs, error } = await serverSupabase
+    .from<SongDto>("songs")
+    .select(
+      `
+      id,
+      name,
+      artist,
+      requester:guestId (
+        firstName,
+        lastName
       )
+    `
     )
-    .filter(
-      (request) => Boolean(request?.song.name) && Boolean(request?.song.artist)
-    );
+    .order("name");
+  if (error) {
+    console.error(error);
+  }
+
+  console.log(JSON.stringify(songs, null, 2));
+
+  // const songs = data
+  //   ?.flatMap(({ guests }) =>
+  //     guests.map(({ song, firstName, lastName }) =>
+  //       song ? { song, requester: { firstName, lastName } } : undefined
+  //     )
+  //   )
+  //   .filter(
+  //     (request) => Boolean(request?.song.name) && Boolean(request?.song.artist)
+  //   );
 
   return {
     props: {
       user,
-      songs: sortBy((request) => request?.song.name, songs),
+      songs,
       error
     }
   };

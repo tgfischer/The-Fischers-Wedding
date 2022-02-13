@@ -4,12 +4,12 @@ import { useMutation } from "react-query";
 import * as yup from "yup";
 
 import { authenticatedRequest } from "../../supabase";
-import { AddReservationFormData, UpdateReservationFormData } from "../../types";
+import { AddReservationBody, UpdateReservationBody } from "../../types";
 
 import { ManageReservationProps, UpdateReservationPageProps } from "./types";
 
 const useAddReservationMutation = () =>
-  useMutation<void, void, AddReservationFormData>(
+  useMutation<void, void, AddReservationBody>(
     async (reservation) =>
       await authenticatedRequest("/api/reservations", {
         method: "POST",
@@ -20,7 +20,7 @@ const useAddReservationMutation = () =>
     }
   );
 const useUpdateReservationMutation = () =>
-  useMutation<void, void, UpdateReservationFormData>(
+  useMutation<void, void, UpdateReservationBody>(
     async (reservation) =>
       await authenticatedRequest("/api/reservations", {
         method: "PUT",
@@ -59,7 +59,7 @@ const schema = yup
   .required();
 
 export const useAddReservationPage =
-  (): ManageReservationProps<AddReservationFormData> => {
+  (): ManageReservationProps<AddReservationBody> => {
     const { mutate: handleSubmit, isLoading: isSubmitting } =
       useAddReservationMutation();
 
@@ -70,7 +70,7 @@ export const useAddReservationPage =
       initialValues: {
         invitations: [],
         address: "",
-        guests: [{ firstName: "", lastName: "", status: "pending" }]
+        guests: [{ firstName: "", lastName: "" }]
       },
       pageTitle: "Add reservation"
     };
@@ -78,7 +78,7 @@ export const useAddReservationPage =
 
 export const useUpdateReservationPage = ({
   reservation
-}: UpdateReservationPageProps): ManageReservationProps<UpdateReservationFormData> => {
+}: UpdateReservationPageProps): ManageReservationProps<UpdateReservationBody> => {
   const { mutate: handleSubmit, isLoading: isSubmitting } =
     useUpdateReservationMutation();
 
@@ -89,7 +89,7 @@ export const useUpdateReservationPage = ({
     initialValues: {
       id: reservation.id,
       invitations: reservation.invitations,
-      address: reservation.address ?? "",
+      address: reservation.address,
       guests: reservation.guests
     },
     pageTitle: "Update reservation"

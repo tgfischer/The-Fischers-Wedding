@@ -1,13 +1,13 @@
 import { Container, Row, Col } from "react-bootstrap";
 
-import { SongRequestDto } from "../../types";
+import { SongDto } from "../../types";
 import { NavBar } from "../NavBar";
 import { Page } from "../Page";
 
 import { SongsTable } from "./SongsTable";
 
 export type SongsPageProps = {
-  songs: SongRequestDto[];
+  songs: SongDto[];
 };
 
 export const SongsPage = ({ songs }: SongsPageProps): JSX.Element => (
