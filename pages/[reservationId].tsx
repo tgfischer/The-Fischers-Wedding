@@ -19,7 +19,28 @@ export const getServerSideProps: GetServerSideProps<
 > = async (context) => {
   const { data, error } = await serverSupabase
     .from<ReservationDto>("reservations")
-    .select()
+    .select(
+      `
+      id,
+      address,
+      guests (
+        id,
+        firstName,
+        lastName,
+        songs (
+          id,
+          name,
+          artist
+        ),
+        meal,
+        status,
+        isVaccinated
+      ),
+      invitations,
+      createdAt,
+      updatedAt
+      `
+    )
     .eq("id", context.params?.reservationId)
     .limit(1);
 

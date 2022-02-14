@@ -30,18 +30,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     console.error(error);
   }
 
-  console.log(JSON.stringify(songs, null, 2));
-
-  // const songs = data
-  //   ?.flatMap(({ guests }) =>
-  //     guests.map(({ song, firstName, lastName }) =>
-  //       song ? { song, requester: { firstName, lastName } } : undefined
-  //     )
-  //   )
-  //   .filter(
-  //     (request) => Boolean(request?.song.name) && Boolean(request?.song.artist)
-  //   );
-
   return {
     props: {
       user,

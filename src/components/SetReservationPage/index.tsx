@@ -3,6 +3,7 @@ import { eq } from "lodash/fp";
 import { useCallback, useMemo, useRef } from "react";
 import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
 
+import { SetReservationBody } from "../../types";
 import { NavBar } from "../NavBar";
 import { Page } from "../Page";
 import { Section } from "../Section";
@@ -11,7 +12,7 @@ import { Accommodations } from "./Accommodations";
 import { useSetReservationPage } from "./hooks";
 import { Location } from "./Location";
 import { Masthead } from "./Masthead";
-import { SetReservationFormData, SetReservationPageProps } from "./types";
+import { SetReservationPageProps } from "./types";
 
 import "react-toastify/dist/ReactToastify.css";
 
@@ -53,7 +54,7 @@ export const SetReservationPage = (
                 Your reservation has been received. Thank you!
               </Alert>
             )}
-            <Formik<SetReservationFormData>
+            <Formik<SetReservationBody>
               initialValues={initialValues}
               onSubmit={handleSubmit}
               validationSchema={schema}
@@ -64,93 +65,102 @@ export const SetReservationPage = (
                     name="guests"
                     render={() => (
                       <>
-                        {values.guests.map(({ firstName, lastName }, i) => (
-                          <div key={i} className="my-3">
-                            <h4 key={i}>
-                              {firstName} {lastName}
-                            </h4>
-                            <Form.Group
-                              as={Row}
-                              className="mb-1"
-                              controlId={`guests.${i}.status`}
-                            >
-                              <Form.Label column sm={4}>
-                                Will you be attending our celebration?{" "}
-                                <span className="text-danger">*</span>
-                              </Form.Label>
-                              <Col sm={8}>
-                                <Field
-                                  as={Form.Select}
-                                  name={`guests.${i}.status`}
-                                >
-                                  <option value="pending" disabled>
-                                    Please select an option
-                                  </option>
-                                  <option value="attending">
-                                    Graciously accept
-                                  </option>
-                                  <option value="not attending">
-                                    Regretfully decline
-                                  </option>
-                                </Field>
-                              </Col>
-                            </Form.Group>
-                            {isAttendingDinner && (
-                              <>
-                                <Form.Group
-                                  as={Row}
-                                  className="mb-1"
-                                  controlId={`guests.${i}.meal.notes`}
-                                >
-                                  <Form.Label column sm={4}>
-                                    Do you have any food allergies or
-                                    restrictions?
-                                  </Form.Label>
-                                  <Col sm={8}>
-                                    <Form.Control
-                                      as={Field}
-                                      name={`guests.${i}.meal.notes`}
-                                    />
-                                  </Col>
-                                </Form.Group>
-                              </>
-                            )}
-                            <Form.Group
-                              as={Row}
-                              className="mb-1"
-                              controlId={`guests.${i}.song`}
-                            >
-                              <Form.Label column sm={4}>
-                                What song would get you on the dance floor?
-                              </Form.Label>
-                              <Col sm={8}>
-                                <Row className="g-1">
-                                  <Col sm={6}>
-                                    <Form.Control
-                                      as={Field}
-                                      name={`guests.${i}.song.name`}
-                                      placeholder="Please enter a song name"
-                                    />
-                                  </Col>
-                                  <Col sm={6}>
-                                    <Form.Control
-                                      as={Field}
-                                      name={`guests.${i}.song.artist`}
-                                      placeholder="Please enter the song's artist"
-                                    />
-                                  </Col>
-                                </Row>
-                              </Col>
-                            </Form.Group>
-                            <Form.Check
-                              as={Field}
-                              className="mt-3 mb-4"
-                              name={`guests.${i}.isVaccinated`}
-                              type="checkbox"
-                              label="I have been fully vaccinated against COVID-19 and will provide proof of vaccination before entering the Kincardine Pavilion."
-                            />
-                          </div>
-                        ))}
+                        {values.guests.map(
+                          ({ firstName, lastName, songs }, i) => (
+                            <div key={i} className="my-3">
+                              <h4 key={i}>
+                                {firstName} {lastName}
+                              </h4>
+                              <Form.Group
+                                as={Row}
+                                className="mb-1"
+                                controlId={`guests.${i}.status`}
+                              >
+                                <Form.Label column sm={4}>
+                                  Will you be attending our celebration?{" "}
+                                  <span className="text-danger">*</span>
+                                </Form.Label>
+                                <Col sm={8}>
+                                  <Field
+                                    as={Form.Select}
+                                    name={`guests.${i}.status`}
+                                  >
+                                    <option value="pending" disabled>
+                                      Please select an option
+                                    </option>
+                                    <option value="attending">
+                                      Graciously accept
+                                    </option>
+                                    <option value="not attending">
+                                      Regretfully decline
+                                    </option>
+                                  </Field>
+                                </Col>
+                              </Form.Group>
+                              {isAttendingDinner && (
+                                <>
+                                  <Form.Group
+                                    as={Row}
+                                    className="mb-1"
+                                    controlId={`guests.${i}.meal`}
+                                  >
+                                    <Form.Label column sm={4}>
+                                      Do you have any food allergies or
+                                      restrictions?
+                                    </Form.Label>
+                                    <Col sm={8}>
+                                      <Form.Control
+                                        as={Field}
+                                        name={`guests.${i}.meal`}
+                                      />
+                                    </Col>
+                                  </Form.Group>
+                                </>
+                              )}
+                              <Form.Group
+                                as={Row}
+                                className="mb-1"
+                                controlId={`guests.${i}.songs`}
+                              >
+                                <Form.Label column sm={4}>
+                                  What songs would get you on the dance floor?
+                                </Form.Label>
+                                <Col sm={8}>
+                                  <FieldArray
+                                    name={`guests.${i}.songs`}
+                                    render={() =>
+                                      songs.map((song, j) => (
+                                        <Row className="g-1">
+                                          <Col sm={6}>
+                                            <Form.Control
+                                              as={Field}
+                                              name={`guests.${i}.songs.${j}.name`}
+                                              placeholder="Please enter a song name"
+                                            />
+                                          </Col>
+                                          <Col sm={6}>
+                                            <Form.Control
+                                              as={Field}
+                                              name={`guests.${i}.songs.${j}.artist`}
+                                              placeholder="Please enter the song's artist"
+                                            />
+                                          </Col>
+                                        </Row>
+                                      ))
+                                    }
+                                  />
+                                </Col>
+                              </Form.Group>
+                              <Form.Check
+                                as={Field}
+                                className="mt-3 mb-4"
+                                name={`guests.${i}.isVaccinated`}
+                                type="checkbox"
+                                label="I have been fully vaccinated against COVID-19 and will provide proof of vaccination before entering the Kincardine Pavilion."
+                              />
+                            </div>
+                          )
+                        )}
                       </>
                     )}
                   />

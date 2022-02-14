@@ -10,7 +10,7 @@ import {
 } from "react-table";
 import * as yup from "yup";
 
-import type { ReservationDto, GuestDto, SongDto } from "../../types";
+import type { ReservationDto, GuestDto, SongDto, Status } from "../../types";
 
 import {
   EditReservationCell,
@@ -154,18 +154,18 @@ export const useGuestsTable = ({
         {
           accessor: "meal",
           Header: "Meal restrictions",
-          Cell: ({ value }: CellProps<GuestDto>) => value?.notes ?? ""
+          Cell: ({ value }: CellProps<GuestDto, string>) => value ?? ""
         },
         {
-          accessor: "song",
+          accessor: "songs",
           Header: "Song",
-          Cell: ({ value }: CellProps<SongDto>) =>
+          Cell: ({ value }: CellProps<GuestDto, SongDto>) =>
             value?.name ? `${value?.name} - ${value?.artist}` : ""
         },
         {
           accessor: "status",
           Header: "Status",
-          Cell: ({ value }: CellProps<GuestDto>) =>
+          Cell: ({ value }: CellProps<GuestDto, Status>) =>
             value ? startCase(value) : "Pending"
         }
       ],

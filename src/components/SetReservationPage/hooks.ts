@@ -1,13 +1,14 @@
 import { eq } from "lodash/fp";
+import { useCallback } from "react";
 import { useMutation } from "react-query";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 import type { AnyObjectSchema } from "yup";
 
 import { authenticatedRequest } from "../../supabase";
-import { ReservationDto } from "../../types";
+import { ReservationDto, SetReservationBody } from "../../types";
 
-import { SetReservationFormData, SetReservationPageProps } from "./types";
+import { SetReservationPageProps } from "./types";
 
 type UseSetReservationPageInstance<TData> = {
   schema: AnyObjectSchema;
@@ -20,7 +21,7 @@ type UseSetReservationPageInstance<TData> = {
 type UseSetReservationMutation = Pick<ReservationDto, "id">;
 
 const useSetReservationMutation = ({ id }: UseSetReservationMutation) =>
-  useMutation<void, void, SetReservationFormData>(
+  useMutation<void, void, SetReservationBody>(
     "setReservation",
     async (body) =>
       await authenticatedRequest(`/api/reservations/${id}`, {
@@ -28,7 +29,7 @@ const useSetReservationMutation = ({ id }: UseSetReservationMutation) =>
         body
       }),
     {
-      onSuccess: () => {
+      onSuccess: useCallback(() => {
         toast("Your reservation has been received!", {
           style: {
             backgroundColor: "#d1e7dd",
@@ -37,7 +38,8 @@ const useSetReservationMutation = ({ id }: UseSetReservationMutation) =>
             fontSize: "0.9rem"
           }
         });
-      }
+      }, []),
+      onError: useCallback(({ error }) => void toast.error(error), [])
     }
   );
 
@@ -56,24 +58,26 @@ const schema = yup
               .string()
               .oneOf(["attending", "not attending"])
               .required(),
-            meal: yup
-              .object()
-              .shape({ notes: yup.string().notRequired() })
-              .notRequired(),
-            song: yup
-              .object()
-              .shape({
-                name: yup.string().notRequired(),
-                artist: yup.string().when("name", {
-                  is: (name: string) => Boolean(name),
-                  then: yup.string().required(),
-                  otherwise: yup.string().notRequired()
-                })
-              })
-              .test(
-                "song",
-                ({ name, artist }) =>
-                  (Boolean(name) && Boolean(artist)) || (!name && !artist)
+            meal: yup.string().notRequired(),
+            songs: yup
+              .array()
+              .of(
+                yup
+                  .object()
+                  .shape({
+                    name: yup.string().notRequired(),
+                    artist: yup.string().when("name", {
+                      is: (name: string) => Boolean(name),
+                      then: yup.string().required(),
+                      otherwise: yup.string().notRequired()
+                    })
+                  })
+                  .test(
+                    "song",
+                    ({ name, artist }) =>
+                      (Boolean(name) && Boolean(artist)) || (!name && !artist)
+                  )
+                  .required()
               )
               .required(),
             isVaccinated: yup.boolean().when("status", {
@@ -90,7 +94,7 @@ const schema = yup
 
 export const useSetReservationPage = ({
   reservation
-}: SetReservationPageProps): UseSetReservationPageInstance<SetReservationFormData> => {
+}: SetReservationPageProps): UseSetReservationPageInstance<SetReservationBody> => {
   const {
     mutate: handleSubmit,
     isLoading: isSubmitting,
@@ -106,11 +110,15 @@ export const useSetReservationPage = ({
     handleSubmit,
     initialValues: {
       guests: reservation.guests.map((guest) => ({
+        id: guest.id,
         firstName: guest.firstName,
         lastName: guest.lastName,
         status: guest.status ?? "pending",
-        meal: guest.meal ?? { notes: "" },
-        song: guest.song ?? { name: "", artist: "" },
+        meal: guest.meal ?? "",
+        songs:
+          guest.songs.length === 0
+            ? [{ name: "", artist: "" }]
+            : guest.songs.map(({ name, artist }) => ({ name, artist })),
         isVaccinated: guest.isVaccinated ?? false
       }))
     }

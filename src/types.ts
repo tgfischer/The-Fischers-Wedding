@@ -58,6 +58,14 @@ export type UpdateReservationBody = Pick<
   guests: Pick<GuestDto, "id" | "firstName" | "lastName">[];
 };
 
+type SetReservationGuest = Omit<GuestData, "songs" | "reservationId"> & {
+  songs: Pick<SongData, "name" | "artist">[];
+};
+
+export type SetReservationBody = {
+  guests: SetReservationGuest[];
+};
+
 export type EmptyResponse = Record<string, never>;
 
 export type ErrorResponse = {

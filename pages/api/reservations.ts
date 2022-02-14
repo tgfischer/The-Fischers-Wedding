@@ -108,7 +108,7 @@ const updateReservationHandler: EndpointPipelineHandler<
       reservationId: updateReservationResult.data[0].id
     }));
 
-  console.info(
+  console.debug(
     `Inserting the following guests: ${JSON.stringify(guestsToInsert)}`
   );
 
@@ -155,7 +155,7 @@ const updateReservationHandler: EndpointPipelineHandler<
     .filter((guest) => !reservation.guests.some(({ id }) => id === guest.id))
     .map(({ id }) => id);
 
-  console.info(`Deleting the following guests: ${guestsToDelete}`);
+  console.debug(`Deleting the following guests: ${guestsToDelete}`);
 
   const deleteGuestsResult = await supabase
     .from<GuestDto>("guests")
