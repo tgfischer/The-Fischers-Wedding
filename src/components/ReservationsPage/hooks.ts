@@ -159,8 +159,8 @@ export const useGuestsTable = ({
         {
           accessor: "songs",
           Header: "Song",
-          Cell: ({ value }: CellProps<GuestDto, SongDto>) =>
-            value?.name ? `${value?.name} - ${value?.artist}` : ""
+          Cell: ({ value }: CellProps<GuestDto, SongDto[]>) =>
+            value?.[0].name ? `${value?.[0].name} - ${value?.[0].artist}` : ""
         },
         {
           accessor: "status",
