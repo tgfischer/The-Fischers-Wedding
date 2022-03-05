@@ -50,27 +50,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fontsource/great-vibes@npm:^4.5.2":
-  version: 4.5.2
-  resolution: "@fontsource/great-vibes@npm:4.5.2"
-  checksum: 57b7bbd1d52b82fc089e6216b291edfb5f305b6682c785c7504c52a3cfc6080073c318bff29f864417665ac49b979c4e3342e05f054b528e38871b990eb9be1e
-  languageName: node
-  linkType: hard
-
-"@fontsource/martel@npm:^4.5.1":
-  version: 4.5.1
-  resolution: "@fontsource/martel@npm:4.5.1"
-  checksum: d7231e0feacd769978f6823cd4ecabb6619fb831fffda8d94584fd1981e7fad48d028eccccd7f7189154174810c11d8b61b52cccb2e86ebd01d5c27ab62b89b5
-  languageName: node
-  linkType: hard
-
-"@fontsource/open-sans@npm:^4.5.4":
-  version: 4.5.4
-  resolution: "@fontsource/open-sans@npm:4.5.4"
-  checksum: d6c53a06e994484742635175900dc6c4ffaf8c424cac2f5368e1aa085a9a8ada3a4a53017c43dbba8e14de0b96398ff412500d67011584bd40d04c838d34fb26
-  languageName: node
-  linkType: hard
-
 "@fortawesome/fontawesome-common-types@npm:^0.2.36":
   version: 0.2.36
   resolution: "@fortawesome/fontawesome-common-types@npm:0.2.36"
@@ -3985,9 +3964,6 @@ resolve@^2.0.0-next.3:
   version: 0.0.0-use.local
   resolution: "the-fischers-wedding@workspace:."
   dependencies:
-    "@fontsource/great-vibes": ^4.5.2
-    "@fontsource/martel": ^4.5.1
-    "@fontsource/open-sans": ^4.5.4
     "@fortawesome/fontawesome-svg-core": ^1.2.36
     "@fortawesome/free-solid-svg-icons": ^5.15.4
     "@fortawesome/react-fontawesome": ^0.1.17
