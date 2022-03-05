@@ -159,8 +159,10 @@ export const useGuestsTable = ({
         {
           accessor: "songs",
           Header: "Song",
-          Cell: ({ value }: CellProps<GuestDto, SongDto[]>) =>
-            value?.[0].name ? `${value?.[0].name} - ${value?.[0].artist}` : ""
+          Cell: ({ value }: CellProps<GuestDto, SongDto[]>) => {
+            const song = value?.[0];
+            return song ? `${song.name} - ${song.artist}` : "";
+          }
         },
         {
           accessor: "status",
