@@ -18,7 +18,7 @@ const setReservationHandler: EndpointPipelineHandler<EmptyResponse> = async ({
     const updateGuestResult = await supabase
       .from<GuestData>("guests")
       .update({
-        meal: guest.meal,
+        meal: guest.meal?.trim(),
         status: guest.status,
         isVaccinated: guest.isVaccinated
       })
@@ -46,11 +46,13 @@ const setReservationHandler: EndpointPipelineHandler<EmptyResponse> = async ({
     }
 
     const insertSongsResult = await supabase.from("songs").insert(
-      guest.songs.map(({ name, artist }) => ({
-        name,
-        artist,
-        guestId: guest.id
-      }))
+      guest.songs
+        .filter(({ name }) => name?.trim())
+        .map(({ name, artist }) => ({
+          name: name.trim(),
+          artist: artist.trim(),
+          guestId: guest.id
+        }))
     );
 
     if (insertSongsResult.error) {
