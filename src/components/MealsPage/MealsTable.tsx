@@ -15,14 +15,22 @@ export const MealsTable = ({ meals }: MealsTableProps): JSX.Element => (
       </tr>
     </thead>
     <tbody>
-      {meals.map(({ id, firstName, lastName, meal }) => (
-        <tr key={id}>
-          <td>
-            {firstName} {lastName}
+      {meals.length === 0 ? (
+        <tr>
+          <td colSpan={2} className="text-center">
+            There are no meal restrictions yet
           </td>
-          <td>{meal}</td>
         </tr>
-      ))}
+      ) : (
+        meals.map(({ id, firstName, lastName, meal }) => (
+          <tr key={id}>
+            <td>
+              {firstName} {lastName}
+            </td>
+            <td>{meal}</td>
+          </tr>
+        ))
+      )}
     </tbody>
   </Table>
 );

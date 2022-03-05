@@ -6,7 +6,7 @@ import { ErrorResponse } from "../types";
 
 type CallbackParams<TResponseData, TError = unknown> = {
   req: NextApiRequest;
-  res: NextApiResponse<TResponseData | TError>;
+  res: NextApiResponse<TResponseData | TError | Buffer>;
   supabase: SupabaseClient;
 };
 
@@ -35,7 +35,7 @@ export const apiPipeline =
   (endpoints: EndpointPipeline) =>
   async <TResponseData>(
     req: NextApiRequest,
-    res: NextApiResponse<TResponseData | ErrorResponse>
+    res: NextApiResponse<TResponseData | ErrorResponse | Buffer>
   ): Promise<void> => {
     const method = req.method ?? "";
     const pipeline = endpoints[

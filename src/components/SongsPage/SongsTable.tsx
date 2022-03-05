@@ -16,15 +16,23 @@ export const SongsTable = ({ songs }: SongsTableProps): JSX.Element => (
       </tr>
     </thead>
     <tbody>
-      {songs.map(({ name, artist, requester }) => (
-        <tr key={`${requester.firstName} ${requester.lastName}`}>
-          <td>{name}</td>
-          <td>{artist}</td>
-          <td>
-            {requester.firstName} {requester.lastName}
+      {songs.length === 0 ? (
+        <tr>
+          <td colSpan={3} className="text-center">
+            There are no song requests yet
           </td>
         </tr>
-      ))}
+      ) : (
+        songs.map(({ name, artist, requester }) => (
+          <tr key={`${requester.firstName} ${requester.lastName}`}>
+            <td>{name}</td>
+            <td>{artist}</td>
+            <td>
+              {requester.firstName} {requester.lastName}
+            </td>
+          </tr>
+        ))
+      )}
     </tbody>
   </Table>
 );

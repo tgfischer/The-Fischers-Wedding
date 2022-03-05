@@ -1,4 +1,4 @@
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
 
 import { SongDto } from "../../types";
 import { NavBar } from "../NavBar";
@@ -16,7 +16,17 @@ export const SongsPage = ({ songs }: SongsPageProps): JSX.Element => (
     <Container>
       <Row>
         <Col sm={12}>
-          <h3 className="handwritten display-5">Song Requests</h3>
+          <div className="d-flex align-items-center justify-content-between">
+            <h3 className="handwritten display-5">Song Requests</h3>
+            <Button
+              as="a"
+              href="/api/songs"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Download CSV
+            </Button>
+          </div>
           <SongsTable songs={songs} />
         </Col>
       </Row>

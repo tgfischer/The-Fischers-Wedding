@@ -17,6 +17,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     .select()
     .not("meal", "is", null)
     .neq("meal", "")
+    .neq("meal", "No")
+    .neq("meal", "no")
     .order("firstName");
 
   const meals: MealRestrictionDto[] =

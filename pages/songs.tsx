@@ -25,6 +25,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       )
     `
     )
+    .neq("name", "")
     .order("name");
   if (error) {
     console.error(error);
