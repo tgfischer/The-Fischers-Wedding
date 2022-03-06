@@ -12,9 +12,8 @@ import { Accommodations } from "./Accommodations";
 import { useSetReservationPage } from "./hooks";
 import { Location } from "./Location";
 import { Masthead } from "./Masthead";
+import { Registry } from "./Registry";
 import { SetReservationPageProps } from "./types";
-
-import "react-toastify/dist/ReactToastify.css";
 
 export const SetReservationPage = (
   props: SetReservationPageProps
@@ -192,6 +191,7 @@ export const SetReservationPage = (
         </Row>
         <Location invitations={props.reservation.invitations} />
         <Accommodations />
+        <Registry />
       </Container>
     </Page>
   );

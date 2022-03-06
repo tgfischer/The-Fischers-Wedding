@@ -7,6 +7,7 @@ import { AuthRouter } from "../src/components/AuthRouter";
 import { supabase } from "../src/supabase";
 
 import "../src/styles/app.scss";
+import "react-toastify/dist/ReactToastify.css";
 
 const client = new QueryClient();
 

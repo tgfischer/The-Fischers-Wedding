@@ -73,7 +73,7 @@ export const Accommodations = (): JSX.Element => {
         </Row>
         <Row>
           <Col md>
-            <Table bordered responsive>
+            <Table className="border" responsive>
               <thead>
                 <tr>
                   <th>Hotel Name</th>

@@ -6,8 +6,6 @@ import { Page } from "../Page";
 
 import { useLoginPage } from "./hooks";
 
-import "react-toastify/dist/ReactToastify.css";
-
 export const LoginPage = (): JSX.Element => {
   const { validationSchema, isSubmitting, handleSubmit } = useLoginPage();
   return (
