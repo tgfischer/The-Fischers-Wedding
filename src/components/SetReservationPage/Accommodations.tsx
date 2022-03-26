@@ -54,14 +54,11 @@ export const Accommodations = (): JSX.Element => {
               <Section.Header>Group Rate</Section.Header>
               <p>
                 We have a block of rooms available at the{" "}
-                <strong>TownePlace Suites ($199 + tax per night)</strong> and
-                the{" "}
-                <strong>
-                  Holiday Inn Express & Suites ($152.99 + tax per night).
-                </strong>{" "}
-                This block of rooms will be held until July 8th, 2022.
-                Availability is limited, so we would suggest booking early if
-                you require accommodations.
+                <strong>TownePlace Suites </strong> and the{" "}
+                <strong>Holiday Inn Express & Suites.</strong> This block of
+                rooms will be held until July 8th, 2022. Availability is
+                limited, so we would suggest booking early if you require
+                accommodations.
               </p>
               <p className="m-0">
                 The <strong>Inn at the Harbour</strong> is walking distance to

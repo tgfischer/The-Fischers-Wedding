@@ -47,7 +47,7 @@ export const SetReservationPage = (
       <Container ref={scrollRef} className="py-5">
         <Row>
           <Col md>
-            <h2 className="handwritten display-5">R.S.V.P.</h2>
+            <h2 className="handwritten display-5">RSVP</h2>
             {isAlertVisible && (
               <Alert variant="success">
                 Your reservation has been received. Thank you!

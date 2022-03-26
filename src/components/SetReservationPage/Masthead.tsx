@@ -11,7 +11,7 @@ type MastheadProps = {
 const CeremonyDinnerReceptionInvitation = () => (
   <>
     <p className="text-uppercase lead mb-5">{"4:30 in the afternoon"}</p>
-    <h3 className="handwritten display-6 mb-1">Kincardine Rock Garden</h3>
+    <h3 className="handwritten display-6 mb-1">Kincardine Rock Gardens</h3>
     <p className="text-uppercase lead m-0">
       155 Durham Street, Kincardine Ontario, N2Z 1A4
     </p>

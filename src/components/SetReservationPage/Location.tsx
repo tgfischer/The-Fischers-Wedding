@@ -26,6 +26,7 @@ export const Location = ({ invitations }: LocationProps): JSX.Element => {
             <Table className="border" responsive>
               <thead>
                 <tr>
+                  <th>Event</th>
                   <th>Location</th>
                   <th>Address</th>
                 </tr>
@@ -33,11 +34,13 @@ export const Location = ({ invitations }: LocationProps): JSX.Element => {
               <tbody>
                 {isAttendingCeremony && (
                   <tr>
+                    <td>Ceremony</td>
                     <td>Kincardine Rock Garden</td>
                     <td>155 Durham Street, Kincardine Ontario, N2Z 1A4</td>
                   </tr>
                 )}
                 <tr>
+                  <td>Reception</td>
                   <td>Kincardine Pavilion</td>
                   <td>156 Durham Street, Kincardine Ontario, N2Z 1A4</td>
                 </tr>
