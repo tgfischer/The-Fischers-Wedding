@@ -9,6 +9,7 @@ import { Page } from "../Page";
 import { Section } from "../Section";
 
 import { Accommodations } from "./Accommodations";
+import { Footer } from "./Footer";
 import { useSetReservationPage } from "./hooks";
 import { Location } from "./Location";
 import { Masthead } from "./Masthead";
@@ -192,6 +193,7 @@ export const SetReservationPage = (
         <Location invitations={props.reservation.invitations} />
         <Accommodations />
         <Registry />
+        <Footer />
       </Container>
     </Page>
   );
