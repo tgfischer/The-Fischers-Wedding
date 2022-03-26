@@ -35,7 +35,7 @@ export const Location = ({ invitations }: LocationProps): JSX.Element => {
                 {isAttendingCeremony && (
                   <tr>
                     <td>Ceremony</td>
-                    <td>Kincardine Rock Garden</td>
+                    <td>Kincardine Rock Gardens</td>
                     <td>155 Durham Street, Kincardine Ontario, N2Z 1A4</td>
                   </tr>
                 )}

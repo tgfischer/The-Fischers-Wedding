@@ -11,6 +11,7 @@ const setReservationHandler: EndpointPipelineHandler<EmptyResponse> = async ({
   supabase
 }) => {
   const { guests }: SetReservationBody = req.body;
+  const reservationId = req.query.reservationId as string;
 
   for (const guest of guests) {
     console.debug(`Setting reservation for ${JSON.stringify(guest)}`);
@@ -22,7 +23,8 @@ const setReservationHandler: EndpointPipelineHandler<EmptyResponse> = async ({
         status: guest.status,
         isVaccinated: guest.isVaccinated
       })
-      .eq("id", guest.id);
+      .eq("id", guest.id)
+      .eq("reservationId", reservationId);
 
     if (updateGuestResult.error) {
       console.error(updateGuestResult.error);
