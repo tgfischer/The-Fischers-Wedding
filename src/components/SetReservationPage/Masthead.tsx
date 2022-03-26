@@ -10,7 +10,7 @@ type MastheadProps = {
 
 const CeremonyDinnerReceptionInvitation = () => (
   <>
-    <p className="text-uppercase lead mb-5">{"4:30 in the afternoon"}</p>
+    <p className="text-uppercase lead mb-4">{"4:30 in the afternoon"}</p>
     <h3 className="handwritten display-6 mb-1">Kincardine Rock Gardens</h3>
     <p className="text-uppercase lead m-0">
       155 Durham Street, Kincardine Ontario, N2Z 1A4
@@ -21,7 +21,7 @@ const CeremonyDinnerReceptionInvitation = () => (
 
 const ReceptionInvitation = () => (
   <>
-    <p className="text-uppercase lead mb-5">{"9 o'clock in the evening"}</p>
+    <p className="text-uppercase lead mb-4">{"9 o'clock in the evening"}</p>
     <h3 className="handwritten display-6 mb-1">Kincardine Pavilion</h3>
     <p className="text-uppercase lead m-0">
       156 Durham Street, Kincardine Ontario, N2Z 1A4
@@ -66,12 +66,12 @@ export const Masthead = ({
             <p className="text-uppercase lead my-0">
               Invite you to their wedding celebration
             </p>
-            <h3 className="handwritten mt-5 mb-1 display-6">
+            <h3 className="handwritten mt-3 mb-0 display-6">
               Saturday, September 10th, 2022
             </h3>
             <Invitation />
             <Button
-              className="my-4"
+              className="my-3"
               onClick={onClickSetReservation}
               variant="outline-light"
               size="lg"
