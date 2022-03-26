@@ -17,7 +17,7 @@ export const Page = ({
     </Head>
     <ToastContainer
       toastStyle={{
-        fontFamily: "'Martel', serif",
+        fontFamily: "'Source Serif Pro', serif",
         fontSize: "0.9rem"
       }}
       hideProgressBar

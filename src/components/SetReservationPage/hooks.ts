@@ -34,7 +34,7 @@ const useSetReservationMutation = ({ id }: UseSetReservationMutation) =>
           style: {
             backgroundColor: "#d1e7dd",
             color: "#0f5132",
-            fontFamily: "'Martel', serif",
+            fontFamily: "'Source Serif Pro', serif",
             fontSize: "0.9rem"
           }
         });
