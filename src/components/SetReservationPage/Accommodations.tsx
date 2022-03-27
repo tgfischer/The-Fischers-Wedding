@@ -15,7 +15,8 @@ const accommodations = [
     name: "TownePlace Suites by Marriott",
     address: "19 Millennium Wy, Kincardine, ON N2Z 0B5",
     phoneNumber: "(519) 395-2665",
-    website: "https://towneplacesuites.marriott.com/",
+    website:
+      "https://www.marriott.com/hotels/travel/ykdts-towneplace-suites-kincardine/",
     coordinates: { lat: 44.16894, long: -81.6138 }
   },
   {

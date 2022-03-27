@@ -3,8 +3,6 @@
 -- and may require manual changes to the script to ensure changes are applied in the correct order.
 -- Please report an issue for any failure with the reproduction steps.
 
--- ALTER TABLE IF EXISTS public.reservations DROP COLUMN IF EXISTS guests;
-
 ALTER TABLE public.guests
     ALTER COLUMN "isVaccinated" TYPE boolean;
 ALTER TABLE IF EXISTS public.guests
