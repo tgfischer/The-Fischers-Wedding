@@ -20,8 +20,7 @@ const setReservationHandler: EndpointPipelineHandler<EmptyResponse> = async ({
       .from<GuestData>("guests")
       .update({
         meal: guest.meal?.trim(),
-        status: guest.status,
-        isVaccinated: guest.isVaccinated
+        status: guest.status
       })
       .eq("id", guest.id)
       .eq("reservationId", reservationId);

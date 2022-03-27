@@ -38,8 +38,7 @@ export const getServerSideProps: GetServerSideProps<
           artist
         ),
         meal,
-        status,
-        isVaccinated
+        status
       ),
       invitations,
       createdAt,

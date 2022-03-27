@@ -32,8 +32,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
           artist
         ),
         meal,
-        status,
-        isVaccinated
+        status
       ),
       invitations,
       createdAt,

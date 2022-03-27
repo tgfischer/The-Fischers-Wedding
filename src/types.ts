@@ -16,7 +16,6 @@ export type GuestData = {
   lastName: string;
   status: Status;
   meal?: string;
-  isVaccinated: boolean;
   reservationId: string;
 };
 

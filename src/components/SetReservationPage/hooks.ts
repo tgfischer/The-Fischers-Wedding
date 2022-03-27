@@ -1,4 +1,3 @@
-import { eq } from "lodash/fp";
 import { useCallback } from "react";
 import { useMutation } from "react-query";
 import { toast } from "react-toastify";
@@ -79,12 +78,7 @@ const schema = yup
                   )
                   .required()
               )
-              .required(),
-            isVaccinated: yup.boolean().when("status", {
-              is: eq("attending"),
-              then: yup.boolean().isTrue().required(),
-              otherwise: yup.boolean().notRequired()
-            })
+              .required()
           })
           .required()
       )
@@ -118,8 +112,7 @@ export const useSetReservationPage = ({
         songs:
           guest.songs.length === 0
             ? [{ name: "", artist: "" }]
-            : guest.songs.map(({ name, artist }) => ({ name, artist })),
-        isVaccinated: guest.isVaccinated ?? false
+            : guest.songs.map(({ name, artist }) => ({ name, artist }))
       }))
     }
   };

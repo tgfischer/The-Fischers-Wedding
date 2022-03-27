@@ -6,7 +6,6 @@ import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
 import { SetReservationBody } from "../../types";
 import { NavBar } from "../NavBar";
 import { Page } from "../Page";
-import { Section } from "../Section";
 
 import { Accommodations } from "./Accommodations";
 import { Footer } from "./Footer";
@@ -151,32 +150,12 @@ export const SetReservationPage = (
                                   />
                                 </Col>
                               </Form.Group>
-                              <Form.Check
-                                as={Field}
-                                className="mt-3 mb-4"
-                                name={`guests.${i}.isVaccinated`}
-                                type="checkbox"
-                                label="I have been fully vaccinated against COVID-19 and will provide proof of vaccination before entering the Kincardine Pavilion."
-                              />
                             </div>
                           )
                         )}
                       </>
                     )}
                   />
-                  <Section>
-                    <Section.Header>Proof of Vaccination</Section.Header>
-                    As required by the Province of Ontario, the Municipality of
-                    Kincardine requires that{" "}
-                    <strong>
-                      anyone entering the Kincardine Pavilion must provide proof
-                      of vaccination.
-                    </strong>{" "}
-                    To comply with this mandate, we ask guests to please provide
-                    their proof of vaccination receipt along with their photo ID
-                    when arriving to the Kincardine Pavilion.
-                  </Section>
-
                   <div className="d-flex justify-content-end">
                     <Button
                       type="submit"

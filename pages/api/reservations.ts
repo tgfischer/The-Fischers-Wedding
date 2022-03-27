@@ -193,8 +193,7 @@ const getReservationsHandler: EndpointPipelineHandler<
             artist
           ),
           meal,
-          status,
-          isVaccinated
+          status
         ),
         invitations,
         createdAt,
