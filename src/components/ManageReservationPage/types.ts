@@ -1,4 +1,5 @@
 import type { User } from "@supabase/supabase-js";
+import React from "react";
 import { AnyObjectSchema } from "yup";
 
 import {
@@ -18,6 +19,7 @@ export type ManageReservationProps<TData> = {
   handleSubmit: (reservation: TData) => void;
   initialValues: TData;
   pageTitle: string;
+  actions?: React.ReactNode;
 };
 
 export type ManageReservationFormData =

@@ -11,7 +11,8 @@ export const ManageReservation = <TData extends ManageReservationFormData>({
   isSubmitting,
   schema,
   initialValues,
-  pageTitle
+  pageTitle,
+  actions
 }: ManageReservationProps<TData>): JSX.Element => (
   <Page pageTitle={pageTitle}>
     <NavBar className="mb-3" />
@@ -119,6 +120,7 @@ export const ManageReservation = <TData extends ManageReservationFormData>({
                       ))}
                       <div className="d-flex justify-content-between">
                         <Button
+                          className="me-3 mb-3"
                           onClick={() =>
                             guestsFieldArray.push({
                               firstName: "",
@@ -128,12 +130,18 @@ export const ManageReservation = <TData extends ManageReservationFormData>({
                         >
                           Add a guest
                         </Button>
-                        <Button
-                          type="submit"
-                          disabled={isSubmitting || !schema.isValidSync(values)}
-                        >
-                          {pageTitle}
-                        </Button>
+                        <div>
+                          {actions}
+                          <Button
+                            type="submit"
+                            className="mb-3"
+                            disabled={
+                              isSubmitting || !schema.isValidSync(values)
+                            }
+                          >
+                            {pageTitle}
+                          </Button>
+                        </div>
                       </div>
                     </>
                   )}

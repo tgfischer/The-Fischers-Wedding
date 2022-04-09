@@ -1,4 +1,8 @@
-import { EndpointPipelineHandler, apiPipeline } from "../../../src/middleware";
+import {
+  EndpointPipelineHandler,
+  apiPipeline,
+  authenticate
+} from "../../../src/middleware";
 import {
   EmptyResponse,
   GuestData,
@@ -69,8 +73,33 @@ const setReservationHandler: EndpointPipelineHandler<EmptyResponse> = async ({
   return { status: 200 };
 };
 
+const deleteReservationHandler: EndpointPipelineHandler<
+  EmptyResponse
+> = async ({ req, res, supabase }) => {
+  const reservationId = req.query.reservationId as string;
+
+  console.debug(`Deleting reservation ${reservationId}`);
+
+  const deleteResult = await supabase
+    .from("reservations")
+    .delete()
+    .eq("id", reservationId);
+
+  if (deleteResult.error) {
+    console.error(deleteResult.error);
+    return {
+      status: deleteResult.status,
+      error: `${deleteResult.error.message} (${deleteResult.error.hint})`
+    };
+  }
+
+  res.status(200).json({});
+  return { status: 200 };
+};
+
 const handler = apiPipeline({
-  PUT: [setReservationHandler]
+  PUT: [setReservationHandler],
+  DELETE: [authenticate, deleteReservationHandler]
 });
 
 export default handler;

@@ -50,6 +50,10 @@ export type AddReservationBody = Pick<
   guests: Pick<GuestDto, "firstName" | "lastName">[];
 };
 
+export type DeleteReservationMutationOptions = {
+  reservationId: string;
+};
+
 export type UpdateReservationBody = Pick<
   ReservationDto,
   "id" | "address" | "invitations"

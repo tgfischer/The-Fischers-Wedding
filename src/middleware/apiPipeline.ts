@@ -11,7 +11,7 @@ type CallbackParams<TResponseData, TError = unknown> = {
 };
 
 export type SuccessResult = {
-  status: 200;
+  status: number;
   error?: never;
 };
 

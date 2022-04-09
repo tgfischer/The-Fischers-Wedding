@@ -23,8 +23,8 @@ export const ReservationsPage = ({
         <Row>
           <Col sm={12}>
             <div className="mb-2 d-flex justify-content-between align-items-center">
+              <div className="handwritten display-5 me-3">Reservations</div>
               <div className="d-flex flex-row align-items-center">
-                <div className="handwritten display-5 me-3">Reservations</div>
                 <Link href="/reservations/add" passHref>
                   <Button variant="primary">Add a reservation</Button>
                 </Link>

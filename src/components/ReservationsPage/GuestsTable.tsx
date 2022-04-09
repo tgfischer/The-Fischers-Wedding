@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import { Table } from "react-bootstrap";
 
 import { GuestDto } from "../../types";
@@ -28,19 +27,16 @@ export const GuestsTable = (props: GuestsTableProps): JSX.Element => {
         {rows.map((row) => {
           prepareRow(row);
           return (
-            // eslint-disable-next-line react/jsx-key
-            <Fragment {...row.getRowProps()}>
-              <tr>
-                {row.cells.map((cell) => {
-                  return (
-                    // eslint-disable-next-line react/jsx-key
-                    <td {...cell.getCellProps({ className: "border-0" })}>
-                      {cell.render("Cell")}
-                    </td>
-                  );
-                })}
-              </tr>
-            </Fragment>
+            <tr {...row.getRowProps()}>
+              {row.cells.map((cell) => {
+                return (
+                  // eslint-disable-next-line react/jsx-key
+                  <td {...cell.getCellProps({ className: "border-0" })}>
+                    {cell.render("Cell")}
+                  </td>
+                );
+              })}
+            </tr>
           );
         })}
       </tbody>

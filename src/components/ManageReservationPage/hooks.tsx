@@ -1,10 +1,15 @@
 import router from "next/router";
 import { useCallback } from "react";
+import { Button } from "react-bootstrap";
 import { useMutation } from "react-query";
 import * as yup from "yup";
 
 import { authenticatedRequest } from "../../supabase";
-import { AddReservationBody, UpdateReservationBody } from "../../types";
+import {
+  AddReservationBody,
+  DeleteReservationMutationOptions,
+  UpdateReservationBody
+} from "../../types";
 
 import { ManageReservationProps, UpdateReservationPageProps } from "./types";
 
@@ -15,10 +20,20 @@ const useAddReservationMutation = () =>
         method: "POST",
         body: reservation
       }),
-    {
-      onSuccess: useCallback(() => router.push("/reservations"), [])
-    }
+    { onSuccess: useCallback(() => router.push("/reservations"), []) }
   );
+
+const useDeleteReservationMutation = ({
+  reservationId
+}: DeleteReservationMutationOptions) =>
+  useMutation(
+    async () =>
+      await authenticatedRequest(`/api/reservations/${reservationId}`, {
+        method: "DELETE"
+      }),
+    { onSuccess: useCallback(() => router.replace("/reservations"), []) }
+  );
+
 const useUpdateReservationMutation = () =>
   useMutation<void, void, UpdateReservationBody>(
     async (reservation) =>
@@ -26,9 +41,7 @@ const useUpdateReservationMutation = () =>
         method: "PUT",
         body: reservation
       }),
-    {
-      onSuccess: useCallback(() => router.push("/reservations"), [])
-    }
+    { onSuccess: useCallback(() => router.push("/reservations"), []) }
   );
 
 const schema = yup
@@ -82,6 +95,9 @@ export const useUpdateReservationPage = ({
   const { mutate: handleSubmit, isLoading: isSubmitting } =
     useUpdateReservationMutation();
 
+  const { mutate: handleDelete, isLoading: isDeleting } =
+    useDeleteReservationMutation({ reservationId: reservation.id });
+
   return {
     handleSubmit,
     isSubmitting,
@@ -92,6 +108,15 @@ export const useUpdateReservationPage = ({
       address: reservation.address,
       guests: reservation.guests
     },
-    pageTitle: "Update reservation"
+    pageTitle: "Update reservation",
+    actions: (
+      <Button
+        className="me-3 mb-3"
+        onClick={() => handleDelete()}
+        disabled={isDeleting}
+      >
+        Delete reservation
+      </Button>
+    )
   };
 };

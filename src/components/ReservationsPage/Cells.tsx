@@ -2,8 +2,7 @@ import {
   faCaretRight,
   faCaretDown,
   faEdit,
-  faExternalLinkAlt,
-  faTrashAlt
+  faExternalLinkAlt
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
@@ -48,10 +47,4 @@ export const SetReservationLinkCell = ({
       <FontAwesomeIcon icon={faExternalLinkAlt} />
     </Button>
   </Link>
-);
-
-export const RemoveReservationCell = (): JSX.Element => (
-  <Button variant="basic" className="p-0">
-    <FontAwesomeIcon icon={faTrashAlt} />
-  </Button>
 );
