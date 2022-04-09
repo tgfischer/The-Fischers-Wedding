@@ -25,6 +25,15 @@ export const ReservationsPage = ({
             <div className="mb-2 d-flex justify-content-between align-items-center">
               <div className="handwritten display-5 me-3">Reservations</div>
               <div className="d-flex flex-row align-items-center">
+                <Button
+                  as="a"
+                  className="me-3"
+                  href="/api/reservations/export"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Download CSV
+                </Button>
                 <Link href="/reservations/add" passHref>
                   <Button variant="primary">Add a reservation</Button>
                 </Link>

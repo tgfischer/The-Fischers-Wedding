@@ -5,8 +5,8 @@ import {
   apiPipeline,
   authenticate,
   serverSupabase
-} from "../../src/middleware";
-import type { EmptyResponse, SongDto } from "../../src/types";
+} from "../../../src/middleware";
+import type { EmptyResponse, SongDto } from "../../../src/types";
 
 const exportSongsHandler: EndpointPipelineHandler<EmptyResponse> = async ({
   res

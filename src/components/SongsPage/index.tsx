@@ -20,7 +20,7 @@ export const SongsPage = ({ songs }: SongsPageProps): JSX.Element => (
             <h3 className="handwritten display-5">Song Requests</h3>
             <Button
               as="a"
-              href="/api/songs"
+              href="/api/songs/export"
               target="_blank"
               rel="noopener noreferrer"
             >
