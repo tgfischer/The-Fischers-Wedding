@@ -1,3 +1,4 @@
+import { eq } from "lodash/fp";
 import { useCallback } from "react";
 import { useMutation } from "react-query";
 import { toast } from "react-toastify";
@@ -57,7 +58,12 @@ const schema = yup
               .string()
               .oneOf(["attending", "not attending"])
               .required(),
-            meal: yup.string().notRequired(),
+            meal: yup.string().when("hasMealRestriction", {
+              is: eq("yes"),
+              then: yup.string().min(1).required(),
+              otherwise: yup.string().notRequired()
+            }),
+            hasMealRestriction: yup.string().oneOf(["yes", "no"]).required(),
             songs: yup
               .array()
               .of(
@@ -93,9 +99,7 @@ export const useSetReservationPage = ({
     mutate: handleSubmit,
     isLoading: isSubmitting,
     isSuccess
-  } = useSetReservationMutation({
-    id: reservation.id
-  });
+  } = useSetReservationMutation({ id: reservation.id });
 
   return {
     schema,
@@ -109,6 +113,7 @@ export const useSetReservationPage = ({
         lastName: guest.lastName,
         status: guest.status ?? "pending",
         meal: guest.meal ?? "",
+        hasMealRestriction: guest.meal ? "yes" : "no",
         songs:
           guest.songs.length === 0
             ? [{ name: "", artist: "" }]

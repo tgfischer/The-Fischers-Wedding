@@ -1,6 +1,7 @@
+import clsx from "clsx";
 import { Formik, Form as FormikForm, FieldArray, Field } from "formik";
 import { eq } from "lodash/fp";
-import { useCallback, useMemo, useRef } from "react";
+import { useCallback, useMemo, useRef, ChangeEvent } from "react";
 import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
 
 import { SetReservationBody } from "../../types";
@@ -58,16 +59,19 @@ export const SetReservationPage = (
               onSubmit={handleSubmit}
               validationSchema={schema}
             >
-              {({ values }) => (
+              {({ values, setFieldValue }) => (
                 <FormikForm>
                   <FieldArray
                     name="guests"
                     render={() => (
                       <>
                         {values.guests.map(
-                          ({ firstName, lastName, songs }, i) => (
+                          (
+                            { firstName, lastName, hasMealRestriction, songs },
+                            i
+                          ) => (
                             <div key={i} className="my-3">
-                              <h4 key={i}>
+                              <h4>
                                 {firstName} {lastName}
                               </h4>
                               <Form.Group
@@ -101,17 +105,47 @@ export const SetReservationPage = (
                                   <Form.Group
                                     as={Row}
                                     className="mb-1"
-                                    controlId={`guests.${i}.meal`}
+                                    controlId={`guests.${i}.hasMealRestriction`}
                                   >
                                     <Form.Label column sm={4}>
                                       Do you have any food allergies or
                                       restrictions?
                                     </Form.Label>
                                     <Col sm={8}>
-                                      <Form.Control
-                                        as={Field}
-                                        name={`guests.${i}.meal`}
-                                      />
+                                      <Row className="g-1">
+                                        <Col sm={3}>
+                                          <Field
+                                            as={Form.Select}
+                                            name={`guests.${i}.hasMealRestriction`}
+                                            onChange={(
+                                              e: ChangeEvent<HTMLSelectElement>
+                                            ) => {
+                                              setFieldValue(
+                                                `guests.${i}.hasMealRestriction`,
+                                                e.target.value
+                                              );
+                                              setFieldValue(
+                                                `guests.${i}.meal`,
+                                                ""
+                                              );
+                                            }}
+                                          >
+                                            <option value="yes">Yes</option>
+                                            <option value="no">No</option>
+                                          </Field>
+                                        </Col>
+                                        <Col sm={9}>
+                                          <Form.Control
+                                            as={Field}
+                                            className={clsx({
+                                              invisible:
+                                                hasMealRestriction === "no"
+                                            })}
+                                            name={`guests.${i}.meal`}
+                                            placeholder="What is your meal restriction?"
+                                          />
+                                        </Col>
+                                      </Row>
                                     </Col>
                                   </Form.Group>
                                 </>

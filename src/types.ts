@@ -63,6 +63,7 @@ export type UpdateReservationBody = Pick<
 
 type SetReservationGuest = Omit<GuestData, "songs" | "reservationId"> & {
   songs: Pick<SongData, "name" | "artist">[];
+  hasMealRestriction: "yes" | "no";
 };
 
 export type SetReservationBody = {
