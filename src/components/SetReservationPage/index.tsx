@@ -22,12 +22,15 @@ export const SetReservationPage = (
   const scrollRef = useRef<HTMLDivElement>(null);
   const { schema, isSubmitting, isSuccess, initialValues, handleSubmit } =
     useSetReservationPage(props);
-  const isAlertVisible = useMemo(
-    () =>
-      !isSubmitting &&
-      (isSuccess || schema.isValidSync({ guests: props.reservation.guests })),
-    [isSubmitting, isSuccess, props.reservation.guests, schema]
-  );
+
+  const isAlertVisible = useMemo(() => {
+    const guests = props.reservation.guests.map((guest) => ({
+      ...guest,
+      hasMealRestriction: guest.meal ? "yes" : "no"
+    }));
+    return !isSubmitting && (isSuccess || schema.isValidSync({ guests }));
+  }, [isSubmitting, isSuccess, props.reservation.guests, schema]);
+
   const isAttendingDinner = useMemo(
     () => props.reservation.invitations.some(eq("dinner")),
     [props.reservation.invitations]
