@@ -15,7 +15,7 @@ const registries: RegistryType[] = [
     url: "https://www.amazon.ca/wedding/share/the-fischers-wedding"
   },
   {
-    name: "Bed, Bath, & Beyond",
+    name: "Bed Bath & Beyond",
     url: "https://www.bedbathandbeyond.ca/store/giftregistry/viewregistryguest/551387255"
   }
 ];
