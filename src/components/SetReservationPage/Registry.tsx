@@ -1,6 +1,11 @@
 import { Row, Col, Table } from "react-bootstrap";
 
-const registries = [
+type RegistryType = {
+  name: string;
+  url: string;
+};
+
+const registries: RegistryType[] = [
   {
     name: "The Bay",
     url: "https://registry.thebay.com/registry/view-registry/the-fischers-wedding"
@@ -8,6 +13,10 @@ const registries = [
   {
     name: "Amazon",
     url: "https://www.amazon.ca/wedding/share/the-fischers-wedding"
+  },
+  {
+    name: "Bed, Bath, & Beyond",
+    url: "https://www.bedbathandbeyond.ca/store/giftregistry/viewregistryguest/551387255"
   }
 ];
 
