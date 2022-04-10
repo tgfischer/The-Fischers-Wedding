@@ -159,7 +159,7 @@ export const SetReservationPage = (
                                 controlId={`guests.${i}.songs`}
                               >
                                 <Form.Label column sm={4}>
-                                  What songs would get you on the dance floor?
+                                  What song would get you on the dance floor?
                                 </Form.Label>
                                 <Col sm={8}>
                                   <FieldArray
