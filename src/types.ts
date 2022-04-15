@@ -1,3 +1,7 @@
+export type ErrorResponse = {
+  error: string;
+};
+
 export type InvitationDto = "ceremony" | "dinner" | "reception";
 
 export type Status = "pending" | "attending" | "not attending";
@@ -26,6 +30,17 @@ export type SongData = {
   guestId: number;
 };
 
+export type TableData = {
+  id: number;
+  name: string;
+};
+
+export type TableAssignmentData = {
+  id: number;
+  tableId: number;
+  guestId: number;
+};
+
 export type ReservationDto = ReservationData & {
   guests: GuestDto[];
 };
@@ -42,6 +57,22 @@ export type MealRestrictionDto = Pick<
   GuestData,
   "id" | "firstName" | "lastName" | "meal"
 >;
+
+export type TableDto = TableData & {
+  guests: Pick<
+    GuestData,
+    "id" | "firstName" | "lastName" | "meal" | "status"
+  >[];
+};
+
+export type TablesDto = {
+  tables: TableDto[];
+};
+
+export type LoginDto = {
+  email: string;
+  password: string;
+};
 
 export type AddReservationBody = Pick<
   ReservationDto,
@@ -70,13 +101,6 @@ export type SetReservationBody = {
   guests: SetReservationGuest[];
 };
 
+export type AddTableBody = Pick<TableData, "name">;
+
 export type EmptyResponse = Record<string, never>;
-
-export type ErrorResponse = {
-  error: string;
-};
-
-export type LoginDto = {
-  email: string;
-  password: string;
-};

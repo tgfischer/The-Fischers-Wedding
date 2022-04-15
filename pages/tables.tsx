@@ -1,14 +1,14 @@
 import type { GetServerSideProps, NextPage } from "next";
 
 import {
-  TableManagementPage,
+  TableAssignmentsPage,
   TableManagementPageProps
-} from "../src/components/TableManagementPage";
+} from "../src/components/TableAssignmentsPage";
 import { serverSupabase } from "../src/middleware";
 import type { GuestDto } from "../src/types";
 
 const Tables: NextPage<TableManagementPageProps> = (props) => (
-  <TableManagementPage {...props} />
+  <TableAssignmentsPage {...props} />
 );
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -39,9 +39,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   if (error) {
     console.error(error);
+    return { props: { error } };
   }
 
-  return { props: { user, guests, error } };
+  return { props: { user, guests } };
 };
 
 export default Tables;
