@@ -33,6 +33,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       status
       `
     )
+    .neq("status", "not attending")
     .order("firstName")
     .order("lastName");
 

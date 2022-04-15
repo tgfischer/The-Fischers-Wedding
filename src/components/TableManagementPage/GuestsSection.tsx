@@ -12,9 +12,15 @@ export const GuestsSection = ({
   style
 }: GuestsSectionProps) => (
   <ListGroup className={className} style={style} variant="flush">
-    {guests.map(({ id, firstName, lastName }) => (
-      <ListGroup.Item key={id}>
+    {guests.map(({ id, firstName, lastName, status }) => (
+      <ListGroup.Item
+        key={id}
+        className="d-flex align-items-center justify-content-between"
+      >
         {firstName} {lastName}
+        {status === "pending" && (
+          <small className="fst-italic text-muted">Pending</small>
+        )}
       </ListGroup.Item>
     ))}
   </ListGroup>
