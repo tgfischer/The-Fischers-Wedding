@@ -1,13 +1,12 @@
 import { Button, Container } from "react-bootstrap";
 
 import { useModal } from "../../hooks/useModal";
-import { GuestDto, TableDto } from "../../types";
+import { GuestDto } from "../../types";
 import { NavBar } from "../NavBar";
 import { Page } from "../Page";
 
 import { AddTableModal } from "./AddTableModal";
 import { GuestsSection } from "./GuestsSection";
-import { useTablesQuery } from "./hooks";
 import { TableSection } from "./TablesSection";
 
 export type TableManagementPageProps = {
