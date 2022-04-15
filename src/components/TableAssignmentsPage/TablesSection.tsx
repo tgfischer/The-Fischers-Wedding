@@ -1,4 +1,5 @@
-import { Button, ListGroup } from "react-bootstrap";
+import clsx from "clsx";
+import { Button, ListGroup, Spinner } from "react-bootstrap";
 
 import { useTablesQuery } from "./hooks";
 
@@ -10,7 +11,13 @@ export const TableSection = ({ className }: TableSectionProps) => {
   const { data, isLoading } = useTablesQuery();
 
   if (isLoading) {
-    return <></>;
+    return (
+      <div className={clsx(className, "d-flex justify-content-center p-3")}>
+        <Spinner animation="border" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
+      </div>
+    );
   }
 
   return (

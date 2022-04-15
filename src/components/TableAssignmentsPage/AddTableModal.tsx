@@ -24,14 +24,12 @@ export const AddTableModal = ({ isOpen, onHide }: AddTableModalProps) => {
         validationSchema={validationSchema}
       >
         {({ values }) => (
-          <>
+          <FormikForm>
             <Modal.Body>
-              <FormikForm>
-                <Form.Group controlId="name">
-                  <Form.Label>Table name</Form.Label>
-                  <Form.Control as={Field} name="name" />
-                </Form.Group>
-              </FormikForm>
+              <Form.Group controlId="name">
+                <Form.Label>Table name</Form.Label>
+                <Form.Control as={Field} name="name" />
+              </Form.Group>
             </Modal.Body>
             <Modal.Footer>
               <Button
@@ -41,7 +39,7 @@ export const AddTableModal = ({ isOpen, onHide }: AddTableModalProps) => {
                 Add table
               </Button>
             </Modal.Footer>
-          </>
+          </FormikForm>
         )}
       </Formik>
     </Modal>
