@@ -1,11 +1,14 @@
-import { Container, ListGroup } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
 
+import { GuestDto } from "../../types";
 import { NavBar } from "../NavBar";
 import { Page } from "../Page";
 
-import type { TableManagementPageProps } from "./types";
+import { GuestsSection } from "./GuestsSection";
 
-export * from "./types";
+export type TableManagementPageProps = {
+  guests: GuestDto[];
+};
 
 export const TableManagementPage = ({ guests }: TableManagementPageProps) => {
   return (
@@ -14,22 +17,17 @@ export const TableManagementPage = ({ guests }: TableManagementPageProps) => {
       pageTitle="Manage tables"
     >
       <NavBar className="mb-3 flex-shrink-1" active="tables" />
-      <Container>
-        <h3>Manage tables</h3>
+      <Container className="d-flex align-items-center justify-content-between mb-1">
+        <h3 className="m-0">Manage tables</h3>
+        <Button>Add table</Button>
       </Container>
-      <Container className="d-flex flex-row flex-grow-1 p-0 overflow-hidden">
-        <ListGroup
-          className="ms-3 mb-3 border overflow-auto"
+      <Container className="d-flex flex-row flex-grow-1 overflow-hidden p-0">
+        <GuestsSection
+          className="border overflow-auto ms-3 mb-3"
           style={{ flex: "0 0 40%" }}
-          variant="flush"
-        >
-          {guests.map(({ id, firstName, lastName }) => (
-            <ListGroup.Item key={id}>
-              {firstName} {lastName}
-            </ListGroup.Item>
-          ))}
-        </ListGroup>
-        <div className="p-3 mx-3 mb-3 flex-grow-1 border overflow-auto">
+          guests={guests}
+        />
+        <div className="flex-grow-1 border overflow-auto p-3 mx-3 mb-3 ">
           Hello, World!
         </div>
       </Container>
