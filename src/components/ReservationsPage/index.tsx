@@ -17,13 +17,13 @@ export const ReservationsPage = ({
 }: ReservationsPageProps): JSX.Element => {
   return (
     <Page pageTitle="Reservations">
-      <NavBar className="mb-3" />
+      <NavBar className="mb-3" active="reservations" />
       <Container>
         <Statistics reservations={reservations} />
         <Row>
           <Col sm={12}>
             <div className="mb-2 d-flex justify-content-between align-items-center">
-              <div className="handwritten display-5 me-3">Reservations</div>
+              <h3 className="me-3">Reservations</h3>
               <div className="d-flex flex-row align-items-center">
                 <Button
                   as="a"

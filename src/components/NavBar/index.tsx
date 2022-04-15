@@ -6,12 +6,29 @@ import {
   Button
 } from "react-bootstrap";
 
-import { ComponentProps } from "../types";
-
 import { useNavBar } from "./hooks";
 import { NavBarLink } from "./NavBarLink";
 
-export const NavBar = ({ className }: ComponentProps): JSX.Element => {
+type NavBarLinkType = {
+  id: "home" | "reservations" | "tables" | "meals" | "songs";
+  text: string;
+  href: string;
+};
+
+type NavBarProps = {
+  className?: string;
+  active?: NavBarLinkType["id"];
+};
+
+const links: NavBarLinkType[] = [
+  { text: "Home", id: "home", href: "/" },
+  { text: "Reservations", id: "reservations", href: "/reservations" },
+  { text: "Tables", id: "tables", href: "/tables" },
+  { text: "Songs", id: "songs", href: "/songs" },
+  { text: "Meals", id: "meals", href: "/meals" }
+];
+
+export const NavBar = ({ className, active }: NavBarProps): JSX.Element => {
   const { handleSignOut } = useNavBar();
   const { user } = Auth.useUser();
   if (!user) {
@@ -30,18 +47,16 @@ export const NavBar = ({ className }: ComponentProps): JSX.Element => {
           className="justify-content-end"
         >
           <Nav>
-            <NavBarLink className="me-3" href="/">
-              Home
-            </NavBarLink>
-            <NavBarLink className="me-3" href="/reservations">
-              Reservations
-            </NavBarLink>
-            <NavBarLink className="me-3" href="/songs">
-              Songs
-            </NavBarLink>
-            <NavBarLink className="me-3" href="/meals">
-              Meal Restrictions
-            </NavBarLink>
+            {links.map(({ id, text, href }) => (
+              <NavBarLink
+                key={id}
+                className="me-3"
+                href={href}
+                active={active === id}
+              >
+                {text}
+              </NavBarLink>
+            ))}
             <Nav.Item>
               <Button onClick={handleSignOut}>Log out</Button>
             </Nav.Item>

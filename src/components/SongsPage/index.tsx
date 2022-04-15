@@ -12,12 +12,12 @@ export type SongsPageProps = {
 
 export const SongsPage = ({ songs }: SongsPageProps): JSX.Element => (
   <Page pageTitle="Song Requests">
-    <NavBar className="mb-3" />
+    <NavBar className="mb-3" active="songs" />
     <Container>
       <Row>
         <Col sm={12}>
-          <div className="d-flex align-items-center justify-content-between">
-            <h3 className="handwritten display-5">Song Requests</h3>
+          <div className="d-flex align-items-center justify-content-between mb-1">
+            <h3>Song Requests</h3>
             <Button
               as="a"
               href="/api/songs/export"

@@ -30,9 +30,7 @@ export const ManageReservation = <TData extends ManageReservationFormData>({
                   name="guests"
                   render={(guestsFieldArray) => (
                     <>
-                      <div className="handwritten display-5 mb-2">
-                        {pageTitle}
-                      </div>
+                      <h3 className="mb-2">{pageTitle}</h3>
                       <Row className="mb-3">
                         <Col md>
                           <p className="m-0">Reservation for:</p>

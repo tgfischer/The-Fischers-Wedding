@@ -12,11 +12,11 @@ export type MealsPageProps = {
 
 export const MealsPage = ({ meals }: MealsPageProps): JSX.Element => (
   <Page pageTitle="Meal Restrictions">
-    <NavBar className="mb-3" />
+    <NavBar className="mb-3" active="meals" />
     <Container>
       <Row>
         <Col sm={12}>
-          <h3 className="handwritten display-5">Meal Restrictions</h3>
+          <h3>Meal Restrictions</h3>
           <MealsTable meals={meals} />
         </Col>
       </Row>

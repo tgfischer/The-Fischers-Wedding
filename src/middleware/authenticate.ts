@@ -7,10 +7,16 @@ export const authenticate: EndpointPipelineHandler<EmptyResponse> = async ({
   supabase
 }) => {
   const { user, error } = await supabase.auth.api.getUserByCookie(req);
-  return user
-    ? { status: 200 }
-    : {
-        status: 500,
-        error: error?.message ?? ""
-      };
+
+  if (error) {
+    console.error(error.message);
+    return { status: 404, error: error.message };
+  }
+
+  if (!user) {
+    console.error("Unable to authenticate the user");
+    return { status: 404, error: "Resource not found" };
+  }
+
+  return { status: 200 };
 };
