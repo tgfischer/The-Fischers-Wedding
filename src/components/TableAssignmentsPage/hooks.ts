@@ -11,6 +11,7 @@ import { authenticatedRequest } from "../../supabase";
 import {
   AddTableAssignmentBody,
   AddTableBody,
+  RemoveTableAssignmentParams,
   TablesDto,
   UnassignedGuestDto,
   UnassignedGuestsDto
@@ -50,6 +51,18 @@ const useAddTableAssignmentMutation = () => {
       authenticatedRequest("/api/tables/assignments", {
         method: "POST",
         body: { guestId, tableId }
+      }),
+    { onSuccess: useCallback(() => queryClient.refetchQueries(), []) }
+  );
+};
+
+export const useRemoveTableAssignmentMutation = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation<void, void, RemoveTableAssignmentParams>(
+    ({ guestId }) =>
+      authenticatedRequest(`/api/tables/assignments/${guestId}`, {
+        method: "DELETE"
       }),
     { onSuccess: useCallback(() => queryClient.refetchQueries(), []) }
   );

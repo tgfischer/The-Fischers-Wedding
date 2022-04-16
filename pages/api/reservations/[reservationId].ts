@@ -80,17 +80,14 @@ const deleteReservationHandler: EndpointPipelineHandler<
 
   console.debug(`Deleting reservation ${reservationId}`);
 
-  const deleteResult = await supabase
+  const { error, status } = await supabase
     .from("reservations")
     .delete()
     .eq("id", reservationId);
 
-  if (deleteResult.error) {
-    console.error(deleteResult.error);
-    return {
-      status: deleteResult.status,
-      error: `${deleteResult.error.message} (${deleteResult.error.hint})`
-    };
+  if (error) {
+    console.error(error);
+    return { status: status, error: `${error.message} (${error.hint})` };
   }
 
   res.status(200).json({});
