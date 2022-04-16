@@ -1,3 +1,5 @@
+import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Card, ListGroup } from "react-bootstrap";
 
 import { LoadingSpinner } from "../LoadingSpinner";
@@ -40,9 +42,11 @@ export const TableSection = ({ className }: TableSectionProps) => {
                     className="d-flex justify-content-between align-items-center border-bottom"
                   >
                     <div>
-                      {firstName} {lastName}{" "}
+                      {firstName} {lastName}
                       {status === "pending" && (
-                        <small className="fst-italic text-muted">Pending</small>
+                        <small className="text-muted ms-2">
+                          <FontAwesomeIcon icon={faQuestionCircle} />
+                        </small>
                       )}
                     </div>
                     <div>

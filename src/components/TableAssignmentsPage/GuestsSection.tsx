@@ -14,7 +14,7 @@ export const GuestsSection = ({ className, style }: GuestsSectionProps) => {
     return (
       <LoadingSpinner
         className="d-flex justify-content-center p-3 border"
-        style={{ flex: "0 0 40%" }}
+        style={{ flex: "0 0 50%" }}
       />
     );
   }

@@ -2,13 +2,13 @@ import {
   EndpointPipelineHandler,
   apiPipeline,
   authenticate
-} from "../../src/middleware";
+} from "../../../src/middleware";
 import {
   AddTableBody,
   EmptyResponse,
   TableDto,
   TablesDto
-} from "../../src/types";
+} from "../../../src/types";
 
 const getTablesHandler: EndpointPipelineHandler<TablesDto> = async ({
   res,

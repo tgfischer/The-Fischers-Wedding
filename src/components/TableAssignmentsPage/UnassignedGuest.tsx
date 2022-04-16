@@ -40,8 +40,9 @@ export const UnassignedGuest = ({ guest }: UnassignedGuestProps) => {
             name="tableName"
             onChange={handleTableAssignment}
             disabled={isSubmitting}
+            defaultValue={-1}
           >
-            <option disabled selected>
+            <option disabled value={-1}>
               Select a table
             </option>
             {tables.map(({ id, name }) => (

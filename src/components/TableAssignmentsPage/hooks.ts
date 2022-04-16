@@ -1,5 +1,10 @@
 import { ChangeEvent, useCallback } from "react";
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import {
+  useMutation,
+  useQuery,
+  useQueryClient,
+  useIsFetching
+} from "react-query";
 import * as yup from "yup";
 
 import { authenticatedRequest } from "../../supabase";
@@ -42,7 +47,7 @@ const useAddTableAssignmentMutation = () => {
 
   return useMutation<void, void, AddTableAssignmentBody>(
     ({ guestId, tableId }) =>
-      authenticatedRequest("/api/tables/assign", {
+      authenticatedRequest("/api/tables/assignments", {
         method: "POST",
         body: { guestId, tableId }
       }),
@@ -52,16 +57,12 @@ const useAddTableAssignmentMutation = () => {
 
 export const useTablesQuery = () =>
   useQuery<unknown, void, TablesDto>(["tables"], () =>
-    authenticatedRequest("/api/tables", {
-      method: "GET"
-    })
+    authenticatedRequest("/api/tables", { method: "GET" })
   );
 
 export const useUnassignedGuestsQuery = () =>
   useQuery<unknown, void, UnassignedGuestsDto>(["unassignedGuests"], () =>
-    authenticatedRequest("/api/guests/unassigned", {
-      method: "GET"
-    })
+    authenticatedRequest("/api/guests/unassigned", { method: "GET" })
   );
 
 const validationSchema = yup
@@ -84,9 +85,10 @@ export const useUnassignedGuest = ({ id }: UnassignedGuestDto) => {
     useAddTableAssignmentMutation();
 
   const data = queryClient.getQueryData<TablesDto>(["tables"]);
-
+  const isFetchingTables = useIsFetching(["tables"]);
   return {
     isSubmitting,
+    isFetchingTables,
     tables: data?.tables ?? [],
     handleTableAssignment: useCallback((e: ChangeEvent<HTMLSelectElement>) => {
       handleTableAssignment({
