@@ -24,7 +24,7 @@ export const TableAssignmentsPage = () => {
       <Container className="d-flex flex-row overflow-hidden">
         <GuestsSection
           className="border overflow-auto mb-3"
-          style={{ flex: "0 0 50%" }}
+          style={{ flex: "0 0 55%" }}
         />
         <TableSection className="flex-grow-1 border overflow-auto ms-3 mb-3" />
         <AddTableModal isOpen={isOpen} onHide={closeModal} />

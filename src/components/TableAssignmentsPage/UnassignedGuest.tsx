@@ -15,11 +15,8 @@ export const UnassignedGuest = ({ guest }: UnassignedGuestProps) => {
     useUnassignedGuest(guest);
 
   return (
-    <ListGroup.Item
-      key={guest.id}
-      className="d-flex justify-content-between align-items-center"
-    >
-      <Row>
+    <ListGroup.Item key={guest.id}>
+      <Row className="d-flex align-items-center">
         <Col className="d-flex align-items-center" md={6} sm={12}>
           <div>
             <p className="m-0" style={{ lineHeight: 1.25 }}>
@@ -33,26 +30,26 @@ export const UnassignedGuest = ({ guest }: UnassignedGuestProps) => {
             </small>
           )}
         </Col>
-      </Row>
-      <Col md={6} sm={12}>
-        {tables.length === 0 ? null : (
-          <Form.Select
-            name="tableName"
-            onChange={handleTableAssignment}
-            disabled={isSubmitting}
-            defaultValue={-1}
-          >
-            <option disabled value={-1}>
-              Select a table
-            </option>
-            {tables.map(({ id, name }) => (
-              <option key={id} value={id}>
-                {name}
+        <Col md={6} xs={12}>
+          {tables.length === 0 ? null : (
+            <Form.Select
+              name="tableName"
+              onChange={handleTableAssignment}
+              disabled={isSubmitting}
+              defaultValue={-1}
+            >
+              <option disabled value={-1}>
+                Select a table
               </option>
-            ))}
-          </Form.Select>
-        )}
-      </Col>
+              {tables.map(({ id, name }) => (
+                <option key={id} value={id}>
+                  {name}
+                </option>
+              ))}
+            </Form.Select>
+          )}
+        </Col>
+      </Row>
     </ListGroup.Item>
   );
 };
