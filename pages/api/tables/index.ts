@@ -18,18 +18,9 @@ const getTablesHandler: EndpointPipelineHandler<TablesDto> = async ({
     data: tables,
     error,
     status
-  } = await supabase.from<TableDto>("tables").select(
-    `id,
-      name,
-      guests (
-        id,
-        firstName,
-        lastName,
-        status,
-        meal
-      )
-    `
-  );
+  } = await supabase
+    .from<TableDto>("tables")
+    .select("id, name, guests (id, firstName, lastName, status, meal)");
 
   if (error) {
     console.error(error);

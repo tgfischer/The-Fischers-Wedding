@@ -17,7 +17,7 @@ export const TableAssignmentsPage = () => {
       pageTitle="Table assignments"
     >
       <NavBar className="mb-3 flex-shrink-1" active="tables" />
-      <Container className="d-flex align-items-center justify-content-between mb-1">
+      <Container className="d-flex align-items-center justify-content-between mb-3">
         <h3 className="m-0">Table assignments</h3>
         <Button onClick={openModal}>Add table</Button>
       </Container>
