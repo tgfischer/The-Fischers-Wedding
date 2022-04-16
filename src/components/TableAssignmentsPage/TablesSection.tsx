@@ -12,7 +12,9 @@ export const TableSection = ({ className }: TableSectionProps) => {
   const { data, isLoading } = useTablesQuery();
 
   if (isLoading) {
-    return <LoadingSpinner className="d-flex justify-content-center p-3" />;
+    return (
+      <LoadingSpinner className="d-flex flex-grow-1 justify-content-center p-3" />
+    );
   }
 
   return (
@@ -20,20 +22,15 @@ export const TableSection = ({ className }: TableSectionProps) => {
       {data?.tables.length === 0 ? (
         <p className="p-3 m-0">There are no table assignments yet.</p>
       ) : (
-        data?.tables.map(({ id, name, guests }) => (
+        data?.tables.map(({ id, name, guests }, i) => (
           <Card key={id} className="border-0">
             <Card.Header className="d-flex justify-content-between align-items-center">
               <div>
-                {name} <small>({guests.length})</small>
+                Table {i + 1}: {name} <small>({guests.length})</small>
               </div>
-              <div>
-                <Button variant="outline" size="sm">
-                  Add guest
-                </Button>
-                <Button variant="outline" size="sm">
-                  Delete table
-                </Button>
-              </div>
+              <Button variant="outline" size="sm">
+                Delete table
+              </Button>
             </Card.Header>
             <Card.Body className="p-0">
               <ListGroup variant="flush">
