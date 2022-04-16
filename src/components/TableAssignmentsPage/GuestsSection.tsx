@@ -1,3 +1,5 @@
+import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ListGroup, ListGroupProps } from "react-bootstrap";
 
 import { LoadingSpinner } from "../LoadingSpinner";
@@ -23,17 +25,23 @@ export const GuestsSection = ({ className, style }: GuestsSectionProps) => {
       {data?.guests.length === 0 ? (
         <p className="p-3 m-0">There are no unassigned guests.</p>
       ) : (
-        data?.guests.map(({ id, firstName, lastName, status }) => (
-          <ListGroup.Item
-            key={id}
-            className="d-flex align-items-center justify-content-between"
-          >
-            {firstName} {lastName}
-            {status === "pending" && (
-              <small className="fst-italic text-muted">Pending</small>
-            )}
-          </ListGroup.Item>
-        ))
+        data?.guests.map(
+          ({ id, firstName, lastName, reservationId, status }) => (
+            <ListGroup.Item key={id} className="d-flex align-items-center">
+              <div>
+                <p className="m-0">
+                  {firstName} {lastName}
+                </p>
+                <small className="text-muted">{reservationId}</small>
+              </div>
+              {status === "pending" && (
+                <small className="text-muted ms-3">
+                  <FontAwesomeIcon icon={faQuestionCircle} />
+                </small>
+              )}
+            </ListGroup.Item>
+          )
+        )
       )}
     </ListGroup>
   );

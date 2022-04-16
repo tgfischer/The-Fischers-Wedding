@@ -3,12 +3,7 @@ import {
   apiPipeline,
   authenticate
 } from "../../../src/middleware";
-import { GuestData, UnassignedGuestsDto } from "../../../src/types";
-
-type UnassignedGuest = Pick<
-  GuestData,
-  "id" | "firstName" | "lastName" | "meal" | "status"
->;
+import { UnassignedGuestDto, UnassignedGuestsDto } from "../../../src/types";
 
 const getUnassignedGuestsHandler: EndpointPipelineHandler<
   UnassignedGuestsDto
@@ -17,7 +12,7 @@ const getUnassignedGuestsHandler: EndpointPipelineHandler<
     data: guests,
     error,
     status
-  } = await supabase.rpc<UnassignedGuest>("unassigned_guests_query");
+  } = await supabase.rpc<UnassignedGuestDto>("unassigned_guests_query");
 
   if (error) {
     console.error(error);
