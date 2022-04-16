@@ -69,6 +69,15 @@ export type TablesDto = {
   tables: TableDto[];
 };
 
+export type UnassignedGuestDto = Pick<
+  GuestData,
+  "id" | "firstName" | "lastName" | "meal" | "status"
+>;
+
+export type UnassignedGuestsDto = {
+  guests: UnassignedGuestDto[];
+};
+
 export type LoginDto = {
   email: string;
   password: string;

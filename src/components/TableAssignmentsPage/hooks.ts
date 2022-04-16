@@ -3,7 +3,7 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 import * as yup from "yup";
 
 import { authenticatedRequest } from "../../supabase";
-import { AddTableBody, TablesDto } from "../../types";
+import { AddTableBody, TablesDto, UnassignedGuestsDto } from "../../types";
 
 type AddTableModalOptions = {
   onHide: () => void;
@@ -34,6 +34,13 @@ const useAddTableMutation = ({ onSuccess }: AddTableMutationOptions) => {
 export const useTablesQuery = () =>
   useQuery<unknown, void, TablesDto>(["tables"], () =>
     authenticatedRequest("/api/tables", {
+      method: "GET"
+    })
+  );
+
+export const useUnassignedGuestsQuery = () =>
+  useQuery<unknown, void, UnassignedGuestsDto>(["unassignedGuests"], () =>
+    authenticatedRequest("/api/guests/unassigned", {
       method: "GET"
     })
   );

@@ -1,4 +1,4 @@
-import type { GetServerSideProps } from "next";
+import type { GetServerSideProps, NextPage } from "next";
 
 import {
   ReservationsPage,
@@ -7,7 +7,7 @@ import {
 import { serverSupabase } from "../src/middleware";
 import { ReservationDto } from "../src/types";
 
-const Reservations = (props: ReservationsPageProps): JSX.Element => (
+const Reservations: NextPage<ReservationsPageProps> = (props): JSX.Element => (
   <ReservationsPage {...props} />
 );
 

@@ -1,7 +1,6 @@
 import { Button, Container } from "react-bootstrap";
 
 import { useModal } from "../../hooks/useModal";
-import { GuestDto } from "../../types";
 import { NavBar } from "../NavBar";
 import { Page } from "../Page";
 
@@ -9,11 +8,7 @@ import { AddTableModal } from "./AddTableModal";
 import { GuestsSection } from "./GuestsSection";
 import { TableSection } from "./TablesSection";
 
-export type TableManagementPageProps = {
-  guests: GuestDto[];
-};
-
-export const TableAssignmentsPage = ({ guests }: TableManagementPageProps) => {
+export const TableAssignmentsPage = () => {
   const { isOpen, openModal, closeModal } = useModal();
 
   return (
@@ -30,7 +25,6 @@ export const TableAssignmentsPage = ({ guests }: TableManagementPageProps) => {
         <GuestsSection
           className="border overflow-auto mb-3"
           style={{ flex: "0 0 40%" }}
-          guests={guests}
         />
         <TableSection className="flex-grow-1 border overflow-auto ms-3 mb-3" />
         <AddTableModal isOpen={isOpen} onHide={closeModal} />
