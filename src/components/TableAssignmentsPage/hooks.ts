@@ -1,9 +1,15 @@
-import { useCallback } from "react";
+import { ChangeEvent, useCallback } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import * as yup from "yup";
 
 import { authenticatedRequest } from "../../supabase";
-import { AddTableBody, TablesDto, UnassignedGuestsDto } from "../../types";
+import {
+  AddTableAssignmentBody,
+  AddTableBody,
+  TablesDto,
+  UnassignedGuestDto,
+  UnassignedGuestsDto
+} from "../../types";
 
 type AddTableModalOptions = {
   onHide: () => void;
@@ -25,9 +31,22 @@ const useAddTableMutation = ({ onSuccess }: AddTableMutationOptions) => {
     {
       onSuccess: useCallback(() => {
         onSuccess?.();
-        queryClient.refetchQueries(["tables"]);
+        queryClient.refetchQueries();
       }, [])
     }
+  );
+};
+
+const useAddTableAssignmentMutation = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation<void, void, AddTableAssignmentBody>(
+    ({ guestId, tableId }) =>
+      authenticatedRequest("/api/tables/assign", {
+        method: "POST",
+        body: { guestId, tableId }
+      }),
+    { onSuccess: useCallback(() => queryClient.refetchQueries(), []) }
   );
 };
 
@@ -56,4 +75,24 @@ export const useAddTableModal = ({ onHide }: AddTableModalOptions) => {
   });
 
   return { isLoading, handleSubmit, validationSchema };
+};
+
+export const useUnassignedGuest = ({ id }: UnassignedGuestDto) => {
+  const queryClient = useQueryClient();
+
+  const { mutate: handleTableAssignment, isLoading: isSubmitting } =
+    useAddTableAssignmentMutation();
+
+  const data = queryClient.getQueryData<TablesDto>(["tables"]);
+
+  return {
+    isSubmitting,
+    tables: data?.tables ?? [],
+    handleTableAssignment: useCallback((e: ChangeEvent<HTMLSelectElement>) => {
+      handleTableAssignment({
+        guestId: id,
+        tableId: Number.parseInt(e.target.value)
+      });
+    }, [])
+  };
 };

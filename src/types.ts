@@ -109,4 +109,9 @@ export type SetReservationBody = {
 
 export type AddTableBody = Pick<TableData, "name">;
 
+export type AddTableAssignmentBody = {
+  guestId: number;
+  tableId: number;
+};
+
 export type EmptyResponse = Record<string, never>;
