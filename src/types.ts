@@ -120,4 +120,13 @@ export type RemoveTableAssignmentParams = {
   guestId: number;
 };
 
+export type EditTableParams = {
+  tableId: number;
+  name: string;
+};
+
+export type DeleteTableParams = {
+  tableId: number;
+};
+
 export type EmptyResponse = Record<string, never>;

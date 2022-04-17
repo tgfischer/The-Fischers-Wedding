@@ -23,9 +23,9 @@ type NavBarProps = {
 const links: NavBarLinkType[] = [
   { text: "Home", id: "home", href: "/" },
   { text: "Reservations", id: "reservations", href: "/reservations" },
-  { text: "Tables", id: "tables", href: "/tables" },
+  { text: "Table assignments", id: "tables", href: "/tables" },
   { text: "Songs", id: "songs", href: "/songs" },
-  { text: "Meals", id: "meals", href: "/meals" }
+  { text: "Meal restrictions", id: "meals", href: "/meals" }
 ];
 
 export const NavBar = ({ className, active }: NavBarProps): JSX.Element => {

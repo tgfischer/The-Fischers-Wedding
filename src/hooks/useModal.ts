@@ -6,8 +6,8 @@ type ModalState = {
 
 type UseModalResult = {
   isOpen: boolean;
-  openModal: () => void;
-  closeModal: () => void;
+  openModal: (...args: unknown[]) => void;
+  closeModal: (...args: unknown[]) => void;
 };
 
 export const useModal = (): UseModalResult => {

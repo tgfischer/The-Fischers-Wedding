@@ -11,6 +11,8 @@ import { authenticatedRequest } from "../../supabase";
 import {
   AddTableAssignmentBody,
   AddTableBody,
+  DeleteTableParams,
+  EditTableParams,
   RemoveTableAssignmentParams,
   TablesDto,
   UnassignedGuestDto,
@@ -21,7 +23,15 @@ type AddTableModalOptions = {
   onHide: () => void;
 };
 
+type EditTableModalOptions = {
+  onHide: () => void;
+};
+
 type AddTableMutationOptions = {
+  onSuccess: () => void;
+};
+
+type DeleteTableMutationOptions = {
   onSuccess: () => void;
 };
 
@@ -34,6 +44,39 @@ const useAddTableMutation = ({ onSuccess }: AddTableMutationOptions) => {
         method: "POST",
         body: { name }
       }),
+    {
+      onSuccess: useCallback(() => {
+        onSuccess?.();
+        queryClient.refetchQueries();
+      }, [])
+    }
+  );
+};
+
+const useEditTableMutation = ({ onSuccess }: AddTableMutationOptions) => {
+  const queryClient = useQueryClient();
+
+  return useMutation<void, void, EditTableParams>(
+    ({ tableId, name }) =>
+      authenticatedRequest(`/api/tables/${tableId}`, {
+        method: "PATCH",
+        body: { name }
+      }),
+    {
+      onSuccess: useCallback(() => {
+        onSuccess?.();
+        queryClient.refetchQueries();
+      }, [])
+    }
+  );
+};
+
+const useDeleteTableMutation = ({ onSuccess }: DeleteTableMutationOptions) => {
+  const queryClient = useQueryClient();
+
+  return useMutation<void, void, DeleteTableParams>(
+    ({ tableId }) =>
+      authenticatedRequest(`/api/tables/${tableId}`, { method: "DELETE" }),
     {
       onSuccess: useCallback(() => {
         onSuccess?.();
@@ -89,6 +132,24 @@ export const useAddTableModal = ({ onHide }: AddTableModalOptions) => {
   });
 
   return { isLoading, handleSubmit, validationSchema };
+};
+
+export const useEditTableModal = ({ onHide }: EditTableModalOptions) => {
+  const { mutateAsync: handleSubmit, isLoading: isSubmitting } =
+    useEditTableMutation({
+      onSuccess: onHide
+    });
+  const { mutate: handleDelete, isLoading: isDeleting } =
+    useDeleteTableMutation({
+      onSuccess: onHide
+    });
+
+  return {
+    isLoading: isSubmitting || isDeleting,
+    handleSubmit,
+    handleDelete,
+    validationSchema
+  };
 };
 
 export const useUnassignedGuest = ({ id }: UnassignedGuestDto) => {
