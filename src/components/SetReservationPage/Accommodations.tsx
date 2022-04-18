@@ -3,21 +3,25 @@ import { Row, Col, Table } from "react-bootstrap";
 
 import { Section } from "../Section";
 
-const accommodations = [
-  {
-    name: "Inn at the Harbour",
-    address: "255 Harbour St, Kincardine, ON N2Z 2X9",
-    phoneNumber: "(519) 396-3311",
-    website: "https://www.innattheharbour.com/",
-    coordinates: { lat: 44.177319, long: -81.6371 }
-  },
+type AccommodationType = {
+  name: string;
+  address: string;
+  phoneNumber: string;
+  website: string;
+  coordinates: { lat: number; long: number };
+  code?: string;
+  isGroupRate: boolean;
+};
+
+const accommodations: AccommodationType[] = [
   {
     name: "TownePlace Suites by Marriott",
     address: "19 Millennium Wy, Kincardine, ON N2Z 0B5",
     phoneNumber: "(519) 395-2665",
     website:
-      "https://www.marriott.com/hotels/travel/ykdts-towneplace-suites-kincardine/",
-    coordinates: { lat: 44.16894, long: -81.6138 }
+      "https://www.marriott.com/events/start.mi?id=1635797257550&key=GRP",
+    coordinates: { lat: 44.16894, long: -81.6138 },
+    isGroupRate: true
   },
   {
     name: "Holiday Inn Express & Suites Kincardine",
@@ -25,7 +29,17 @@ const accommodations = [
     phoneNumber: "(519) 395-3545",
     website:
       "https://www.ihg.com/holidayinnexpress/hotels/us/en/kincardine/yykin/hoteldetail",
-    coordinates: { lat: 44.17349, long: -81.61385 }
+    coordinates: { lat: 44.17349, long: -81.61385 },
+    code: "HFW",
+    isGroupRate: true
+  },
+  {
+    name: "Inn at the Harbour",
+    address: "255 Harbour St, Kincardine, ON N2Z 2X9",
+    phoneNumber: "(519) 396-3311",
+    website: "https://www.innattheharbour.com/",
+    coordinates: { lat: 44.177319, long: -81.6371 },
+    isGroupRate: false
   },
   {
     name: "SureStay Plus Hotel by Best Western",
@@ -33,9 +47,25 @@ const accommodations = [
     phoneNumber: "(519) 396-8242",
     website:
       "https://www.bestwestern.com/en_US/book/hotels-in-kincardine/surestay-plus-hotel-by-best-western-kincardine/propertyCode.54125.html",
-    coordinates: { lat: 44.17277, long: -81.61735 }
+    coordinates: { lat: 44.17277, long: -81.61735 },
+    isGroupRate: false
   }
 ];
+
+const getGroupRateMessage = ({
+  isGroupRate,
+  code
+}: Pick<AccommodationType, "isGroupRate" | "code">): string => {
+  if (!isGroupRate) {
+    return "No";
+  }
+
+  if (!code) {
+    return "Yes (no code required)";
+  }
+
+  return `Yes (code: ${code})`;
+};
 
 export const Accommodations = (): JSX.Element => {
   const OpenStreetMap = dynamic(() => import("./OpenStreetMap"), {
@@ -78,11 +108,19 @@ export const Accommodations = (): JSX.Element => {
                   <th>Address</th>
                   <th>Phone number</th>
                   <th className="text-center">Website</th>
+                  <th>Has Group Rate</th>
                 </tr>
               </thead>
               <tbody>
                 {accommodations.map(
-                  ({ name, address, phoneNumber, website }) => (
+                  ({
+                    name,
+                    address,
+                    phoneNumber,
+                    website,
+                    code,
+                    isGroupRate
+                  }) => (
                     <tr key={name}>
                       <td>{name}</td>
                       <td>{address}</td>
@@ -92,6 +130,7 @@ export const Accommodations = (): JSX.Element => {
                           Link
                         </a>
                       </td>
+                      <td>{getGroupRateMessage({ isGroupRate, code })}</td>
                     </tr>
                   )
                 )}
