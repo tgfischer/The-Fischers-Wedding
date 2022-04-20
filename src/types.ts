@@ -33,6 +33,7 @@ export type SongData = {
 export type TableData = {
   id: number;
   name: string;
+  order: number;
 };
 
 export type TableAssignmentData = {
