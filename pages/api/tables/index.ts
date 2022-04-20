@@ -20,7 +20,8 @@ const getTablesHandler: EndpointPipelineHandler<TablesDto> = async ({
     status
   } = await supabase
     .from<TableDto>("tables")
-    .select("id, name, guests (id, firstName, lastName, status, meal)");
+    .select("id, name, order, guests (id, firstName, lastName, status, meal)")
+    .order("order");
 
   if (error) {
     console.error(error);
