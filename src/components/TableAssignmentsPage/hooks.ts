@@ -57,10 +57,10 @@ const useEditTableMutation = ({ onSuccess }: AddTableMutationOptions) => {
   const queryClient = useQueryClient();
 
   return useMutation<void, void, EditTableParams>(
-    ({ tableId, name }) =>
+    ({ tableId, name, order }) =>
       authenticatedRequest(`/api/tables/${tableId}`, {
         method: "PATCH",
-        body: { name }
+        body: { name, order }
       }),
     {
       onSuccess: useCallback(() => {
@@ -136,13 +136,9 @@ export const useAddTableModal = ({ onHide }: AddTableModalOptions) => {
 
 export const useEditTableModal = ({ onHide }: EditTableModalOptions) => {
   const { mutateAsync: handleSubmit, isLoading: isSubmitting } =
-    useEditTableMutation({
-      onSuccess: onHide
-    });
+    useEditTableMutation({ onSuccess: onHide });
   const { mutate: handleDelete, isLoading: isDeleting } =
-    useDeleteTableMutation({
-      onSuccess: onHide
-    });
+    useDeleteTableMutation({ onSuccess: onHide });
 
   return {
     isLoading: isSubmitting || isDeleting,

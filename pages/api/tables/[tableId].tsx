@@ -1,9 +1,11 @@
+import { omitBy, isNil } from "lodash/fp";
+
 import {
   EndpointPipelineHandler,
   apiPipeline,
   authenticate
 } from "../../../src/middleware";
-import { EmptyResponse } from "../../../src/types";
+import { EmptyResponse, UpdateTableBody } from "../../../src/types";
 
 const deleteTableHandler: EndpointPipelineHandler<EmptyResponse> = async ({
   req,
@@ -42,8 +44,31 @@ const deleteTableHandler: EndpointPipelineHandler<EmptyResponse> = async ({
   return { status: 200 };
 };
 
+const updateTableHandler: EndpointPipelineHandler<EmptyResponse> = async ({
+  req,
+  res,
+  supabase
+}) => {
+  const tableId = Number.parseInt(req.query.tableId as string);
+  const body: UpdateTableBody = req.body;
+
+  const { error, status } = await supabase
+    .from("tables")
+    .update(omitBy(isNil, body))
+    .eq("id", tableId);
+
+  if (error) {
+    console.error(error);
+    return { status, error: `${error.message} (${error.hint})` };
+  }
+
+  res.status(201).json({});
+  return { status: 200 };
+};
+
 const handler = apiPipeline({
-  DELETE: [authenticate, deleteTableHandler]
+  DELETE: [authenticate, deleteTableHandler],
+  PATCH: [authenticate, updateTableHandler]
 });
 
 export default handler;

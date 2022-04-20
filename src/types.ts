@@ -112,6 +112,11 @@ export type SetReservationBody = {
 
 export type AddTableBody = Pick<TableData, "name">;
 
+export type UpdateTableBody = {
+  name?: string;
+  order?: number;
+};
+
 export type AddTableAssignmentBody = {
   guestId: number;
   tableId: number;
@@ -121,9 +126,8 @@ export type RemoveTableAssignmentParams = {
   guestId: number;
 };
 
-export type EditTableParams = {
+export type EditTableParams = UpdateTableBody & {
   tableId: number;
-  name: string;
 };
 
 export type DeleteTableParams = {
