@@ -32,11 +32,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 
   return {
-    props: {
-      user,
-      songs,
-      error
-    }
+    props: { user, songs, error }
   };
 };
 

@@ -15,7 +15,6 @@ const getUnassignedGuestsHandler: EndpointPipelineHandler<
   } = await supabase.rpc<UnassignedGuestDto>("unassigned_guests_query");
 
   if (error) {
-    console.error(error);
     return { status, error: `${error.message} (${error.hint})` };
   }
 

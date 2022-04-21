@@ -32,7 +32,6 @@ const exportSongsHandler: EndpointPipelineHandler<EmptyResponse> = async ({
     .order("name");
 
   if (error) {
-    console.error(error);
     return { status, error: error.message };
   }
 

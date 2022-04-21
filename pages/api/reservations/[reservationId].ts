@@ -30,7 +30,6 @@ const setReservationHandler: EndpointPipelineHandler<EmptyResponse> = async ({
       .eq("reservationId", reservationId);
 
     if (updateGuestResult.error) {
-      console.error(updateGuestResult.error);
       return {
         status: updateGuestResult.status,
         error: `${updateGuestResult.error.message} (${updateGuestResult.error.hint})`
@@ -43,7 +42,6 @@ const setReservationHandler: EndpointPipelineHandler<EmptyResponse> = async ({
       .eq("guestId", guest.id);
 
     if (deleteSongsResult.error) {
-      console.error(deleteSongsResult.error);
       return {
         status: deleteSongsResult.status,
         error: `${deleteSongsResult.error.message} (${deleteSongsResult.error.hint})`
@@ -61,7 +59,6 @@ const setReservationHandler: EndpointPipelineHandler<EmptyResponse> = async ({
     );
 
     if (insertSongsResult.error) {
-      console.error(insertSongsResult.error);
       return {
         status: insertSongsResult.status,
         error: `${insertSongsResult.error.message} (${insertSongsResult.error.hint})`
@@ -86,7 +83,6 @@ const deleteReservationHandler: EndpointPipelineHandler<
     .eq("id", reservationId);
 
   if (error) {
-    console.error(error);
     return { status: status, error: `${error.message} (${error.hint})` };
   }
 

@@ -14,7 +14,6 @@ const addTableAssignmentHandler: EndpointPipelineHandler<
     .insert({ guestId, tableId });
 
   if (error) {
-    console.error(error);
     return { status, error: `${error.message} (${error.hint})` };
   }
 

@@ -54,6 +54,7 @@ export const apiPipeline =
       });
 
       if (error) {
+        console.error(`Error: ${error}, Status: ${status}`);
         return res.status(status).json({ error });
       }
     }

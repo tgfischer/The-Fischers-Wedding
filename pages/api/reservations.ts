@@ -32,7 +32,6 @@ const addReservationHandler: EndpointPipelineHandler<EmptyResponse> = async ({
     });
 
   if (insertReservationResult.error) {
-    console.error(insertReservationResult.error);
     return {
       status: insertReservationResult.status,
       error: `${insertReservationResult.error.message} (${insertReservationResult.error.hint})`
@@ -48,7 +47,6 @@ const addReservationHandler: EndpointPipelineHandler<EmptyResponse> = async ({
   );
 
   if (insertGuestResult.error) {
-    console.error(insertGuestResult.error);
     return {
       status: insertGuestResult.status,
       error: `${insertGuestResult.error.message} (${insertGuestResult.error.hint})`
@@ -93,7 +91,6 @@ const updateReservationHandler: EndpointPipelineHandler<
     .eq("id", reservation.id);
 
   if (updateReservationResult.error) {
-    console.error(updateReservationResult.error);
     return {
       status: updateReservationResult.status,
       error: `${updateReservationResult.error.message} (${updateReservationResult.error.hint})`
@@ -117,7 +114,6 @@ const updateReservationHandler: EndpointPipelineHandler<
     .insert(guestsToInsert, { returning: "minimal" });
 
   if (insertGuestsResult.error) {
-    console.error(insertGuestsResult.error);
     return {
       status: insertGuestsResult.status,
       error: `${insertGuestsResult.error.message} (${insertGuestsResult.error.hint})`
@@ -143,7 +139,6 @@ const updateReservationHandler: EndpointPipelineHandler<
       .eq("id", guestToUpdate.id);
 
     if (updateGuestsResult.error) {
-      console.error(updateGuestsResult.error);
       return {
         status: updateGuestsResult.status,
         error: `${updateGuestsResult.error.message} (${updateGuestsResult.error.hint})`
@@ -163,7 +158,6 @@ const updateReservationHandler: EndpointPipelineHandler<
     .in("id", guestsToDelete);
 
   if (deleteGuestsResult.error) {
-    console.error(deleteGuestsResult.error);
     return {
       status: deleteGuestsResult.status,
       error: `${deleteGuestsResult.error.message} (${deleteGuestsResult.error.hint})`
@@ -204,18 +198,15 @@ const getReservationsHandler: EndpointPipelineHandler<
     .select();
 
   if (error) {
-    console.error(error);
     return { status, error: `${error.message} (${error.hint})` };
   }
 
   if (!data) {
     const message = "Reservations not found";
-    console.error(message);
     return { status: 404, error: message };
   }
 
   if (status !== 200) {
-    console.error(statusText);
     return { status, error: statusText };
   }
 

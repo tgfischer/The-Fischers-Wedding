@@ -20,7 +20,6 @@ const deleteTableHandler: EndpointPipelineHandler<EmptyResponse> = async ({
     .eq("tableId", tableId);
 
   if (deleteAssignmentsResult.error) {
-    console.error(deleteAssignmentsResult.error);
     return {
       status: deleteAssignmentsResult.status,
       error: `${deleteAssignmentsResult.error.message} (${deleteAssignmentsResult.error.hint})`
@@ -33,7 +32,6 @@ const deleteTableHandler: EndpointPipelineHandler<EmptyResponse> = async ({
     .eq("id", tableId);
 
   if (deleteTablesResult.error) {
-    console.error(deleteTablesResult.error);
     return {
       status: deleteTablesResult.status,
       error: `${deleteTablesResult.error.message} (${deleteTablesResult.error.hint})`
@@ -58,7 +56,6 @@ const updateTableHandler: EndpointPipelineHandler<EmptyResponse> = async ({
     .eq("id", tableId);
 
   if (error) {
-    console.error(error);
     return { status, error: `${error.message} (${error.hint})` };
   }
 

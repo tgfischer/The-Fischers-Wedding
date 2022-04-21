@@ -24,7 +24,6 @@ const getTablesHandler: EndpointPipelineHandler<TablesDto> = async ({
     .order("order");
 
   if (error) {
-    console.error(error);
     return { status, error: `${error.message} (${error.hint})` };
   }
 
@@ -41,7 +40,6 @@ const addTableHandler: EndpointPipelineHandler<EmptyResponse> = async ({
   const { error, status } = await supabase.from("tables").insert({ name });
 
   if (error) {
-    console.error(error);
     return { status, error: `${error.message} (${error.hint})` };
   }
 

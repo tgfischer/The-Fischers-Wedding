@@ -16,7 +16,6 @@ const deleteTableAssignmentHandler: EndpointPipelineHandler<
     .eq("guestId", guestId);
 
   if (error) {
-    console.error(error);
     return { status, error: `${error.message} (${error.hint})` };
   }
 

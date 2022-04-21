@@ -1,3 +1,5 @@
+import { faArrowDown, faArrowUp } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Card, ListGroup } from "react-bootstrap";
 
 import { useModal } from "../../hooks/useModal";
@@ -21,9 +23,17 @@ export const TableCard = ({ table, tableNumber }: TableCardProps) => {
           Table {tableNumber}: {table.name}{" "}
           <small>({table.guests.length})</small>
         </div>
-        <Button onClick={openModal} variant="outline" size="sm">
-          Edit
-        </Button>
+        <div>
+          <Button variant="outline" size="sm">
+            <FontAwesomeIcon icon={faArrowUp} />
+          </Button>
+          <Button variant="outline" size="sm">
+            <FontAwesomeIcon icon={faArrowDown} />
+          </Button>
+          <Button onClick={openModal} variant="outline" size="sm">
+            Edit
+          </Button>
+        </div>
       </Card.Header>
       <Card.Body className="p-0">
         <ListGroup variant="flush">

@@ -40,7 +40,6 @@ const exportReservationsHandler: EndpointPipelineHandler<
     .order("lastName");
 
   if (error) {
-    console.error(error);
     return { status, error: error.message };
   }
 
