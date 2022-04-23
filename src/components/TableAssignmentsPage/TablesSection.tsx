@@ -21,8 +21,8 @@ export const TableSection = ({ className }: TableSectionProps) => {
       {data?.tables.length === 0 ? (
         <p className="p-3 m-0">There are no table assignments yet.</p>
       ) : (
-        data?.tables.map((table) => (
-          <TableCard key={table.id} table={table} tableNumber={table.order} />
+        data?.tables.map((table, i) => (
+          <TableCard key={table.id} table={table} friendlyTableNumber={i + 1} />
         ))
       )}
     </div>

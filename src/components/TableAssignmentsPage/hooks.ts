@@ -12,6 +12,7 @@ import {
   AddTableAssignmentBody,
   AddTableBody,
   DeleteTableParams,
+  EditTableOrderParams,
   EditTableParams,
   RemoveTableAssignmentParams,
   TablesDto,
@@ -57,10 +58,10 @@ const useEditTableMutation = ({ onSuccess }: AddTableMutationOptions) => {
   const queryClient = useQueryClient();
 
   return useMutation<void, void, EditTableParams>(
-    ({ tableId, name, order }) =>
+    ({ tableId, name }) =>
       authenticatedRequest(`/api/tables/${tableId}`, {
         method: "PATCH",
-        body: { name, order }
+        body: { name }
       }),
     {
       onSuccess: useCallback(() => {
@@ -68,6 +69,19 @@ const useEditTableMutation = ({ onSuccess }: AddTableMutationOptions) => {
         queryClient.refetchQueries();
       }, [])
     }
+  );
+};
+
+export const useEditTableOrderMutation = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation<void, void, EditTableOrderParams>(
+    ({ tableId, prevOrder, nextOrder }) =>
+      authenticatedRequest(`/api/tables/${tableId}/order`, {
+        method: "PATCH",
+        body: { prevOrder, nextOrder }
+      }),
+    { onSuccess: useCallback(() => queryClient.refetchQueries(), []) }
   );
 };
 

@@ -1,5 +1,3 @@
-import { omitBy, isNil } from "lodash/fp";
-
 import {
   EndpointPipelineHandler,
   apiPipeline,
@@ -48,11 +46,11 @@ const updateTableHandler: EndpointPipelineHandler<EmptyResponse> = async ({
   supabase
 }) => {
   const tableId = Number.parseInt(req.query.tableId as string);
-  const body: UpdateTableBody = req.body;
+  const { name }: UpdateTableBody = req.body;
 
   const { error, status } = await supabase
     .from("tables")
-    .update(omitBy(isNil, body))
+    .update({ name, updatedAt: new Date() })
     .eq("id", tableId);
 
   if (error) {

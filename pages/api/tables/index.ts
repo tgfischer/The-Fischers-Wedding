@@ -6,26 +6,40 @@ import {
 import {
   AddTableBody,
   EmptyResponse,
-  TableDto,
+  TableAssignmentGuestDto,
+  TableData,
   TablesDto
 } from "../../../src/types";
+
+type SelectTablesResult = TableData & {
+  guests: TableAssignmentGuestDto[];
+};
 
 const getTablesHandler: EndpointPipelineHandler<TablesDto> = async ({
   res,
   supabase
 }) => {
-  const {
-    data: tables,
-    error,
-    status
-  } = await supabase
-    .from<TableDto>("tables")
-    .select("id, name, order, guests (id, firstName, lastName, status, meal)")
-    .order("order");
+  const { data, error, status } = await supabase
+    .from<SelectTablesResult>("tables")
+    .select(
+      "id, name, tableNumber, guests (id, firstName, lastName, status, meal)"
+    )
+    .order("tableNumber");
 
   if (error) {
     return { status, error: `${error.message} (${error.hint})` };
   }
+
+  const tables = data.map((table, i) => {
+    const prevTable = i === 0 ? undefined : data[i - 1];
+    const nextTable = i === data.length - 1 ? undefined : data[i + 1];
+
+    return {
+      ...table,
+      nextTableNumber: nextTable?.tableNumber,
+      prevTableNumber: prevTable?.tableNumber
+    };
+  });
 
   res.status(200).json({ tables });
   return { status: 200 };

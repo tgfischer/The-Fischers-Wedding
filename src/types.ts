@@ -33,7 +33,7 @@ export type SongData = {
 export type TableData = {
   id: number;
   name: string;
-  order: number;
+  tableNumber: number;
 };
 
 export type TableAssignmentData = {
@@ -66,6 +66,8 @@ export type TableAssignmentGuestDto = Pick<
 
 export type TableDto = TableData & {
   guests: TableAssignmentGuestDto[];
+  prevTableNumber?: TableData["tableNumber"];
+  nextTableNumber?: TableData["tableNumber"];
 };
 
 export type TablesDto = {
@@ -113,8 +115,12 @@ export type SetReservationBody = {
 export type AddTableBody = Pick<TableData, "name">;
 
 export type UpdateTableBody = {
-  name?: string;
-  order?: number;
+  name: string;
+};
+
+export type UpdateTableOrderBody = {
+  prevOrder: number;
+  nextOrder: number;
 };
 
 export type AddTableAssignmentBody = {
@@ -127,6 +133,10 @@ export type RemoveTableAssignmentParams = {
 };
 
 export type EditTableParams = UpdateTableBody & {
+  tableId: number;
+};
+
+export type EditTableOrderParams = UpdateTableOrderBody & {
   tableId: number;
 };
 
