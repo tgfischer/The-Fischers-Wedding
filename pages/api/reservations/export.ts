@@ -14,30 +14,19 @@ import type {
 } from "../../../src/types";
 
 type ExportReservationSelectResult = Pick<
-  GuestData,
-  "firstName" | "lastName" | "status"
+  ReservationData,
+  "id" | "address" | "invitations"
 > & {
-  reservation: Pick<ReservationData, "address" | "invitations">;
+  guests: Pick<GuestData, "firstName" | "lastName">[];
 };
 
 const exportReservationsHandler: EndpointPipelineHandler<
   EmptyResponse
 > = async ({ res }) => {
   const { data, error, status } = await serverSupabase
-    .from<ExportReservationSelectResult>("guests")
-    .select(
-      `
-      firstName,
-      lastName,
-      status,
-      reservation:reservationId (
-        address,
-        invitations
-      )
-    `
-    )
-    .order("firstName")
-    .order("lastName");
+    .from<ExportReservationSelectResult>("reservations")
+    .select("id, address, invitations, guests(firstName, lastName)")
+    .order("id");
 
   if (error) {
     return { status, error: error.message };
@@ -47,22 +36,23 @@ const exportReservationsHandler: EndpointPipelineHandler<
 
   const parser = new Parser({
     fields: [
-      { label: "First name", value: "firstName" },
-      { label: "Last name", value: "lastName" },
+      { label: "Guests", value: "guests" },
       { label: "Address", value: "address" },
       { label: "Invitations", value: "invitations" },
-      { label: "Status", value: "status" }
+      { label: "Url", value: "url" }
     ]
   });
 
-  const guests = data.map(({ reservation, ...guest }) => ({
-    ...guest,
-    address: reservation.address,
-    invitations: reservation.invitations.map(startCase).join(", "),
-    status: startCase(guest.status)
+  const reservations = data.map(({ id, address, invitations, guests }) => ({
+    guests: guests
+      .map(({ firstName, lastName }) => `${firstName} ${lastName}`)
+      .join(", "),
+    address,
+    invitations: invitations.map(startCase).join(", "),
+    url: `https://thefischers.wedding/${id}`
   }));
 
-  const csv = parser.parse(guests);
+  const csv = parser.parse(reservations);
 
   res.setHeader("Content-Type", "text/csv");
   res.setHeader("Content-Disposition", "attachment;filename=reservations.csv");
