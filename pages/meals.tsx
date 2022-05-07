@@ -2,9 +2,16 @@ import type { GetServerSideProps } from "next";
 
 import { MealsPage, MealsPageProps } from "../src/components/MealsPage";
 import { serverSupabase } from "../src/middleware";
-import { GuestData, MealRestrictionDto } from "../src/types";
+import { GuestData, MealRestrictionDto, TableData } from "../src/types";
 
 const Meals = (props: MealsPageProps): JSX.Element => <MealsPage {...props} />;
+
+type MealRestrictionQueryData = Pick<
+  GuestData,
+  "id" | "firstName" | "lastName" | "meal"
+> & {
+  tables: Pick<TableData, "tableNumber">[];
+};
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { user } = await serverSupabase.auth.api.getUserByCookie(context.req);
@@ -13,8 +20,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 
   const { data: guests, error } = await serverSupabase
-    .from<GuestData>("guests")
-    .select()
+    .from<MealRestrictionQueryData>("guests")
+    .select("id, firstName, lastName, meal, tables(tableNumber)")
     .not("meal", "is", null)
     .neq("meal", "")
     .neq("meal", "No")
@@ -22,11 +29,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     .order("firstName");
 
   const meals: MealRestrictionDto[] =
-    guests?.map(({ id, firstName, lastName, meal }) => ({
+    guests?.map(({ id, firstName, lastName, meal, tables }) => ({
       id,
       firstName,
       lastName,
-      meal
+      meal,
+      tableNumber: tables.length === 0 ? null : tables[0].tableNumber
     })) ?? [];
 
   return {

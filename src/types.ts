@@ -57,7 +57,9 @@ export type SongDto = Omit<SongData, "guestId"> & {
 export type MealRestrictionDto = Pick<
   GuestData,
   "id" | "firstName" | "lastName" | "meal"
->;
+> & {
+  tableNumber: TableData["tableNumber"] | null;
+};
 
 export type TableAssignmentGuestDto = Pick<
   GuestData,
