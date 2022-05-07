@@ -10,9 +10,9 @@ export const MealsTable = ({ meals }: MealsTableProps): JSX.Element => (
   <Table responsive striped bordered>
     <thead>
       <tr>
-        <th>Meal Restriction</th>
-        <th>Name</th>
         <th>Table number</th>
+        <th>Name</th>
+        <th>Meal Restriction</th>
       </tr>
     </thead>
     <tbody>
@@ -25,11 +25,11 @@ export const MealsTable = ({ meals }: MealsTableProps): JSX.Element => (
       ) : (
         meals.map(({ id, firstName, lastName, meal, tableNumber }) => (
           <tr key={id}>
+            <td>{tableNumber}</td>
             <td>
               {firstName} {lastName}
             </td>
             <td>{meal}</td>
-            <td>{tableNumber}</td>
           </tr>
         ))
       )}
