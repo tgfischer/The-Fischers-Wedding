@@ -1,3 +1,4 @@
+import { sortBy } from "lodash/fp";
 import type { GetServerSideProps } from "next";
 
 import { MealsPage, MealsPageProps } from "../src/components/MealsPage";
@@ -38,7 +39,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     })) ?? [];
 
   return {
-    props: { user, meals, error }
+    props: { user, meals: sortBy(["tableNumber"], meals), error }
   };
 };
 
