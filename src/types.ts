@@ -42,6 +42,18 @@ export type TableAssignmentData = {
   guestId: number;
 };
 
+export type GiftGuestDto = Pick<GuestData, "id" | "firstName" | "lastName">;
+
+export type GiftData = {
+  id: number;
+  description: string;
+  guestId: GiftGuestDto[];
+};
+
+export type GiftDto = Pick<GiftData, "id" | "description"> & {
+  guests: GiftGuestDto[];
+};
+
 export type ReservationDto = ReservationData & {
   guests: GuestDto[];
 };
@@ -128,6 +140,11 @@ export type UpdateTableOrderBody = {
 export type AddTableAssignmentBody = {
   guestId: number;
   tableId: number;
+};
+
+export type AddGiftBody = {
+  description: string;
+  guests: number[];
 };
 
 export type RemoveTableAssignmentParams = {

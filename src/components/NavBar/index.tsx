@@ -10,7 +10,7 @@ import { useNavBar } from "./hooks";
 import { NavBarLink } from "./NavBarLink";
 
 type NavBarLinkType = {
-  id: "home" | "reservations" | "tables" | "meals" | "songs";
+  id: "home" | "reservations" | "tables" | "meals" | "songs" | "gifts";
   text: string;
   href: string;
 };
@@ -23,9 +23,10 @@ type NavBarProps = {
 const links: NavBarLinkType[] = [
   { text: "Home", id: "home", href: "/" },
   { text: "Reservations", id: "reservations", href: "/reservations" },
-  { text: "Table assignments", id: "tables", href: "/tables" },
+  { text: "Tables", id: "tables", href: "/tables" },
   { text: "Songs", id: "songs", href: "/songs" },
-  { text: "Meal restrictions", id: "meals", href: "/meals" }
+  { text: "Meals", id: "meals", href: "/meals" },
+  { text: "Gifts", id: "gifts", href: "/gifts" }
 ];
 
 export const NavBar = ({ className, active }: NavBarProps): JSX.Element => {
