@@ -25,7 +25,7 @@ export const MealsTable = ({ meals }: MealsTableProps): JSX.Element => (
       ) : (
         meals.map(({ id, firstName, lastName, meal, tableNumber }) => (
           <tr key={id}>
-            <td>{tableNumber}</td>
+            <td>{tableNumber ?? <i>No table assigned</i>}</td>
             <td>
               {firstName} {lastName}
             </td>

@@ -91,6 +91,12 @@ export const Accommodations = (): JSX.Element => {
                 limited, so we would suggest booking early if you require
                 accommodations.
               </p>
+              <p>
+                <strong>
+                  You must call the Holiday Inn Express & Suites and provide the
+                  code in order to take advantage of their group rate.
+                </strong>
+              </p>
               <p className="m-0">
                 The <strong>Inn at the Harbour</strong> is walking distance to
                 the Kincardine Pavilion, but requires a minimum of two nights to
