@@ -8,6 +8,10 @@ import {
   ReservationDto
 } from "../../types";
 
+export type AddReservationPageProps = {
+  user: User;
+};
+
 export type UpdateReservationPageProps = {
   user: User;
   reservation: ReservationDto;

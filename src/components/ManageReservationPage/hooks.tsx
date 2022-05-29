@@ -11,7 +11,11 @@ import {
   UpdateReservationBody
 } from "../../types";
 
-import { ManageReservationProps, UpdateReservationPageProps } from "./types";
+import {
+  AddReservationPageProps,
+  ManageReservationProps,
+  UpdateReservationPageProps
+} from "./types";
 
 const useAddReservationMutation = () =>
   useMutation<void, void, AddReservationBody>(
@@ -71,26 +75,29 @@ const schema = yup
   })
   .required();
 
-export const useAddReservationPage =
-  (): ManageReservationProps<AddReservationBody> => {
-    const { mutate: handleSubmit, isLoading: isSubmitting } =
-      useAddReservationMutation();
+export const useAddReservationPage = ({
+  user
+}: AddReservationPageProps): ManageReservationProps<AddReservationBody> => {
+  const { mutate: handleSubmit, isLoading: isSubmitting } =
+    useAddReservationMutation();
 
-    return {
-      handleSubmit,
-      isSubmitting,
-      schema,
-      initialValues: {
-        invitations: [],
-        address: "",
-        guests: [{ firstName: "", lastName: "" }]
-      },
-      pageTitle: "Add reservation"
-    };
+  return {
+    user,
+    handleSubmit,
+    isSubmitting,
+    schema,
+    initialValues: {
+      invitations: [],
+      address: "",
+      guests: [{ firstName: "", lastName: "" }]
+    },
+    pageTitle: "Add reservation"
   };
+};
 
 export const useUpdateReservationPage = ({
-  reservation
+  reservation,
+  user
 }: UpdateReservationPageProps): ManageReservationProps<UpdateReservationBody> => {
   const { mutate: handleSubmit, isLoading: isSubmitting } =
     useUpdateReservationMutation();
@@ -99,6 +106,7 @@ export const useUpdateReservationPage = ({
     useDeleteReservationMutation({ reservationId: reservation.id });
 
   return {
+    user,
     handleSubmit,
     isSubmitting,
     schema,
