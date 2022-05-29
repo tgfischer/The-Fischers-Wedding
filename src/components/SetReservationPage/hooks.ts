@@ -30,7 +30,7 @@ const useSetReservationMutation = ({ id }: UseSetReservationMutation) =>
       }),
     {
       onSuccess: useCallback(() => {
-        toast("Your reservation has been received!");
+        toast.success("Your reservation has been received!", { icon: false });
       }, []),
       onError: useCallback(({ error }) => void toast.error(error), [])
     }

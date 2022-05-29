@@ -166,7 +166,7 @@ export const SetReservationPage = (
                                     name={`guests.${i}.songs`}
                                     render={() =>
                                       songs.map((song, j) => (
-                                        <Row className="g-1">
+                                        <Row key={j} className="g-1">
                                           <Col sm={6}>
                                             <Form.Control
                                               as={Field}
