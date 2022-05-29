@@ -1,3 +1,4 @@
+import { User } from "@supabase/supabase-js";
 import { Container, Row, Col, Button } from "react-bootstrap";
 
 import { SongDto } from "../../types";
@@ -8,11 +9,12 @@ import { SongsTable } from "./SongsTable";
 
 export type SongsPageProps = {
   songs: SongDto[];
+  user: User | null;
 };
 
-export const SongsPage = ({ songs }: SongsPageProps): JSX.Element => (
+export const SongsPage = ({ songs, user }: SongsPageProps): JSX.Element => (
   <Page pageTitle="Song Requests">
-    <NavBar className="mb-3" active="songs" />
+    <NavBar className="mb-3" active="songs" user={user} />
     <Container>
       <Row>
         <Col sm={12}>

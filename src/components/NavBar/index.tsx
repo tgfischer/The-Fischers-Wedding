@@ -1,4 +1,4 @@
-import { Auth } from "@supabase/ui";
+import { User } from "@supabase/supabase-js";
 import {
   Navbar as BootstrapNavbar,
   Nav,
@@ -16,6 +16,7 @@ type NavBarLinkType = {
 };
 
 type NavBarProps = {
+  user: User | null;
   className?: string;
   active?: NavBarLinkType["id"];
 };
@@ -29,9 +30,12 @@ const links: NavBarLinkType[] = [
   { text: "Gifts", id: "gifts", href: "/gifts" }
 ];
 
-export const NavBar = ({ className, active }: NavBarProps): JSX.Element => {
+export const NavBar = ({
+  user,
+  className,
+  active
+}: NavBarProps): JSX.Element => {
   const { handleSignOut } = useNavBar();
-  const { user } = Auth.useUser();
   if (!user) {
     return <></>;
   }

@@ -1,9 +1,14 @@
+import { User } from "@supabase/supabase-js";
 import { Row, Col, Container } from "react-bootstrap";
 
 import { NavBar } from "../NavBar";
 import { Page } from "../Page";
 
-export const HomePage = (): JSX.Element => (
+export type HomePageProps = {
+  user: User | null;
+};
+
+export const HomePage = ({ user }: HomePageProps): JSX.Element => (
   <Page
     pageTitle="The Fischer's Wedding"
     style={{
@@ -11,7 +16,7 @@ export const HomePage = (): JSX.Element => (
     }}
   >
     <div className="d-flex flex-column vh-100">
-      <NavBar active="home" />
+      <NavBar active="home" user={user} />
       <div className="d-flex align-items-center text-white flex-grow-1">
         <Container fluid>
           <Row>

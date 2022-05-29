@@ -1,3 +1,4 @@
+import { User } from "@supabase/supabase-js";
 import Link from "next/link";
 import { Container, Row, Col, Button } from "react-bootstrap";
 
@@ -10,14 +11,16 @@ import { Statistics } from "./Statistics";
 
 export type ReservationsPageProps = {
   reservations: ReservationDto[];
+  user: User | null;
 };
 
 export const ReservationsPage = ({
-  reservations
+  reservations,
+  user
 }: ReservationsPageProps): JSX.Element => {
   return (
     <Page pageTitle="Reservations">
-      <NavBar className="mb-3" active="reservations" />
+      <NavBar className="mb-3" active="reservations" user={user} />
       <Container>
         <Statistics reservations={reservations} />
         <Row>

@@ -1,3 +1,4 @@
+import { User } from "@supabase/supabase-js";
 import { Container, Row, Col } from "react-bootstrap";
 
 import { MealRestrictionDto } from "../../types";
@@ -8,11 +9,12 @@ import { MealsTable } from "./MealsTable";
 
 export type MealsPageProps = {
   meals: MealRestrictionDto[];
+  user: User | null;
 };
 
-export const MealsPage = ({ meals }: MealsPageProps): JSX.Element => (
+export const MealsPage = ({ meals, user }: MealsPageProps): JSX.Element => (
   <Page pageTitle="Meal Restrictions">
-    <NavBar className="mb-3" active="meals" />
+    <NavBar className="mb-3" active="meals" user={user} />
     <Container>
       <Row>
         <Col sm={12}>

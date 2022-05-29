@@ -12,10 +12,11 @@ export const ManageReservation = <TData extends ManageReservationFormData>({
   schema,
   initialValues,
   pageTitle,
-  actions
+  actions,
+  user
 }: ManageReservationProps<TData>): JSX.Element => (
   <Page pageTitle={pageTitle}>
-    <NavBar className="mb-3" />
+    <NavBar className="mb-3" user={user} />
     <Container>
       <Row className="mb-3">
         <Col xs={12}>

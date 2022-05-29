@@ -4,7 +4,6 @@ class Document extends NextDocument {
   render() {
     return (
       <Html>
-        <head dangerouslySetInnerHTML={{ __html: "<!-- Hello there ;) -->" }} />
         <Head />
         <body>
           <Main />

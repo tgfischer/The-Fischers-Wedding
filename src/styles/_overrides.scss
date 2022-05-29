@@ -9,3 +9,9 @@ $font-family-base: "Source Serif Pro";
 $font-size-base: 1.25rem;
 
 $table-group-separator-color: $border-color;
+
+.Toastify__toast-theme--colored.Toastify__toast--success {
+  background-color: #d1e7dd;
+  color: #0f5132;
+  font-family: "Source Serif Pro", serif;
+}

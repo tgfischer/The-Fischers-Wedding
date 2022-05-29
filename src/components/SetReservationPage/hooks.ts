@@ -30,14 +30,7 @@ const useSetReservationMutation = ({ id }: UseSetReservationMutation) =>
       }),
     {
       onSuccess: useCallback(() => {
-        toast("Your reservation has been received!", {
-          style: {
-            backgroundColor: "#d1e7dd",
-            color: "#0f5132",
-            fontFamily: "'Source Serif Pro', serif",
-            fontSize: "0.9rem"
-          }
-        });
+        toast("Your reservation has been received!");
       }, []),
       onError: useCallback(({ error }) => void toast.error(error), [])
     }

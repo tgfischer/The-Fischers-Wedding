@@ -20,6 +20,7 @@ export type ManageReservationProps<TData> = {
   initialValues: TData;
   pageTitle: string;
   actions?: React.ReactNode;
+  user: User | null;
 };
 
 export type ManageReservationFormData =

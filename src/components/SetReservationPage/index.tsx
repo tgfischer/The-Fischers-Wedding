@@ -43,7 +43,7 @@ export const SetReservationPage = (
 
   return (
     <Page pageTitle="Set your reservation">
-      <NavBar />
+      <NavBar user={props.user} />
       <Masthead
         onClickSetReservation={handleScroll}
         reservation={props.reservation}
@@ -141,7 +141,7 @@ export const SetReservationPage = (
                                           <Form.Control
                                             as={Field}
                                             className={clsx({
-                                              invisible:
+                                              "d-none":
                                                 hasMealRestriction === "no"
                                             })}
                                             name={`guests.${i}.meal`}

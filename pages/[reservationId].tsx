@@ -17,6 +17,8 @@ export const getServerSideProps: GetServerSideProps<
   SetReservationPageProps,
   SetReservationPageParams
 > = async (context) => {
+  const { user } = await serverSupabase.auth.api.getUserByCookie(context.req);
+
   const { data, error } = await serverSupabase
     .from<ReservationDto>("reservations")
     .select(
@@ -50,7 +52,8 @@ export const getServerSideProps: GetServerSideProps<
   return {
     props: {
       reservation: { ...data[0], invitations: data[0].invitations.sort() },
-      error
+      error,
+      user
     }
   };
 };

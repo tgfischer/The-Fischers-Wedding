@@ -1,3 +1,4 @@
+import { User } from "@supabase/supabase-js";
 import { Container, Row, Col, Button } from "react-bootstrap";
 
 import { useModal } from "../../hooks/useModal";
@@ -12,14 +13,19 @@ import { useGiftsQuery } from "./hooks";
 export type GiftsPageProps = {
   guests: GiftGuestDto[];
   gifts: GiftDto[];
+  user: User | null;
 };
 
-export const GiftsPage = ({ guests, gifts }: GiftsPageProps): JSX.Element => {
+export const GiftsPage = ({
+  guests,
+  gifts,
+  user
+}: GiftsPageProps): JSX.Element => {
   const { data } = useGiftsQuery({ initialData: gifts });
   const { isOpen, openModal, closeModal } = useModal();
   return (
     <Page pageTitle="Gifts">
-      <NavBar className="mb-3" active="gifts" />
+      <NavBar className="mb-3" active="gifts" user={user} />
       <Container>
         <Row>
           <Col sm={12}>
