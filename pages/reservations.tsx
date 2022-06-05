@@ -12,7 +12,10 @@ const Reservations: NextPage<ReservationsPageProps> = (props): JSX.Element => (
 );
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { user } = await serverSupabase.auth.api.getUserByCookie(context.req);
+  const { user } = await serverSupabase.auth.api.getUserByCookie(
+    context.req,
+    context.res
+  );
   if (!user) {
     return { redirect: { destination: "/", permanent: false } };
   }

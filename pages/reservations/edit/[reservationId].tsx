@@ -17,7 +17,10 @@ export const getServerSideProps: GetServerSideProps<
   UpdateReservationPageProps,
   UpdateReservationParams
 > = async (context) => {
-  const { user } = await serverSupabase.auth.api.getUserByCookie(context.req);
+  const { user } = await serverSupabase.auth.api.getUserByCookie(
+    context.req,
+    context.res
+  );
   if (!user) {
     return { redirect: { destination: "/", permanent: false } };
   }

@@ -17,7 +17,10 @@ export const getServerSideProps: GetServerSideProps<
   SetReservationPageProps,
   SetReservationPageParams
 > = async (context) => {
-  const { user } = await serverSupabase.auth.api.getUserByCookie(context.req);
+  const { user } = await serverSupabase.auth.api.getUserByCookie(
+    context.req,
+    context.res
+  );
 
   const { data, error } = await serverSupabase
     .from<ReservationDto>("reservations")
