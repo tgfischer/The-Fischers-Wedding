@@ -10,10 +10,15 @@ const Home: NextPage<HomePageProps> = (props: HomePageProps) => (
 export const getServerSideProps: GetServerSideProps<HomePageProps> = async (
   context
 ) => {
-  const { user } = await serverSupabase.auth.api.getUserByCookie(
+  const { user, error } = await serverSupabase.auth.api.getUserByCookie(
     context.req,
     context.res
   );
+
+  if (error) {
+    console.error(error.message);
+  }
+
   return { props: { user } };
 };
 
