@@ -1,4 +1,6 @@
 import { User } from "@supabase/supabase-js";
+import { Auth } from "@supabase/ui";
+import { useEffect, useState } from "react";
 import {
   Navbar as BootstrapNavbar,
   Nav,
@@ -30,18 +32,32 @@ const links: NavBarLinkType[] = [
   { text: "Gifts", id: "gifts", href: "/gifts" }
 ];
 
-export const NavBar = ({
-  user,
-  className,
-  active
-}: NavBarProps): JSX.Element => {
+export const NavBar = ({ className, active }: NavBarProps): JSX.Element => {
   const { handleSignOut } = useNavBar();
+  const [user, setUser] = useState<User | null>();
+  const userResult = Auth.useUser();
+
+  /**
+   * In React 18, Auth.useUser throws a hydration refresh exception. Storing it in
+   * state bypasses the issue. Ideally this is done in the backend, but there are
+   * fundamental issues with Supabase and GoTrue for refreshing the session token
+   */
+  useEffect(() => {
+    setUser(userResult.user);
+  }, [userResult.user]);
+
   if (!user) {
     return <></>;
   }
 
   return (
-    <BootstrapNavbar className={className} variant="dark" bg="dark" expand="lg">
+    <BootstrapNavbar
+      as="div"
+      className={className}
+      variant="dark"
+      bg="dark"
+      expand="lg"
+    >
       <Container>
         <BootstrapNavbar.Text className="text-white">
           Signed in as: {user?.email}
