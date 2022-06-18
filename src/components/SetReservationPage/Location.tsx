@@ -16,6 +16,10 @@ export const Location = ({ invitations }: LocationProps): JSX.Element => {
     () => invitations.some(eq("ceremony")),
     [invitations]
   );
+  const isAttendingReception = useMemo(
+    () => invitations.some(eq("reception")),
+    [invitations]
+  );
 
   return (
     <Row className="mb-5">
@@ -39,11 +43,13 @@ export const Location = ({ invitations }: LocationProps): JSX.Element => {
                     <td>155 Durham Street, Kincardine Ontario, N2Z 1A4</td>
                   </tr>
                 )}
-                <tr>
-                  <td>Reception</td>
-                  <td>Kincardine Pavilion</td>
-                  <td>156 Durham Street, Kincardine Ontario, N2Z 1A4</td>
-                </tr>
+                {isAttendingReception && (
+                  <tr>
+                    <td>Reception</td>
+                    <td>Kincardine Pavilion</td>
+                    <td>156 Durham Street, Kincardine Ontario, N2Z 1A4</td>
+                  </tr>
+                )}
               </tbody>
             </Table>
           </Col>
@@ -61,10 +67,12 @@ export const Location = ({ invitations }: LocationProps): JSX.Element => {
                   colour="red"
                 />
               )}
-              <OpenStreetMapMarker
-                position={[44.18045, -81.63895]}
-                colour="red"
-              />
+              {isAttendingReception && (
+                <OpenStreetMapMarker
+                  position={[44.18045, -81.63895]}
+                  colour="red"
+                />
+              )}
             </OpenStreetMap>
           </Col>
         </Row>

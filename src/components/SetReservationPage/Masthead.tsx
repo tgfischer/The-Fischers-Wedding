@@ -30,6 +30,16 @@ const DinnerReceptionInvitation = () => (
   </>
 );
 
+const CeremonyInvitation = () => (
+  <>
+    <p className="text-uppercase lead mb-4">4:00 in the afternoon</p>
+    <h3 className="handwritten display-6 mb-1">Kincardine Rock Gardens</h3>
+    <p className="text-uppercase lead m-0">
+      155 Durham Street, Kincardine Ontario, N2Z 1A4
+    </p>
+  </>
+);
+
 const ReceptionInvitation = () => (
   <>
     <p className="text-uppercase lead mb-4">9:00 in the evening</p>
@@ -49,6 +59,7 @@ const getInvitation = cond<ReservationDto, () => JSX.Element>([
     propEq("invitations", ["dinner", "reception"]),
     always(DinnerReceptionInvitation)
   ],
+  [propEq("invitations", ["ceremony"]), always(CeremonyInvitation)],
   [T, always(ReceptionInvitation)]
 ]);
 

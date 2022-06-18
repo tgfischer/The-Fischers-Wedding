@@ -36,6 +36,11 @@ export const SetReservationPage = (
     [props.reservation.invitations]
   );
 
+  const isAttendingReception = useMemo(
+    () => props.reservation.invitations.some(eq("reception")),
+    [props.reservation.invitations]
+  );
+
   const handleScroll = useCallback(
     () => scrollRef.current?.scrollIntoView(),
     []
@@ -153,40 +158,42 @@ export const SetReservationPage = (
                                   </Form.Group>
                                 </>
                               )}
-                              <Form.Group
-                                as={Row}
-                                className="mb-1"
-                                controlId={`guests.${i}.songs`}
-                              >
-                                <Form.Label column sm={4}>
-                                  What song would get you on the dance floor?
-                                </Form.Label>
-                                <Col sm={8}>
-                                  <FieldArray
-                                    name={`guests.${i}.songs`}
-                                    render={() =>
-                                      songs.map((song, j) => (
-                                        <Row key={j} className="g-1">
-                                          <Col sm={6}>
-                                            <Form.Control
-                                              as={Field}
-                                              name={`guests.${i}.songs.${j}.name`}
-                                              placeholder="Please enter a song name"
-                                            />
-                                          </Col>
-                                          <Col sm={6}>
-                                            <Form.Control
-                                              as={Field}
-                                              name={`guests.${i}.songs.${j}.artist`}
-                                              placeholder="Please enter the song's artist"
-                                            />
-                                          </Col>
-                                        </Row>
-                                      ))
-                                    }
-                                  />
-                                </Col>
-                              </Form.Group>
+                              {isAttendingReception && (
+                                <Form.Group
+                                  as={Row}
+                                  className="mb-1"
+                                  controlId={`guests.${i}.songs`}
+                                >
+                                  <Form.Label column sm={4}>
+                                    What song would get you on the dance floor?
+                                  </Form.Label>
+                                  <Col sm={8}>
+                                    <FieldArray
+                                      name={`guests.${i}.songs`}
+                                      render={() =>
+                                        songs.map((song, j) => (
+                                          <Row key={j} className="g-1">
+                                            <Col sm={6}>
+                                              <Form.Control
+                                                as={Field}
+                                                name={`guests.${i}.songs.${j}.name`}
+                                                placeholder="Please enter a song name"
+                                              />
+                                            </Col>
+                                            <Col sm={6}>
+                                              <Form.Control
+                                                as={Field}
+                                                name={`guests.${i}.songs.${j}.artist`}
+                                                placeholder="Please enter the song's artist"
+                                              />
+                                            </Col>
+                                          </Row>
+                                        ))
+                                      }
+                                    />
+                                  </Col>
+                                </Form.Group>
+                              )}
                             </div>
                           )
                         )}
